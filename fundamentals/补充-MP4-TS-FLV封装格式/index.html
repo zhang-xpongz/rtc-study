@@ -1,0 +1,3077 @@
+
+<!doctype html>
+<html lang="zh" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="WebRTC / 音视频 / RTC 专项复习与长期学习">
+      
+      
+      
+        <link rel="canonical" href="https://zhang-xpongz.github.io/rtc-study/fundamentals/%E8%A1%A5%E5%85%85-MP4-TS-FLV%E5%B0%81%E8%A3%85%E6%A0%BC%E5%BC%8F/">
+      
+      
+        <link rel="prev" href="../%E8%A1%A5%E5%85%85-Opus%E4%B8%8EAAC%E5%AF%B9%E6%AF%94/">
+      
+      
+        <link rel="next" href="../../systems/WebRTC%E7%BC%96%E8%AF%91%E8%BF%90%E8%A1%8C%E6%8C%87%E5%8D%97/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.8.1">
+    
+    
+      
+        <title>MP4/TS/FLV - RTC 学习笔记</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.57a0d79d.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.fb2fffe2.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#mp4-mpeg-ts-flv" class="md-skip">
+          跳转至
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="页眉">
+    <a href="../.." title="RTC 学习笔记" class="md-header__button md-logo" aria-label="RTC 学习笔记" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            RTC 学习笔记
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              MP4/TS/FLV
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="切换到深色"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="切换到深色" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="切换到浅色"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="切换到浅色" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="搜索" placeholder="搜索" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="查找">
+        
+        <button type="reset" class="md-search__icon md-icon" title="清空当前内容" aria-label="清空当前内容" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            正在初始化搜索引擎
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/zhang-xpongz/rtc-study" title="前往仓库" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    zhang-xpongz/rtc-study
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="导航栏" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="RTC 学习笔记" class="md-nav__button md-logo" aria-label="RTC 学习笔记" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    RTC 学习笔记
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/zhang-xpongz/rtc-study" title="前往仓库" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    zhang-xpongz/rtc-study
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    首页
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    复习计划
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    复习计划
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../plan/%E5%A4%8D%E4%B9%A0%E8%AE%A1%E5%88%92-3%E5%91%A8%E5%86%B2%E5%88%BA/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    3 周冲刺
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../plan/%E5%A4%8D%E4%B9%A0%E8%B5%84%E6%96%99%E5%8C%85-%E9%80%90%E6%97%A5%E6%B8%85%E5%8D%95/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    逐日清单
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../plan/%E6%89%93%E5%8D%A1%E8%A1%A8-21%E5%A4%A9-%E5%A4%8D%E4%B9%A0%2B%E6%BA%90%E7%A0%81%2B%E5%AE%9E%E8%B7%91/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    21 天打卡
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../plan/%E4%B8%93%E6%B3%A8%E6%B8%85%E5%8D%95-21%E5%A4%A9%E4%BB%BB%E5%8A%A1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    专注清单
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    每日记录
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    每日记录
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../daily/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    索引
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../daily/2026-11/2026-11-13/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2026-11-13
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../daily/2026-11/2026-11-17/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2026-11-17
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    源码走读
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    源码走读
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../source/WebRTC%E6%BA%90%E7%A0%81%E8%B5%B0%E8%AF%BB%E5%9C%B0%E5%9B%BE/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    走读地图
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../source/%E5%A6%82%E4%BD%95%E8%B5%B0%E8%AF%BBWebRTC%E4%BB%A3%E7%A0%81/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    如何走读
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../source/%E6%BA%90%E7%A0%81%E8%B5%B0%E8%AF%BB%E6%A8%A1%E6%9D%BF%E4%B8%8E%E7%A4%BA%E4%BE%8B-PeerConnection/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    PeerConnection 示例
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../source/FrameBuffer/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    FrameBuffer 卡片
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../source/%E5%8D%95%E5%85%83%E6%B5%8B%E8%AF%95%E8%BF%90%E8%A1%8C%E9%80%BB%E8%BE%91-PeerConnectionEndToEndTest/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    单测运行逻辑
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    基础
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    基础
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../D1-%E5%A4%8D%E4%B9%A0%E5%8C%85-%E9%9F%B3%E8%A7%86%E9%A2%91%E5%9F%BA%E7%A1%80%E4%B8%8E%E4%B9%A0%E9%A2%98/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    D1 复习包
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E8%A1%A5%E5%85%85-%E5%BF%83%E7%90%86%E5%A3%B0%E5%AD%A6/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    心理声学
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E8%A1%A5%E5%85%85-Opus%E4%B8%8EAAC%E5%AF%B9%E6%AF%94/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Opus 与 AAC
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    MP4/TS/FLV
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    MP4/TS/FLV
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#0" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        0. 术语表（先读这里）
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="0. 术语表（先读这里）">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#01" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        0.1 通用概念
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#02-mp4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        0.2 MP4 相关
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#03-ts" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        0.3 TS 相关
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#04-flv" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        0.4 FLV 相关
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. 封装格式到底解决什么
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-mp4iso-base-media-file-format" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. MP4（ISO Base Media File Format）
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2. MP4（ISO Base Media File Format）">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#21" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.1 结构
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#22" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.2 关键机制
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#23" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.3 优缺点
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-mpeg-tstransport-stream" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. MPEG-TS（Transport Stream）
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3. MPEG-TS（Transport Stream）">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#31" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.1 结构
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#32-psipat-pmt" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.2 PSI：PAT / PMT
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#33-pes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.3 PES 与时间戳
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#34-ts" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.4 为什么直播/广播用 TS
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#35-hls-ts" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.5 HLS 与 TS
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-flvflash-video" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. FLV（Flash Video）
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4. FLV（Flash Video）">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#41" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.1 结构
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#42-tagh264" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.2 视频 tag（H.264）
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#43-tagaac" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.3 音频 tag（AAC）
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#44-tagonmetadata" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.4 脚本 tag：onMetaData
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#45" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.5 优缺点
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. 三者对比
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="5. 三者对比">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#51" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.1 头部开销的粗略计算
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. 工程上的选择
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="6. 工程上的选择">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#61" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.1 录制场景的坑
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#62-h264" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.2 H.264 的三种「打包形态」
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7-8" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7. 面试问答（8 题）
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#8-5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8. 自测（5 题）
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    系统
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    系统
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../systems/WebRTC%E7%BC%96%E8%AF%91%E8%BF%90%E8%A1%8C%E6%8C%87%E5%8D%97/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    编译运行
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../systems/WebRTC%E8%B0%83%E8%AF%95%E6%8C%87%E5%8D%97/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    调试
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../systems/SRS-RTMP%E8%BD%ACRTP%E6%9C%BA%E5%88%B6/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    SRS
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../systems/mediasoup-%E6%88%BF%E9%97%B4%E6%88%90%E5%91%98%E8%A7%92%E8%89%B2%E6%A8%A1%E5%9E%8B/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    mediasoup
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7" >
+        
+          
+          <label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    算法
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    算法
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../algorithms/209-%E9%95%BF%E5%BA%A6%E6%9C%80%E5%B0%8F%E7%9A%84%E5%AD%90%E6%95%B0%E7%BB%84/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    209 长度最小的子数组
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../algorithms/56-%E5%90%88%E5%B9%B6%E5%8C%BA%E9%97%B4/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    56 合并区间
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_8" >
+        
+          
+          <label class="md-nav__link" for="__nav_8" id="__nav_8_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    附件
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_8_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_8">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    附件
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../assets/api-%E5%88%86%E5%B1%82%E5%9B%BE/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    api 分层图
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_9" >
+        
+          
+          <label class="md-nav__link" for="__nav_9" id="__nav_9_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    模板
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_9_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_9">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    模板
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../tpl/%E6%AF%8F%E6%97%A5%E8%AE%B0%E5%BD%95/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    每日记录
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../tpl/%E6%BA%90%E7%A0%81%E5%8D%A1%E7%89%87/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    源码卡片
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../tpl/%E9%94%99%E9%A2%98%E5%8D%A1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    错题卡
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../tpl/%E9%9D%A2%E8%AF%95%E9%A2%98%E5%8D%A1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    面试题卡
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E5%86%99%E4%BD%9C%E7%BA%A6%E5%AE%9A/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    写作约定
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#0" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        0. 术语表（先读这里）
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="0. 术语表（先读这里）">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#01" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        0.1 通用概念
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#02-mp4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        0.2 MP4 相关
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#03-ts" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        0.3 TS 相关
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#04-flv" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        0.4 FLV 相关
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. 封装格式到底解决什么
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-mp4iso-base-media-file-format" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. MP4（ISO Base Media File Format）
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2. MP4（ISO Base Media File Format）">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#21" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.1 结构
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#22" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.2 关键机制
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#23" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.3 优缺点
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-mpeg-tstransport-stream" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. MPEG-TS（Transport Stream）
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3. MPEG-TS（Transport Stream）">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#31" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.1 结构
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#32-psipat-pmt" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.2 PSI：PAT / PMT
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#33-pes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.3 PES 与时间戳
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#34-ts" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.4 为什么直播/广播用 TS
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#35-hls-ts" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.5 HLS 与 TS
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-flvflash-video" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. FLV（Flash Video）
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4. FLV（Flash Video）">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#41" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.1 结构
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#42-tagh264" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.2 视频 tag（H.264）
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#43-tagaac" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.3 音频 tag（AAC）
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#44-tagonmetadata" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.4 脚本 tag：onMetaData
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#45" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.5 优缺点
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. 三者对比
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="5. 三者对比">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#51" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.1 头部开销的粗略计算
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. 工程上的选择
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="6. 工程上的选择">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#61" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.1 录制场景的坑
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#62-h264" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.2 H.264 的三种「打包形态」
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7-8" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7. 面试问答（8 题）
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#8-5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8. 自测（5 题）
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+<h1 id="mp4-mpeg-ts-flv">补充：MP4 / MPEG-TS / FLV 封装格式详解<a class="headerlink" href="#mp4-mpeg-ts-flv" title="Permanent link">&para;</a></h1>
+<blockquote>
+<p>配套 D1「封装与时间戳」第 3 节。
+一句话：<strong>封装格式解决「怎么把音视频帧、时间戳、索引、元数据放进一个文件或流里」。编码决定画质，封装决定能不能拖进度条、能不能直播、丢包后能不能恢复。</strong></p>
+</blockquote>
+<hr />
+<h2 id="0">0. 术语表（先读这里）<a class="headerlink" href="#0" title="Permanent link">&para;</a></h2>
+<h3 id="01">0.1 通用概念<a class="headerlink" href="#01" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>术语</th>
+<th>英文</th>
+<th>含义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>容器</td>
+<td>container</td>
+<td>存放音视频轨、时间戳、元数据的格式，如 MP4/TS/FLV</td>
+</tr>
+<tr>
+<td>封装 / 解封装</td>
+<td>mux / demux</td>
+<td>把编码帧写进容器 / 从容器里读出来</td>
+</tr>
+<tr>
+<td>轨道</td>
+<td>track</td>
+<td>一条独立的媒体流（视频轨、音频轨、字幕轨）</td>
+</tr>
+<tr>
+<td>样本</td>
+<td>sample</td>
+<td>容器里的一帧/一个访问单元（视频一帧、音频一帧）</td>
+</tr>
+<tr>
+<td>时间基</td>
+<td>timescale</td>
+<td>时间戳的单位，如 1/90000、1/1000</td>
+</tr>
+<tr>
+<td>显示时间戳</td>
+<td>PTS</td>
+<td>这一帧什么时候显示</td>
+</tr>
+<tr>
+<td>解码时间戳</td>
+<td>DTS</td>
+<td>这一帧什么时候解码（有 B 帧时与 PTS 不同）</td>
+</tr>
+<tr>
+<td>同步样本</td>
+<td>sync sample</td>
+<td>可独立解码的关键帧（IDR）</td>
+</tr>
+<tr>
+<td>快速启动</td>
+<td>fast start</td>
+<td>MP4 的 moov 放在文件头，边下边播</td>
+</tr>
+</tbody>
+</table>
+<h3 id="02-mp4">0.2 MP4 相关<a class="headerlink" href="#02-mp4" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>术语</th>
+<th>含义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>box</td>
+<td>MP4 的基本结构单元，<code>size + type + data</code></td>
+</tr>
+<tr>
+<td>ftyp</td>
+<td>文件类型与兼容品牌</td>
+</tr>
+<tr>
+<td>moov</td>
+<td>元数据容器（时长、轨道、索引）</td>
+</tr>
+<tr>
+<td>mdat</td>
+<td>媒体数据</td>
+</tr>
+<tr>
+<td>stbl</td>
+<td>sample table，样本索引（stts/stsc/stsz/stco/stss/ctts）</td>
+</tr>
+<tr>
+<td>stss</td>
+<td>同步样本表（哪些帧是关键帧）</td>
+</tr>
+<tr>
+<td>ctts</td>
+<td>合成时间偏移（PTS − DTS）</td>
+</tr>
+<tr>
+<td>fMP4</td>
+<td>分片 MP4，moof + mdat，用于 DASH/HLS/CMAF</td>
+</tr>
+<tr>
+<td>moof</td>
+<td>分片 MP4 的元数据片段</td>
+</tr>
+<tr>
+<td>avcC</td>
+<td>H.264 的 SPS/PPS 配置</td>
+</tr>
+</tbody>
+</table>
+<h3 id="03-ts">0.3 TS 相关<a class="headerlink" href="#03-ts" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>术语</th>
+<th>含义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>TS</td>
+<td>MPEG-2 Transport Stream，188 字节定长包</td>
+</tr>
+<tr>
+<td>PID</td>
+<td>包标识，区分音视频/PSI</td>
+</tr>
+<tr>
+<td>PAT</td>
+<td>Program Association Table，PID 0，指向 PMT</td>
+</tr>
+<tr>
+<td>PMT</td>
+<td>Program Map Table，列出各流的 PID 与类型</td>
+</tr>
+<tr>
+<td>PCR</td>
+<td>Program Clock Reference，27 MHz 系统时钟参考</td>
+</tr>
+<tr>
+<td>PES</td>
+<td>Packetized Elementary Stream，带 PTS/DTS 的媒体包</td>
+</tr>
+<tr>
+<td>连续计数器</td>
+<td>continuity counter，检测丢包/重复</td>
+</tr>
+</tbody>
+</table>
+<h3 id="04-flv">0.4 FLV 相关<a class="headerlink" href="#04-flv" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>术语</th>
+<th>含义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>tag</td>
+<td>FLV 的基本单元（audio/video/script）</td>
+</tr>
+<tr>
+<td>AVCC</td>
+<td>H.264 的长度前缀格式（与 MP4 相同）</td>
+</tr>
+<tr>
+<td>Annex-B</td>
+<td>用 00 00 00 01 起始码的格式（TS 用）</td>
+</tr>
+<tr>
+<td>CTS</td>
+<td>Composition Time Stamp，FLV 里的 PTS−DTS 偏移</td>
+</tr>
+<tr>
+<td>onMetaData</td>
+<td>脚本 tag，存时长、分辨率、关键帧索引</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="1">1. 封装格式到底解决什么<a class="headerlink" href="#1" title="Permanent link">&para;</a></h2>
+<p>一个视频文件/流里有四类信息：</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>① 编码后的帧数据（H.264/AAC…）
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>② 时间信息（PTS/DTS、时长、帧率）
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>③ 索引（哪些是关键帧、每帧在文件的哪个位置）
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>④ 元数据（分辨率、编码参数、DRM、字幕）
+</code></pre></div>
+<p>不同封装就是把这四类信息<strong>用不同结构组织</strong>，于是有了不同的取舍：</p>
+<table>
+<thead>
+<tr>
+<th>目标</th>
+<th>倾向的封装</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>点播、精确 seek</td>
+<td>MP4</td>
+</tr>
+<tr>
+<td>直播、抗丢包、广播</td>
+<td>TS</td>
+</tr>
+<tr>
+<td>低延迟、简单、RTMP</td>
+<td>FLV</td>
+</tr>
+<tr>
+<td>自适应码率、分片</td>
+<td>fMP4 / CMAF</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="2-mp4iso-base-media-file-format">2. MP4（ISO Base Media File Format）<a class="headerlink" href="#2-mp4iso-base-media-file-format" title="Permanent link">&para;</a></h2>
+<h3 id="21">2.1 结构<a class="headerlink" href="#21" title="Permanent link">&para;</a></h3>
+<p>MP4 是「box 套 box」的树形结构：</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>ftyp                    文件类型
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>moov                    元数据
+<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a> ├─ mvhd                整体时长、时间基
+<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a> ├─ trak                轨道
+<a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a> │   ├─ tkhd            轨道头（宽高、时长）
+<a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a> │   └─ mdia
+<a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a> │       ├─ mdhd        轨道时间基
+<a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a> │       ├─ hdlr        轨道类型（vide/soun）
+<a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a> │       └─ minf
+<a id="__codelineno-1-10" name="__codelineno-1-10" href="#__codelineno-1-10"></a> │           └─ stbl    样本表
+<a id="__codelineno-1-11" name="__codelineno-1-11" href="#__codelineno-1-11"></a> │               ├─ stsd   编码配置（avcC/esds）
+<a id="__codelineno-1-12" name="__codelineno-1-12" href="#__codelineno-1-12"></a> │               ├─ stts   每帧时长
+<a id="__codelineno-1-13" name="__codelineno-1-13" href="#__codelineno-1-13"></a> │               ├─ ctts   PTS−DTS 偏移
+<a id="__codelineno-1-14" name="__codelineno-1-14" href="#__codelineno-1-14"></a> │               ├─ stsc   样本到 chunk 的映射
+<a id="__codelineno-1-15" name="__codelineno-1-15" href="#__codelineno-1-15"></a> │               ├─ stsz   每帧大小
+<a id="__codelineno-1-16" name="__codelineno-1-16" href="#__codelineno-1-16"></a> │               ├─ stco   每帧偏移
+<a id="__codelineno-1-17" name="__codelineno-1-17" href="#__codelineno-1-17"></a> │               └─ stss   关键帧列表
+<a id="__codelineno-1-18" name="__codelineno-1-18" href="#__codelineno-1-18"></a> └─ mvex                fMP4 用，分片默认参数
+<a id="__codelineno-1-19" name="__codelineno-1-19" href="#__codelineno-1-19"></a>mdat                    媒体数据
+</code></pre></div>
+<h3 id="22">2.2 关键机制<a class="headerlink" href="#22" title="Permanent link">&para;</a></h3>
+<p><strong>样本表（stbl）</strong> 是 MP4 的核心：</p>
+<ul>
+<li><code>stts</code>：每个 sample 的时长（用来算 DTS）</li>
+<li><code>ctts</code>：PTS − DTS（有 B 帧时需要）</li>
+<li><code>stss</code>：哪些 sample 是关键帧（seek 靠它）</li>
+<li><code>stco/stsz</code>：每帧在文件里的偏移和大小</li>
+</ul>
+<p>有了这张表，播放器可以<strong>不做全文件扫描</strong>就跳到任意关键帧。</p>
+<p><strong>moov 位置</strong>：</p>
+<ul>
+<li>moov 在文件尾：编码器默认行为，边下边播必须先下完整个文件。</li>
+<li>moov 在前（fast start）：需要二次写文件（<code>ffmpeg -movflags +faststart</code>），适合网页点播。</li>
+</ul>
+<p><strong>fMP4（分片 MP4）</strong>：</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>moov（初始化段，含 mvex）
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>moof + mdat（媒体分片 1）
+<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>moof + mdat（媒体分片 2）
+<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a>...
+<a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a>sidx（分片索引，可选）
+</code></pre></div>
+<ul>
+<li>每个分片独立可解码，适合 DASH/HLS/CMAF。</li>
+<li>直播用 fMP4 可以边生成边发，不需要回写 moov。</li>
+<li>CMAF 让同一份 fMP4 同时服务 HLS 和 DASH。</li>
+</ul>
+<h3 id="23">2.3 优缺点<a class="headerlink" href="#23" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>优点</th>
+<th>缺点</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>索引精确，seek 快</td>
+<td>moov 不前置时不能边下边播</td>
+</tr>
+<tr>
+<td>元数据丰富（DRM、字幕、章节）</td>
+<td>文件损坏后难恢复</td>
+</tr>
+<tr>
+<td>点播生态最成熟</td>
+<td>直播需要 fMP4/CMAF</td>
+</tr>
+<tr>
+<td>支持多轨、封面、编辑列表</td>
+<td>结构复杂，解析实现成本高</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="3-mpeg-tstransport-stream">3. MPEG-TS（Transport Stream）<a class="headerlink" href="#3-mpeg-tstransport-stream" title="Permanent link">&para;</a></h2>
+<h3 id="31">3.1 结构<a class="headerlink" href="#31" title="Permanent link">&para;</a></h3>
+<p>TS 是<strong>定长 188 字节</strong>的包流：</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>┌──────┬──────┬──────────────┬─────────────────┐
+<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>│ 4 字节头 │ ... │ 184 字节负载（或适配字段）│
+<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>└──────┴──────┴──────────────┴─────────────────┘
+</code></pre></div>
+<p>包头：</p>
+<table>
+<thead>
+<tr>
+<th>字段</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>sync byte (0x47)</td>
+<td>同步字，丢包后可重新对齐</td>
+</tr>
+<tr>
+<td>PID (13 bit)</td>
+<td>区分流：0=PAT，其他=PMT/音视频</td>
+</tr>
+<tr>
+<td>PUSI</td>
+<td>负载单元起始标志</td>
+</tr>
+<tr>
+<td>adaptation field</td>
+<td>填充、PCR、随机访问标志</td>
+</tr>
+<tr>
+<td>continuity counter</td>
+<td>检测丢包/重复</td>
+</tr>
+</tbody>
+</table>
+<h3 id="32-psipat-pmt">3.2 PSI：PAT / PMT<a class="headerlink" href="#32-psipat-pmt" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>PAT</strong>（PID 0）：告诉播放器「节目 1 的 PMT 在哪个 PID」。</li>
+<li><strong>PMT</strong>：列出该节目的视频 PID、音频 PID、PCR PID、编码类型。</li>
+<li>每个 HLS 分片都带 PAT/PMT，保证独立可播。</li>
+</ul>
+<h3 id="33-pes">3.3 PES 与时间戳<a class="headerlink" href="#33-pes" title="Permanent link">&para;</a></h3>
+<p>媒体数据打成 PES 包：</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>PES start code (00 00 01) + stream id + 包长度 + PTS/DTS + 负载
+</code></pre></div>
+<ul>
+<li>PTS/DTS 是 <strong>33 位、90 kHz</strong>，约 26.5 小时回绕。</li>
+<li><strong>PCR</strong> 是 27 MHz 系统时钟（33 位 base + 9 位 extension），用于同步解码器时钟。</li>
+</ul>
+<h3 id="34-ts">3.4 为什么直播/广播用 TS<a class="headerlink" href="#34-ts" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>特性</th>
+<th>好处</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>定长 188 字节</td>
+<td>丢包后可快速重新同步</td>
+</tr>
+<tr>
+<td>独立分片可播</td>
+<td>每个 HLS 分片自带 PAT/PMT</td>
+</tr>
+<tr>
+<td>抗错设计</td>
+<td>适配字段、连续计数器、FEC（DVB）</td>
+</tr>
+<tr>
+<td>多节目复用</td>
+<td>一个流里多套节目</td>
+</tr>
+<tr>
+<td>硬件支持</td>
+<td>机顶盒/电视/广播设备原生支持</td>
+</tr>
+</tbody>
+</table>
+<p>代价：</p>
+<ul>
+<li>头部开销：4/188 ≈ <strong>2.1%</strong>，加上 PSI/PES 头，实际 5–10%。</li>
+<li>没有全局索引，seek 要自己找关键帧。</li>
+<li>元数据能力弱。</li>
+</ul>
+<h3 id="35-hls-ts">3.5 HLS 与 TS<a class="headerlink" href="#35-hls-ts" title="Permanent link">&para;</a></h3>
+<p>HLS 的经典做法是 <strong>TS 分片 + m3u8 索引</strong>：</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>#EXTM3U
+<a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>#EXT-X-TARGETDURATION:4
+<a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a>#EXTINF:4.0,
+<a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a>seg0.ts
+<a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a>#EXTINF:4.0,
+<a id="__codelineno-5-6" name="__codelineno-5-6" href="#__codelineno-5-6"></a>seg1.ts
+</code></pre></div>
+<p>每个 <code>seg.ts</code> 以关键帧开头，包含 PAT/PMT。现在的 HLS 也支持 fMP4（CMAF）。</p>
+<hr />
+<h2 id="4-flvflash-video">4. FLV（Flash Video）<a class="headerlink" href="#4-flvflash-video" title="Permanent link">&para;</a></h2>
+<h3 id="41">4.1 结构<a class="headerlink" href="#41" title="Permanent link">&para;</a></h3>
+<p>FLV 是「头 + 一串 tag」：</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>FLV header (9 字节)
+<a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>  Signature "FLV" (3) + Version (1) + Flags (1) + DataOffset (4)
+<a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a>Tag 1
+<a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a>Tag 2
+<a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a>...
+</code></pre></div>
+<p>每个 tag：</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>TagType (1)         8=audio, 9=video, 18=script
+<a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a>DataSize (3)
+<a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a>Timestamp (3)       毫秒低 24 位
+<a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a>TimestampExt (1)    毫秒高 8 位
+<a id="__codelineno-7-5" name="__codelineno-7-5" href="#__codelineno-7-5"></a>StreamID (3)        通常 0
+<a id="__codelineno-7-6" name="__codelineno-7-6" href="#__codelineno-7-6"></a>Data (DataSize 字节)
+<a id="__codelineno-7-7" name="__codelineno-7-7" href="#__codelineno-7-7"></a>PreviousTagSize (4)
+</code></pre></div>
+<h3 id="42-tagh264">4.2 视频 tag（H.264）<a class="headerlink" href="#42-tagh264" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>FrameType (4 bit)      1=关键帧, 2=非关键帧
+<a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a>CodecID (4 bit)        7=AVC
+<a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a>AVCPacketType (1)      0=sequence header(avcC), 1=NALU, 2=end
+<a id="__codelineno-8-4" name="__codelineno-8-4" href="#__codelineno-8-4"></a>CompositionTime (3)    PTS−DTS，有符号 24 位
+<a id="__codelineno-8-5" name="__codelineno-8-5" href="#__codelineno-8-5"></a>Data                   AVCC 格式的 NALU
+</code></pre></div>
+<h3 id="43-tagaac">4.3 音频 tag（AAC）<a class="headerlink" href="#43-tagaac" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a>SoundFormat (4 bit)    10=AAC
+<a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a>SoundRate (2 bit)
+<a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a>SoundSize (1 bit)
+<a id="__codelineno-9-4" name="__codelineno-9-4" href="#__codelineno-9-4"></a>SoundType (1 bit)
+<a id="__codelineno-9-5" name="__codelineno-9-5" href="#__codelineno-9-5"></a>AACPacketType (1)      0=AudioSpecificConfig, 1=raw
+<a id="__codelineno-9-6" name="__codelineno-9-6" href="#__codelineno-9-6"></a>Data
+</code></pre></div>
+<h3 id="44-tagonmetadata">4.4 脚本 tag：onMetaData<a class="headerlink" href="#44-tagonmetadata" title="Permanent link">&para;</a></h3>
+<p>存时长、宽高、帧率、码率，以及<strong>关键帧索引</strong>（每帧的时间戳和文件偏移）。有了它，FLV 也能做 seek。</p>
+<h3 id="45">4.5 优缺点<a class="headerlink" href="#45" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>优点</th>
+<th>缺点</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>结构简单，解析快</td>
+<td>时间戳 32 位毫秒，约 49.7 天回绕</td>
+</tr>
+<tr>
+<td>低延迟，适合 RTMP/HTTP-FLV</td>
+<td>无标准全局索引（靠 onMetaData）</td>
+</tr>
+<tr>
+<td>tag 边界清晰，易重新同步</td>
+<td>编码支持有限（H.264/AAC 为主）</td>
+</tr>
+<tr>
+<td>直播生态成熟</td>
+<td>Flash 已死，浏览器不支持原生 FLV</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="5">5. 三者对比<a class="headerlink" href="#5" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>维度</th>
+<th>MP4</th>
+<th>MPEG-TS</th>
+<th>FLV</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>结构</td>
+<td>box 树</td>
+<td>188 字节定长包</td>
+<td>tag 流</td>
+</tr>
+<tr>
+<td>典型用途</td>
+<td>点播、下载</td>
+<td>直播、广播、HLS</td>
+<td>RTMP、HTTP-FLV</td>
+</tr>
+<tr>
+<td>随机访问</td>
+<td>stss 索引，精确</td>
+<td>无全局索引，找关键帧</td>
+<td>onMetaData 关键帧索引</td>
+</tr>
+<tr>
+<td>直播友好</td>
+<td>差（需 fMP4）</td>
+<td>好</td>
+<td>好</td>
+</tr>
+<tr>
+<td>抗丢包</td>
+<td>差</td>
+<td>好（sync byte/连续计数）</td>
+<td>中（tag 边界可重同步）</td>
+</tr>
+<tr>
+<td>头部开销</td>
+<td>小（样本表几 KB）</td>
+<td>约 2.1% + PSI/PES</td>
+<td>每 tag 15 字节</td>
+</tr>
+<tr>
+<td>时间戳</td>
+<td>timescale，灵活</td>
+<td>33 位 90kHz + PCR 27MHz</td>
+<td>32 位毫秒</td>
+</tr>
+<tr>
+<td>B 帧支持</td>
+<td>ctts/elst</td>
+<td>PTS/DTS</td>
+<td>CTS 偏移</td>
+</tr>
+<tr>
+<td>元数据</td>
+<td>丰富（DRM/字幕/章节）</td>
+<td>弱（描述符）</td>
+<td>中（onMetaData）</td>
+</tr>
+<tr>
+<td>浏览器支持</td>
+<td>原生 <code>&lt;video&gt;</code></td>
+<td>需 HLS.js</td>
+<td>需 flv.js</td>
+</tr>
+<tr>
+<td>延迟</td>
+<td>VOD 无意义；fMP4 可低</td>
+<td>切片决定（HLS 2–6s）</td>
+<td>低（HTTP-FLV 1–3s）</td>
+</tr>
+</tbody>
+</table>
+<h3 id="51">5.1 头部开销的粗略计算<a class="headerlink" href="#51" title="Permanent link">&para;</a></h3>
+<p>以 1 Mbps 视频、30fps、每帧一个 video tag 为例：</p>
+<ul>
+<li><strong>FLV</strong>：每帧 tag 头 11 字节 + PreviousTagSize 4 字节 = 15 字节 × 30 = 450 B/s，约 0.36% 开销。</li>
+<li><strong>TS</strong>：4/188 ≈ 2.1%，加 PES 头约 3–5%。</li>
+<li><strong>MP4</strong>：样本表几 KB，一次性开销，可忽略。</li>
+</ul>
+<p>低码率场景（如 100 kbps 音频）下，FLV 的固定开销占比会明显上升。</p>
+<hr />
+<h2 id="6">6. 工程上的选择<a class="headerlink" href="#6" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>场景</th>
+<th>推荐</th>
+<th>原因</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>网页点播</td>
+<td>MP4（faststart）</td>
+<td>浏览器原生支持、seek 精确</td>
+</tr>
+<tr>
+<td>短视频</td>
+<td>MP4 / fMP4</td>
+<td>兼容性最好</td>
+</tr>
+<tr>
+<td>直播（HLS）</td>
+<td>TS 或 fMP4</td>
+<td>分片、CDN 友好</td>
+</tr>
+<tr>
+<td>低延迟直播</td>
+<td>HTTP-FLV 或 LL-HLS/LL-DASH</td>
+<td>FLV 延迟低；LL 方案用 fMP4</td>
+</tr>
+<tr>
+<td>录制</td>
+<td>MP4（fMP4 更抗崩溃）或 TS</td>
+<td>MP4 好剪辑；TS 抗损坏</td>
+</tr>
+<tr>
+<td>监控</td>
+<td>TS / 私有封装</td>
+<td>抗丢包、长时间录制</td>
+</tr>
+<tr>
+<td>WebRTC</td>
+<td>RTP（不是文件封装）</td>
+<td>实时传输</td>
+</tr>
+</tbody>
+</table>
+<h3 id="61">6.1 录制场景的坑<a class="headerlink" href="#61" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>MP4 录到一半崩溃</strong>：moov 没写，文件打不开。解决：用 fMP4 分片，或定期 flush。</li>
+<li><strong>TS 录制</strong>：丢包可跳过，但文件会越来越大、无索引，回放要扫描。</li>
+<li><strong>FLV 录制</strong>：简单，但时间戳回绕、seek 依赖 onMetaData。</li>
+</ul>
+<h3 id="62-h264">6.2 H.264 的三种「打包形态」<a class="headerlink" href="#62-h264" title="Permanent link">&para;</a></h3>
+<p>同一个 H.264 码流，在不同封装里长这样：</p>
+<table>
+<thead>
+<tr>
+<th>封装</th>
+<th>形态</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>MP4</td>
+<td>AVCC（长度前缀）</td>
+<td><code>[4 字节长度][NALU]</code>，SPS/PPS 在 avcC</td>
+</tr>
+<tr>
+<td>TS</td>
+<td>Annex-B（起始码）</td>
+<td><code>00 00 00 01 [NALU]</code>，SPS/PPS 可重复插入</td>
+</tr>
+<tr>
+<td>FLV</td>
+<td>AVCC</td>
+<td>与 MP4 相同，序列头单独存 avcC</td>
+</tr>
+<tr>
+<td>RTP</td>
+<td>RFC 6184</td>
+<td>FU-A/STAP-A 分片</td>
+</tr>
+</tbody>
+</table>
+<p>这解释了为什么「同一个 H.264 文件换封装要转码/转封装」——转封装就是换这层边界格式。</p>
+<hr />
+<h2 id="7-8">7. 面试问答（8 题）<a class="headerlink" href="#7-8" title="Permanent link">&para;</a></h2>
+<p><strong>Q1：MP4 的 moov 是什么？为什么需要 faststart？</strong>
+A：moov 是元数据容器，含轨道信息和样本表（索引）。默认编码器把 moov 写在文件尾，浏览器必须下完整个文件才能开始播；<code>-movflags +faststart</code> 会把 moov 移到文件头，实现边下边播。</p>
+<p><strong>Q2：TS 为什么用 188 字节定长包？</strong>
+A：为了抗错和复用。定长包 + 同步字 0x47，丢包后能快速重新对齐；固定长度便于硬件解复用和广播传输。</p>
+<p><strong>Q3：TS 的 PAT 和 PMT 分别做什么？</strong>
+A：PAT（PID 0）告诉播放器每个节目的 PMT 在哪个 PID；PMT 列出该节目音视频流的 PID、类型和 PCR PID。</p>
+<p><strong>Q4：FLV 的时间戳有什么坑？</strong>
+A：32 位毫秒，约 49.7 天回绕；长时间推流要做回绕处理，否则播放器会跳变。</p>
+<p><strong>Q5：为什么 HLS 用 TS 而不是 MP4？</strong>
+A：TS 分片独立可播、抗丢包、CDN 缓存友好、硬件支持好；MP4 需要 fMP4 才能做分片直播。</p>
+<p><strong>Q6：MP4 里 B 帧的 PTS 和 DTS 怎么存？</strong>
+A：stts 存 DTS 步长，ctts 存 PTS−DTS 偏移；编辑列表 elst 处理起始偏移。</p>
+<p><strong>Q7：FLV 的 CTS 是什么？</strong>
+A：Composition Time，等于 PTS−DTS，有符号 24 位，用于有 B 帧时的显示顺序调整。</p>
+<p><strong>Q8：转封装和转码的区别？</strong>
+A：转封装只换容器（MP4→TS），不重新编码，速度快、无损；转码要解码再编码，改变码率/分辨率/编码格式，慢且有损。</p>
+<hr />
+<h2 id="8-5">8. 自测（5 题）<a class="headerlink" href="#8-5" title="Permanent link">&para;</a></h2>
+<ol>
+<li>MP4 的 stss 表存什么？没有它 seek 会怎样？</li>
+<li>TS 的 PCR 和 PTS 分别是什么时钟？为什么需要两个？</li>
+<li>FLV 一个 video tag 的头部有哪些字段？</li>
+<li>为什么说「MP4 不适合直播」？fMP4 解决了什么？</li>
+<li>同一个 H.264 码流，MP4 和 TS 里的 NAL 边界格式有什么不同？</li>
+</ol>
+<blockquote>
+<p>答案在第 2、3、4、6 节。</p>
+</blockquote>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  回到页面顶部
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.sections", "navigation.top", "search.suggest", "search.highlight", "content.code.copy"], "search": "../../assets/javascripts/workers/search.a7633da7.min.js", "tags": null, "translations": {"clipboard.copied": "\u5df2\u590d\u5236", "clipboard.copy": "\u590d\u5236", "search.result.more.one": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.more.other": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 # \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.term.missing": "\u7f3a\u5c11", "select.version": "\u9009\u62e9\u5f53\u524d\u7248\u672c"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.a5f9d56c.min.js"></script>
+      
+        <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+      
+        <script src="../../javascripts/mermaid.js"></script>
+      
+    
+  </body>
+</html>

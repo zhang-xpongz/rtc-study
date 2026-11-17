@@ -1,0 +1,2717 @@
+
+<!doctype html>
+<html lang="zh" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="WebRTC / 音视频 / RTC 专项复习与长期学习">
+      
+      
+      
+        <link rel="canonical" href="https://zhang-xpongz.github.io/rtc-study/plan/%E5%A4%8D%E4%B9%A0%E8%B5%84%E6%96%99%E5%8C%85-%E9%80%90%E6%97%A5%E6%B8%85%E5%8D%95/">
+      
+      
+        <link rel="prev" href="../%E5%A4%8D%E4%B9%A0%E8%AE%A1%E5%88%92-3%E5%91%A8%E5%86%B2%E5%88%BA/">
+      
+      
+        <link rel="next" href="../%E6%89%93%E5%8D%A1%E8%A1%A8-21%E5%A4%A9-%E5%A4%8D%E4%B9%A0%2B%E6%BA%90%E7%A0%81%2B%E5%AE%9E%E8%B7%91/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.8.1">
+    
+    
+      
+        <title>逐日清单 - RTC 学习笔记</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.57a0d79d.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.fb2fffe2.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#_1" class="md-skip">
+          跳转至
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="页眉">
+    <a href="../.." title="RTC 学习笔记" class="md-header__button md-logo" aria-label="RTC 学习笔记" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            RTC 学习笔记
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              逐日清单
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="切换到深色"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="切换到深色" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="切换到浅色"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="切换到浅色" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="搜索" placeholder="搜索" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="查找">
+        
+        <button type="reset" class="md-search__icon md-icon" title="清空当前内容" aria-label="清空当前内容" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            正在初始化搜索引擎
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/zhang-xpongz/rtc-study" title="前往仓库" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    zhang-xpongz/rtc-study
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="导航栏" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="RTC 学习笔记" class="md-nav__button md-logo" aria-label="RTC 学习笔记" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    RTC 学习笔记
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/zhang-xpongz/rtc-study" title="前往仓库" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    zhang-xpongz/rtc-study
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    首页
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    复习计划
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    复习计划
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E5%A4%8D%E4%B9%A0%E8%AE%A1%E5%88%92-3%E5%91%A8%E5%86%B2%E5%88%BA/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    3 周冲刺
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    逐日清单
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    逐日清单
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#0" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        0. 使用说明
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1-21" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. 逐日对照表（21 天）
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. 分模块资料详解
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2. 分模块资料详解">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#m1-2h" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        M1 音视频基础（2h）
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#m2-h264-h2653h" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        M2 H.264 / H.265（3h）
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#m3-ffmpeg3h" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        M3 FFmpeg（3h）
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#m4-rtp-rtcp4h" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        M4 RTP / RTCP（4h）
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#m5-6h" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        M5 拥塞控制与弱网（6h）
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#m6-webrtc-4h" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        M6 WebRTC 连接建立（4h）
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#m7-jitter-buffer-neteq4h" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        M7 jitter buffer / NetEQ（4h）
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#m8-3a6h" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        M8 音频 3A（6h）
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#m9-simulcast-svc-sfu4h" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        M9 Simulcast / SVC / SFU（4h）
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#m10-4h" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        M10 媒体服务 / 录制 / 转推（4h）
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#m11-4h" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        M11 大规模 + 云原生（4h）
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#m12-4h" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        M12 设备协议（4h）
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#m13-3h" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        M13 端侧（3h）
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#m14-6h" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        M14 系统设计（6h）
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#m15-15h-26h" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        M15 算法（每天 1.5h，累计 26h）
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#m16-c-4h" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        M16 C++ 八股（4h）
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. 源码阅读清单（文件级）
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-30" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. 环境与工具准备（今天 30 分钟）
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-1112-5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. 今天（11/12）就做这 5 件事
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. 打卡表（打印或复制到笔记）
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E6%89%93%E5%8D%A1%E8%A1%A8-21%E5%A4%A9-%E5%A4%8D%E4%B9%A0%2B%E6%BA%90%E7%A0%81%2B%E5%AE%9E%E8%B7%91/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    21 天打卡
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E4%B8%93%E6%B3%A8%E6%B8%85%E5%8D%95-21%E5%A4%A9%E4%BB%BB%E5%8A%A1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    专注清单
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    每日记录
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    每日记录
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../daily/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    索引
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../daily/2026-11/2026-11-13/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2026-11-13
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../daily/2026-11/2026-11-17/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2026-11-17
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    源码走读
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    源码走读
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../source/WebRTC%E6%BA%90%E7%A0%81%E8%B5%B0%E8%AF%BB%E5%9C%B0%E5%9B%BE/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    走读地图
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../source/%E5%A6%82%E4%BD%95%E8%B5%B0%E8%AF%BBWebRTC%E4%BB%A3%E7%A0%81/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    如何走读
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../source/%E6%BA%90%E7%A0%81%E8%B5%B0%E8%AF%BB%E6%A8%A1%E6%9D%BF%E4%B8%8E%E7%A4%BA%E4%BE%8B-PeerConnection/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    PeerConnection 示例
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../source/FrameBuffer/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    FrameBuffer 卡片
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../source/%E5%8D%95%E5%85%83%E6%B5%8B%E8%AF%95%E8%BF%90%E8%A1%8C%E9%80%BB%E8%BE%91-PeerConnectionEndToEndTest/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    单测运行逻辑
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    基础
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    基础
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../fundamentals/D1-%E5%A4%8D%E4%B9%A0%E5%8C%85-%E9%9F%B3%E8%A7%86%E9%A2%91%E5%9F%BA%E7%A1%80%E4%B8%8E%E4%B9%A0%E9%A2%98/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    D1 复习包
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../fundamentals/%E8%A1%A5%E5%85%85-%E5%BF%83%E7%90%86%E5%A3%B0%E5%AD%A6/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    心理声学
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../fundamentals/%E8%A1%A5%E5%85%85-Opus%E4%B8%8EAAC%E5%AF%B9%E6%AF%94/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Opus 与 AAC
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../fundamentals/%E8%A1%A5%E5%85%85-MP4-TS-FLV%E5%B0%81%E8%A3%85%E6%A0%BC%E5%BC%8F/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    MP4/TS/FLV
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    系统
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    系统
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../systems/WebRTC%E7%BC%96%E8%AF%91%E8%BF%90%E8%A1%8C%E6%8C%87%E5%8D%97/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    编译运行
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../systems/WebRTC%E8%B0%83%E8%AF%95%E6%8C%87%E5%8D%97/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    调试
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../systems/SRS-RTMP%E8%BD%ACRTP%E6%9C%BA%E5%88%B6/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    SRS
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../systems/mediasoup-%E6%88%BF%E9%97%B4%E6%88%90%E5%91%98%E8%A7%92%E8%89%B2%E6%A8%A1%E5%9E%8B/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    mediasoup
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7" >
+        
+          
+          <label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    算法
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    算法
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../algorithms/209-%E9%95%BF%E5%BA%A6%E6%9C%80%E5%B0%8F%E7%9A%84%E5%AD%90%E6%95%B0%E7%BB%84/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    209 长度最小的子数组
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../algorithms/56-%E5%90%88%E5%B9%B6%E5%8C%BA%E9%97%B4/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    56 合并区间
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_8" >
+        
+          
+          <label class="md-nav__link" for="__nav_8" id="__nav_8_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    附件
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_8_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_8">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    附件
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../assets/api-%E5%88%86%E5%B1%82%E5%9B%BE/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    api 分层图
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_9" >
+        
+          
+          <label class="md-nav__link" for="__nav_9" id="__nav_9_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    模板
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_9_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_9">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    模板
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../tpl/%E6%AF%8F%E6%97%A5%E8%AE%B0%E5%BD%95/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    每日记录
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../tpl/%E6%BA%90%E7%A0%81%E5%8D%A1%E7%89%87/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    源码卡片
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../tpl/%E9%94%99%E9%A2%98%E5%8D%A1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    错题卡
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../tpl/%E9%9D%A2%E8%AF%95%E9%A2%98%E5%8D%A1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    面试题卡
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E5%86%99%E4%BD%9C%E7%BA%A6%E5%AE%9A/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    写作约定
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#0" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        0. 使用说明
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1-21" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. 逐日对照表（21 天）
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. 分模块资料详解
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2. 分模块资料详解">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#m1-2h" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        M1 音视频基础（2h）
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#m2-h264-h2653h" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        M2 H.264 / H.265（3h）
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#m3-ffmpeg3h" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        M3 FFmpeg（3h）
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#m4-rtp-rtcp4h" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        M4 RTP / RTCP（4h）
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#m5-6h" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        M5 拥塞控制与弱网（6h）
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#m6-webrtc-4h" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        M6 WebRTC 连接建立（4h）
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#m7-jitter-buffer-neteq4h" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        M7 jitter buffer / NetEQ（4h）
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#m8-3a6h" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        M8 音频 3A（6h）
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#m9-simulcast-svc-sfu4h" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        M9 Simulcast / SVC / SFU（4h）
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#m10-4h" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        M10 媒体服务 / 录制 / 转推（4h）
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#m11-4h" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        M11 大规模 + 云原生（4h）
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#m12-4h" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        M12 设备协议（4h）
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#m13-3h" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        M13 端侧（3h）
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#m14-6h" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        M14 系统设计（6h）
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#m15-15h-26h" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        M15 算法（每天 1.5h，累计 26h）
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#m16-c-4h" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        M16 C++ 八股（4h）
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. 源码阅读清单（文件级）
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-30" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. 环境与工具准备（今天 30 分钟）
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-1112-5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. 今天（11/12）就做这 5 件事
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. 打卡表（打印或复制到笔记）
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+<h1 id="_1">复习资料包（逐日可执行版）<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h1>
+<blockquote>
+<p>之前那份只有"资源清单"，没到能直接照做的程度。这份按 <strong>模块 → 资料 → 时长 → 输出 → 自检</strong> 拆开，一天对照一页就行。
+原则：<strong>必读只占 20%，但覆盖 80% 的面试题</strong>；选读有空再看；标「跳过」的别碰。
+与源码走读、实跑实验整合后的每日日程，见 <a href="../%E6%89%93%E5%8D%A1%E8%A1%A8-21%E5%A4%A9-%E5%A4%8D%E4%B9%A0%2B%E6%BA%90%E7%A0%81%2B%E5%AE%9E%E8%B7%91/">打卡表-21天-复习+源码+实跑.md</a>。</p>
+</blockquote>
+<hr />
+<h2 id="0">0. 使用说明<a class="headerlink" href="#0" title="Permanent link">&para;</a></h2>
+<ol>
+<li><strong>先做诊断再读书</strong>：11/12 先做 30 题自测，会的模块直接看「自检问题」，答得上就跳过。</li>
+<li><strong>一份资料读三遍，不如一张图画三遍</strong>：每个模块的产出物是图或讲解录音，不是笔记摘抄。</li>
+<li><strong>官方源优先</strong>：RFC、标准、源码 &gt; 书 &gt; 中文博客。中文博客只用来建立直觉，不作为面试依据。</li>
+<li><strong>每天算法雷打不动 1.5 小时</strong>，其余时间按下面的表走。</li>
+</ol>
+<hr />
+<h2 id="1-21">1. 逐日对照表（21 天）<a class="headerlink" href="#1-21" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Day</th>
+<th>日期</th>
+<th>主题</th>
+<th>模块</th>
+<th>必读资料</th>
+<th>输出</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>D1</td>
+<td>11/12</td>
+<td>诊断 + 音视频基础</td>
+<td>M1</td>
+<td>书 Ch.1、自测 30 题</td>
+<td>薄弱清单</td>
+</tr>
+<tr>
+<td>D2</td>
+<td>11/13</td>
+<td>H.264 / H.265</td>
+<td>M2</td>
+<td>H.264 白皮书选节 + ffprobe</td>
+<td>编码参数决策图</td>
+</tr>
+<tr>
+<td>D3</td>
+<td>11/14</td>
+<td>FFmpeg</td>
+<td>M3</td>
+<td>官方文档 + 命令实践</td>
+<td>转码命令逐参数解释</td>
+</tr>
+<tr>
+<td>D4</td>
+<td>11/15</td>
+<td>RTP / RTCP</td>
+<td>M4</td>
+<td>RFC 3550 §5–6、4585、5104</td>
+<td>RTP 头 + SR/RR 图</td>
+</tr>
+<tr>
+<td>D5</td>
+<td>11/16</td>
+<td>GCC / TWCC / 弱网</td>
+<td>M5</td>
+<td>GCC 论文 + TWCC draft + 源码</td>
+<td>GCC 控制环图</td>
+</tr>
+<tr>
+<td>D6</td>
+<td>11/17</td>
+<td>音画同步 + C++ 并发</td>
+<td>M16</td>
+<td>SR 同步机制 + 并发八股</td>
+<td>手写线程池</td>
+</tr>
+<tr>
+<td>D7</td>
+<td>11/18</td>
+<td>周测 + 复盘</td>
+<td>—</td>
+<td>20 题 + 白板</td>
+<td>10 分钟讲解录音</td>
+</tr>
+<tr>
+<td>D8</td>
+<td>11/19</td>
+<td>WebRTC 连接建立</td>
+<td>M6</td>
+<td>RFC 8445/5764/4566 + 源码</td>
+<td>连接时序图</td>
+</tr>
+<tr>
+<td>D9</td>
+<td>11/20</td>
+<td>ICE / STUN / TURN</td>
+<td>M6</td>
+<td>RFC 8445 + 源码 p2p/base</td>
+<td>NAT 穿透决策树</td>
+</tr>
+<tr>
+<td>D10</td>
+<td>11/21</td>
+<td>jitter buffer / NetEQ</td>
+<td>M7</td>
+<td>源码 + NetEQ 资料</td>
+<td>状态机图</td>
+</tr>
+<tr>
+<td>D11</td>
+<td>11/22</td>
+<td>音频 3A</td>
+<td>M8</td>
+<td>源码 aec3/ns/agc</td>
+<td>回声路径 + 双讲图</td>
+</tr>
+<tr>
+<td>D12</td>
+<td>11/23</td>
+<td>Simulcast / SVC</td>
+<td>M9</td>
+<td>mediasoup 文档 + 面试题 53 期</td>
+<td>对比表</td>
+</tr>
+<tr>
+<td>D13</td>
+<td>11/24</td>
+<td>端到端弱网</td>
+<td>M5+M8</td>
+<td>综合</td>
+<td>弱网决策树</td>
+</tr>
+<tr>
+<td>D14</td>
+<td>11/25</td>
+<td>周测 + 复盘</td>
+<td>—</td>
+<td>20 题 + 白板</td>
+<td>15 分钟讲解录音</td>
+</tr>
+<tr>
+<td>D15</td>
+<td>11/26</td>
+<td>SFU / 混流 / 级联</td>
+<td>M9</td>
+<td>mediasoup / SRS / Janus 文档</td>
+<td>SFU 集群图</td>
+</tr>
+<tr>
+<td>D16</td>
+<td>11/27</td>
+<td>录制 / 转推</td>
+<td>M10</td>
+<td>博客 + 自己项目复盘</td>
+<td>录制链路图</td>
+</tr>
+<tr>
+<td>D17</td>
+<td>11/28</td>
+<td>大规模 + 云原生</td>
+<td>M11</td>
+<td>K8s 概念 + QoE 指标</td>
+<td>10 万并发架构图</td>
+</tr>
+<tr>
+<td>D18</td>
+<td>11/29</td>
+<td>设备协议</td>
+<td>M12</td>
+<td>GB/T 28181-2022 + ONVIF + RFC 2326</td>
+<td>GB28181 时序图</td>
+</tr>
+<tr>
+<td>D19</td>
+<td>11/30</td>
+<td>端侧</td>
+<td>M13</td>
+<td>硬编文档 + 项目复盘</td>
+<td>端侧管线图</td>
+</tr>
+<tr>
+<td>D20</td>
+<td>12/1</td>
+<td>系统设计</td>
+<td>M14</td>
+<td>7 题提纲</td>
+<td>3 页设计稿</td>
+</tr>
+<tr>
+<td>D21</td>
+<td>12/2</td>
+<td>模拟面</td>
+<td>—</td>
+<td>对练</td>
+<td>复盘文档</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="2">2. 分模块资料详解<a class="headerlink" href="#2" title="Permanent link">&para;</a></h2>
+<h3 id="m1-2h">M1 音视频基础（2h）<a class="headerlink" href="#m1-2h" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>必读</strong></li>
+<li>《音视频开发进阶指南》第 1 章（音视频基础）、第 2 章（编码原理）</li>
+<li>自测题 1–6</li>
+<li><strong>选读</strong>：颜色空间（YUV/RGB）、HDR 基础</li>
+<li><strong>跳过</strong>：傅里叶变换、人耳听觉模型的数学推导</li>
+<li><strong>自检</strong>：PTS/DTS 区别？GOP 长短的取舍？YUV420 为什么省带宽？</li>
+</ul>
+<hr />
+<h3 id="m2-h264-h2653h">M2 H.264 / H.265（3h）<a class="headerlink" href="#m2-h264-h2653h" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>必读</strong></li>
+<li>ITU-T H.264 白皮书：只读 <strong>NAL 单元、Slice、SPS/PPS、GOP</strong> 四节</li>
+<li>实践：<code>ffprobe -show_frames -select_streams v test.mp4</code>，标出 I/P/B 帧</li>
+<li>码控：CBR / VBR / ABR / CRF 的差异与适用场景</li>
+<li><strong>选读</strong>：H.265 的 CTU、并行工具、相比 H.264 的码率收益</li>
+<li><strong>跳过</strong>：变换/量化/熵编码的公式推导</li>
+<li><strong>自检</strong>：为什么 B 帧需要重排？IDR 和 I 帧的区别？弱网为什么先降码率不降分辨率？</li>
+</ul>
+<hr />
+<h3 id="m3-ffmpeg3h">M3 FFmpeg（3h）<a class="headerlink" href="#m3-ffmpeg3h" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>必读</strong></li>
+<li>官方文档：<a href="https://ffmpeg.org/ffmpeg.html">ffmpeg.html</a>、<a href="https://ffmpeg.org/ffprobe.html">ffprobe.html</a></li>
+<li>架构：demuxer → decoder → filter → encoder → muxer</li>
+<li>命令实践：转码、切片（HLS）、推 RTMP、抽帧、看包</li>
+<li><strong>选读</strong>：<code>libavformat</code> 的 demux 流程、<code>libavcodec</code> 的 <code>avcodec_send_packet/receive_frame</code></li>
+<li><strong>跳过</strong>：filter 图的高级用法</li>
+<li><strong>输出</strong>：写一条转码命令，逐参数解释（<code>-c:v libx264 -preset -crf -g -b:v</code>）</li>
+<li><strong>自检</strong>：<code>-crf</code> 和 <code>-b:v</code> 能同时用吗？硬编怎么接？</li>
+</ul>
+<hr />
+<h3 id="m4-rtp-rtcp4h">M4 RTP / RTCP（4h）<a class="headerlink" href="#m4-rtp-rtcp4h" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>必读</strong></li>
+<li><a href="https://www.rfc-editor.org/rfc/rfc3550">RFC 3550</a> §5（RTP 数据）、§6（RTCP）</li>
+<li><a href="https://www.rfc-editor.org/rfc/rfc4585">RFC 4585</a>（NACK / PLI）</li>
+<li><a href="https://www.rfc-editor.org/rfc/rfc5104">RFC 5104</a>（FIR / TMMBR）</li>
+<li><a href="https://www.rfc-editor.org/rfc/rfc6184">RFC 6184</a>（H.264 over RTP，了解分片）</li>
+<li><strong>选读</strong>：RFC 3711（SRTP）</li>
+<li><strong>跳过</strong>：RTCP 的 SDES 细节</li>
+<li><strong>输出</strong>：RTP 头字段图 + SR/RR 字段图</li>
+<li><strong>自检</strong>：SSRC 冲突怎么办？NACK 和 PLI 的触发条件？多流如何用 SSRC 区分？</li>
+</ul>
+<hr />
+<h3 id="m5-6h">M5 拥塞控制与弱网（6h）<a class="headerlink" href="#m5-6h" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>必读</strong></li>
+<li>GCC 论文：Carlucci et al., <em>Analysis and Design of the Google Congestion Control for WebRTC</em>, MMSys 2016（<a href="https://dblp.org/rec/conf/mmsys/CarlucciCHM16.html">DBLP 记录</a>）</li>
+<li><a href="https://datatracker.ietf.org/doc/html/draft-holmer-rmcat-transport-wide-cc-extensions-01">TWCC draft</a></li>
+<li>源码：<code>modules/congestion_controller/goog_cc/</code>、<code>modules/congestion_controller/rtp/transport_feedback_adapter.cc</code></li>
+<li><strong>选读</strong>：中文导读（<a href="https://aiknowledge.cn/collection/855-webrtc%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90%E4%B8%8E%E5%AE%9E%E6%88%98">灏天文库 7.1</a>），只用来建立直觉</li>
+<li><strong>跳过</strong>：BBR / PCC 等非 WebRTC 算法</li>
+<li><strong>输出</strong>：GCC 双控制器协同图 + 升降策略说明</li>
+<li><strong>自检</strong>：延迟控制器怎么判断 overuse？TWCC 为什么把计算搬到发送端？FEC 和 NACK 的取舍？</li>
+</ul>
+<hr />
+<h3 id="m6-webrtc-4h">M6 WebRTC 连接建立（4h）<a class="headerlink" href="#m6-webrtc-4h" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>必读</strong></li>
+<li><a href="https://www.rfc-editor.org/rfc/rfc8445">RFC 8445</a>（ICE）、<a href="https://www.rfc-editor.org/rfc/rfc5764">RFC 5764</a>（DTLS-SRTP）、<a href="https://www.rfc-editor.org/rfc/rfc4566">RFC 4566</a>（SDP）</li>
+<li>《WebRTC 权威指南》信令与连接章节</li>
+<li>源码：<code>pc/peer_connection</code>、<code>pc/sdp_offer_answer</code>、<code>p2p/base/</code></li>
+<li><strong>选读</strong>：Trickle ICE、Bundle、RTCP-mux</li>
+<li><strong>跳过</strong>：TURN 服务器部署细节</li>
+<li><strong>输出</strong>：Offer/Answer → ICE → DTLS → SRTP 时序图</li>
+<li><strong>自检</strong>：<code>a=setup:actpass</code> 的作用？host/srflx/relay 三种 candidate 何时用？</li>
+</ul>
+<hr />
+<h3 id="m7-jitter-buffer-neteq4h">M7 jitter buffer / NetEQ（4h）<a class="headerlink" href="#m7-jitter-buffer-neteq4h" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>必读</strong></li>
+<li>源码：<code>api/video/frame_buffer.cc</code>、<code>video/timing/</code>、<code>modules/audio_coding/neteq/</code></li>
+<li>概念：抖动缓冲、丢包隐藏（PLC）、变速播放、音画同步</li>
+<li><strong>选读</strong>：NetEQ 的自适应算法论文/博客</li>
+<li><strong>跳过</strong>：NetEQ 的定点运算优化</li>
+<li><strong>输出</strong>：jitter buffer 状态机 + PLC 处理流程图</li>
+<li><strong>自检</strong>：buffer 太大/太小分别什么后果？PLC 和 FEC 的区别？</li>
+</ul>
+<hr />
+<h3 id="m8-3a6h">M8 音频 3A（6h）<a class="headerlink" href="#m8-3a6h" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>必读</strong></li>
+<li>源码：<code>modules/audio_processing/aec3/</code>、<code>ns/</code>、<code>agc/</code>、<code>vad/</code></li>
+<li>原理：回声路径、自适应滤波、双讲检测、谱减、目标增益</li>
+<li><strong>选读</strong>：深度学习降噪（RNNoise 等）</li>
+<li><strong>跳过</strong>：波束成形（除非面会议硬件）</li>
+<li><strong>输出</strong>：回声产生与消除链路图 + 双讲处理说明</li>
+<li><strong>自检</strong>：AEC 双讲为什么难？ANS 谱减的副作用？AGC 增益怎么定？</li>
+</ul>
+<hr />
+<h3 id="m9-simulcast-svc-sfu4h">M9 Simulcast / SVC / SFU（4h）<a class="headerlink" href="#m9-simulcast-svc-sfu4h" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>必读</strong></li>
+<li><a href="https://mediasoup.org/documentation/">mediasoup 文档</a>：Simulcast、SVC、Consumer 优选</li>
+<li>关键帧《音视频 WebRTC 面试题 53 期》（<a href="https://www.nxrte.com/jishu/yinshipin/64409.html">链接</a>）</li>
+<li><strong>选读</strong>：VP9 SVC、AV1 SVC 现状</li>
+<li><strong>跳过</strong>：MCU 的混流算法细节</li>
+<li><strong>输出</strong>：Simulcast vs SVC 对比表（带宽、兼容性、切换体验）</li>
+<li><strong>自检</strong>：SFU 切流为什么要请求关键帧？SVC 丢层为什么不用重连？</li>
+</ul>
+<hr />
+<h3 id="m10-4h">M10 媒体服务 / 录制 / 转推（4h）<a class="headerlink" href="#m10-4h" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>必读</strong></li>
+<li>mediasoup 架构、SRS Wiki、Janus 文档（任选两个读架构）</li>
+<li>声网 / 即构 / 火山引擎 RTC 技术博客（选 3 篇）</li>
+<li><strong>选读</strong>：级联与边缘节点</li>
+<li><strong>跳过</strong>：具体厂商 SDK 接入</li>
+<li><strong>输出</strong>：SFU 集群 + 级联架构图；录制链路图（单流/合流）</li>
+<li><strong>自检</strong>：RTP 转 RTMP 的坑？合流录制的成本在哪？</li>
+</ul>
+<hr />
+<h3 id="m11-4h">M11 大规模 + 云原生（4h）<a class="headerlink" href="#m11-4h" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>必读</strong></li>
+<li><a href="https://kubernetes.io/docs/concepts/">K8s 核心概念</a>：Deployment / Service / HPA / ConfigMap</li>
+<li>QoE 指标：首帧、卡顿率、端到端延迟、加入成功率</li>
+<li><strong>选读</strong>：Prometheus + Grafana 基础</li>
+<li><strong>跳过</strong>：Service Mesh、Operator 开发</li>
+<li><strong>输出</strong>：10 万并发 RTC 架构图（接入/调度/媒体/存储/监控）</li>
+<li><strong>自检</strong>：媒体服务上 K8s 的坑？如何做容量规划？</li>
+</ul>
+<hr />
+<h3 id="m12-4h">M12 设备协议（4h）<a class="headerlink" href="#m12-4h" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>必读</strong></li>
+<li>GB/T 28181-2022 全文（<a href="https://ossrs.net/lts/zh-cn/assets/files/GBT28181-2022-e617420a7a79d48164835321c4ecc429.pdf">PDF</a>）：重点 信令流程、SIP 方法、RTP 传输</li>
+<li><a href="https://www.onvif.org/profiles/">ONVIF Profiles</a>（S/G/T 差异）</li>
+<li><a href="https://www.rfc-editor.org/rfc/rfc2326">RFC 2326</a>（RTSP）</li>
+<li><strong>选读</strong>：海康/大华私有协议文档</li>
+<li><strong>跳过</strong>：SIP 协议全量</li>
+<li><strong>输出</strong>：GB28181 注册/点播/注销时序图</li>
+<li><strong>自检</strong>：GB28181 和 RTSP 的本质差异？128 路 NVR 怎么调度？</li>
+</ul>
+<hr />
+<h3 id="m13-3h">M13 端侧（3h）<a class="headerlink" href="#m13-3h" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>必读</strong></li>
+<li>Android <code>MediaCodec</code> 文档（若投端侧岗）</li>
+<li>硬编 vs 软编的取舍、码控、关键帧</li>
+<li>复盘积加项目：4 类机型、君正/瑞芯微/安凯差异、4G 弱网</li>
+<li><strong>选读</strong>：渲染管线（Surface/Texture）、功耗优化</li>
+<li><strong>跳过</strong>：iOS 细节（除非投 iOS 岗）</li>
+<li><strong>输出</strong>：端侧采集→编码→推流管线图 + 功耗/带宽优化点</li>
+<li><strong>自检</strong>：首帧怎么优化？低功耗相机怎么省电省流量？</li>
+</ul>
+<hr />
+<h3 id="m14-6h">M14 系统设计（6h）<a class="headerlink" href="#m14-6h" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>必读</strong>：7 题提纲（见《复习计划》第 7 节），每题一页纸</li>
+<li><strong>选读</strong>：《设计数据密集型应用》第 1、5、6 章</li>
+<li><strong>跳过</strong>：分布式事务、共识算法</li>
+<li><strong>输出</strong>：7 页设计稿，每页含「需求 → 架构 → 瓶颈 → 取舍」</li>
+<li><strong>自检</strong>：10 万并发 RTC 的瓶颈在哪一层？怎么扩容？</li>
+</ul>
+<hr />
+<h3 id="m15-15h-26h">M15 算法（每天 1.5h，累计 26h）<a class="headerlink" href="#m15-15h-26h" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>必读</strong>：<a href="https://leetcode.cn/problemset/">LeetCode 热题 100</a>，按周分配：</li>
+<li>第 1 周：数组/字符串/链表/栈队列/哈希（前 50）</li>
+<li>第 2 周：二叉树/DFS/BFS/回溯（中 30）</li>
+<li>第 3 周：DP/堆/贪心（后 20）</li>
+<li><strong>手写题 6 个</strong>：线程池、无锁队列、LRU、生产者消费者、单例、智能指针</li>
+<li><strong>输出</strong>：60 题 + 6 个手写</li>
+<li><strong>自检</strong>：中等题 25 分钟内 bug-free</li>
+</ul>
+<hr />
+<h3 id="m16-c-4h">M16 C++ 八股（4h）<a class="headerlink" href="#m16-c-4h" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>必读</strong></li>
+<li>虚函数/虚表、智能指针与循环引用、移动语义、内存序</li>
+<li>多线程：锁、条件变量、原子操作、无锁队列</li>
+<li>《Effective C++》选读 10 条</li>
+<li><strong>选读</strong>：C++17 新特性</li>
+<li><strong>跳过</strong>：模板元编程</li>
+<li><strong>输出</strong>：手写线程池 + 无锁队列</li>
+<li><strong>自检</strong>：<code>shared_ptr</code> 线程安全吗？内存序有哪几种？</li>
+</ul>
+<hr />
+<h2 id="3">3. 源码阅读清单（文件级）<a class="headerlink" href="#3" title="Permanent link">&para;</a></h2>
+<blockquote>
+<p>模块职责、调用链和 4 周走读安排见 <a href="../../source/WebRTC%E6%BA%90%E7%A0%81%E8%B5%B0%E8%AF%BB%E5%9C%B0%E5%9B%BE/">WebRTC源码走读地图.md</a>，本表只列文件顺序。</p>
+<p>不用 clone 全量仓库，用 <a href="https://source.chromium.org/chromium/chromium/src/+/main:third_party/webrtc/">Chromium Codesearch</a> 在线看，或 <code>git clone --depth 1 https://webrtc.googlesource.com/src</code>。</p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>顺序</th>
+<th>路径</th>
+<th>看什么</th>
+<th>时长</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td><code>pc/peer_connection.cc</code></td>
+<td>连接建立、状态机</td>
+<td>1h</td>
+</tr>
+<tr>
+<td>2</td>
+<td><code>pc/sdp_offer_answer.cc</code></td>
+<td>Offer/Answer、<code>a=setup</code></td>
+<td>1h</td>
+</tr>
+<tr>
+<td>3</td>
+<td><code>p2p/base/</code></td>
+<td>ICE、candidate、连接检查</td>
+<td>2h</td>
+</tr>
+<tr>
+<td>4</td>
+<td><code>modules/congestion_controller/goog_cc/</code></td>
+<td>GCC 双控制器</td>
+<td>2h</td>
+</tr>
+<tr>
+<td>5</td>
+<td><code>modules/rtp_rtcp/source/rtcp_packet/transport_feedback.cc</code> + <code>modules/congestion_controller/rtp/transport_feedback_adapter.cc</code></td>
+<td>TWCC 报文与适配</td>
+<td>1h</td>
+</tr>
+<tr>
+<td>6</td>
+<td><code>api/video/frame_buffer.cc</code> + <code>video/timing/</code></td>
+<td>视频抖动缓冲、延迟估计（新版已从 modules/video_coding 移出）</td>
+<td>1.5h</td>
+</tr>
+<tr>
+<td>7</td>
+<td><code>modules/audio_coding/neteq/</code></td>
+<td>音频抖动缓冲、PLC</td>
+<td>2h</td>
+</tr>
+<tr>
+<td>8</td>
+<td><code>modules/audio_processing/aec3/</code></td>
+<td>AEC</td>
+<td>2h</td>
+</tr>
+<tr>
+<td>9</td>
+<td><code>modules/audio_processing/ns/</code>、<code>agc/</code></td>
+<td>降噪、增益</td>
+<td>1h</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="4-30">4. 环境与工具准备（今天 30 分钟）<a class="headerlink" href="#4-30" title="Permanent link">&para;</a></h2>
+<ul>
+<li>[ ] <code>ffmpeg -version</code>、<code>ffprobe -version</code> 可用</li>
+<li>[ ] Wireshark 装好，能解析 RTP（<code>rtp</code> 过滤器）</li>
+<li>[ ] 准备一个测试 MP4 + 一个 RTSP 源（可用自己搭的 SRS/mediamtx）</li>
+<li>[ ] 浏览器收藏：Chromium Codesearch、RFC Editor、mediasoup 文档</li>
+<li>[ ] 建 3 个文件夹：<code>笔记/</code>、<code>图/</code>、<code>录音/</code></li>
+<li>[ ] 笔记工具（Obsidian / Notion / 飞书文档任选）</li>
+</ul>
+<hr />
+<h2 id="5-1112-5">5. 今天（11/12）就做这 5 件事<a class="headerlink" href="#5-1112-5" title="Permanent link">&para;</a></h2>
+<ol>
+<li><strong>13:00–14:00</strong>：做 30 题自测，标记 会/半/不会，把「半 + 不会」的题号发我。</li>
+<li><strong>14:00–16:30</strong>：M1 音视频基础，产出第一张「一帧数据全链路」草图。</li>
+<li><strong>16:30–18:00</strong>：算法 2 题（数组类，限时 25 分钟/题）。</li>
+<li><strong>20:00–20:30</strong>：把 7 张必画图的文件名建好，今天先画第 1 张。</li>
+<li><strong>10 分钟</strong>：查 11 月社保是否已缴（北京通 / 社保 App）。</li>
+</ol>
+<blockquote>
+<p>明天（11/13）D2：H.264，用 <code>ffprobe</code> 拆一个真实 MP4，别只看书。</p>
+</blockquote>
+<hr />
+<h2 id="6">6. 打卡表（打印或复制到笔记）<a class="headerlink" href="#6" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>D1  M1    ☐ 自测 ☐ 全链路图 ☐ 2 题
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>D2  M2    ☐ 编码图 ☐ ffprobe ☐ 2 题
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>D3  M3    ☐ 转码命令 ☐ 2 题
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>D4  M4    ☐ RTP 图 ☐ 2 题
+<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>D5  M5    ☐ GCC 图 ☐ 2 题
+<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>D6  M16   ☐ 线程池 ☐ 2 题
+<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>D7  周测  ☐ 20 题 ☐ 录音
+<a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a>D8  M6    ☐ 时序图 ☐ 2 题
+<a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a>D9  M6    ☐ NAT 决策树 ☐ 2 题
+<a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a>D10 M7    ☐ 状态机 ☐ 2 题
+<a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a>D11 M8    ☐ 3A 图 ☐ 2 题
+<a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a>D12 M9    ☐ 对比表 ☐ 2 题
+<a id="__codelineno-0-13" name="__codelineno-0-13" href="#__codelineno-0-13"></a>D13 弱网  ☐ 决策树 ☐ 2 题
+<a id="__codelineno-0-14" name="__codelineno-0-14" href="#__codelineno-0-14"></a>D14 周测  ☐ 20 题 ☐ 录音
+<a id="__codelineno-0-15" name="__codelineno-0-15" href="#__codelineno-0-15"></a>D15 M9    ☐ SFU 图 ☐ 2 题
+<a id="__codelineno-0-16" name="__codelineno-0-16" href="#__codelineno-0-16"></a>D16 M10   ☐ 录制图 ☐ 2 题
+<a id="__codelineno-0-17" name="__codelineno-0-17" href="#__codelineno-0-17"></a>D17 M11   ☐ 架构图 ☐ 2 题
+<a id="__codelineno-0-18" name="__codelineno-0-18" href="#__codelineno-0-18"></a>D18 M12   ☐ 信令图 ☐ 2 题
+<a id="__codelineno-0-19" name="__codelineno-0-19" href="#__codelineno-0-19"></a>D19 M13   ☐ 端侧图 ☐ 2 题
+<a id="__codelineno-0-20" name="__codelineno-0-20" href="#__codelineno-0-20"></a>D20 M14   ☐ 3 页设计 ☐ 2 题
+<a id="__codelineno-0-21" name="__codelineno-0-21" href="#__codelineno-0-21"></a>D21 模拟  ☐ 复盘
+</code></pre></div>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  回到页面顶部
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.sections", "navigation.top", "search.suggest", "search.highlight", "content.code.copy"], "search": "../../assets/javascripts/workers/search.a7633da7.min.js", "tags": null, "translations": {"clipboard.copied": "\u5df2\u590d\u5236", "clipboard.copy": "\u590d\u5236", "search.result.more.one": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.more.other": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 # \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.term.missing": "\u7f3a\u5c11", "select.version": "\u9009\u62e9\u5f53\u524d\u7248\u672c"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.a5f9d56c.min.js"></script>
+      
+        <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+      
+        <script src="../../javascripts/mermaid.js"></script>
+      
+    
+  </body>
+</html>

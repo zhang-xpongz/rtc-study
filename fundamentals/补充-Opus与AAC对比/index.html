@@ -1,0 +1,2965 @@
+
+<!doctype html>
+<html lang="zh" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="WebRTC / 音视频 / RTC 专项复习与长期学习">
+      
+      
+      
+        <link rel="canonical" href="https://zhang-xpongz.github.io/rtc-study/fundamentals/%E8%A1%A5%E5%85%85-Opus%E4%B8%8EAAC%E5%AF%B9%E6%AF%94/">
+      
+      
+        <link rel="prev" href="../%E8%A1%A5%E5%85%85-%E5%BF%83%E7%90%86%E5%A3%B0%E5%AD%A6/">
+      
+      
+        <link rel="next" href="../%E8%A1%A5%E5%85%85-MP4-TS-FLV%E5%B0%81%E8%A3%85%E6%A0%BC%E5%BC%8F/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.8.1">
+    
+    
+      
+        <title>Opus 与 AAC - RTC 学习笔记</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.57a0d79d.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.fb2fffe2.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#opus-aac" class="md-skip">
+          跳转至
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="页眉">
+    <a href="../.." title="RTC 学习笔记" class="md-header__button md-logo" aria-label="RTC 学习笔记" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            RTC 学习笔记
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Opus 与 AAC
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="切换到深色"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="切换到深色" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="切换到浅色"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="切换到浅色" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="搜索" placeholder="搜索" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="查找">
+        
+        <button type="reset" class="md-search__icon md-icon" title="清空当前内容" aria-label="清空当前内容" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            正在初始化搜索引擎
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/zhang-xpongz/rtc-study" title="前往仓库" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    zhang-xpongz/rtc-study
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="导航栏" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="RTC 学习笔记" class="md-nav__button md-logo" aria-label="RTC 学习笔记" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    RTC 学习笔记
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/zhang-xpongz/rtc-study" title="前往仓库" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    zhang-xpongz/rtc-study
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    首页
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    复习计划
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    复习计划
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../plan/%E5%A4%8D%E4%B9%A0%E8%AE%A1%E5%88%92-3%E5%91%A8%E5%86%B2%E5%88%BA/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    3 周冲刺
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../plan/%E5%A4%8D%E4%B9%A0%E8%B5%84%E6%96%99%E5%8C%85-%E9%80%90%E6%97%A5%E6%B8%85%E5%8D%95/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    逐日清单
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../plan/%E6%89%93%E5%8D%A1%E8%A1%A8-21%E5%A4%A9-%E5%A4%8D%E4%B9%A0%2B%E6%BA%90%E7%A0%81%2B%E5%AE%9E%E8%B7%91/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    21 天打卡
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../plan/%E4%B8%93%E6%B3%A8%E6%B8%85%E5%8D%95-21%E5%A4%A9%E4%BB%BB%E5%8A%A1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    专注清单
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    每日记录
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    每日记录
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../daily/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    索引
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../daily/2026-11/2026-11-13/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2026-11-13
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../daily/2026-11/2026-11-17/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2026-11-17
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    源码走读
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    源码走读
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../source/WebRTC%E6%BA%90%E7%A0%81%E8%B5%B0%E8%AF%BB%E5%9C%B0%E5%9B%BE/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    走读地图
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../source/%E5%A6%82%E4%BD%95%E8%B5%B0%E8%AF%BBWebRTC%E4%BB%A3%E7%A0%81/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    如何走读
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../source/%E6%BA%90%E7%A0%81%E8%B5%B0%E8%AF%BB%E6%A8%A1%E6%9D%BF%E4%B8%8E%E7%A4%BA%E4%BE%8B-PeerConnection/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    PeerConnection 示例
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../source/FrameBuffer/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    FrameBuffer 卡片
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../source/%E5%8D%95%E5%85%83%E6%B5%8B%E8%AF%95%E8%BF%90%E8%A1%8C%E9%80%BB%E8%BE%91-PeerConnectionEndToEndTest/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    单测运行逻辑
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    基础
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    基础
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../D1-%E5%A4%8D%E4%B9%A0%E5%8C%85-%E9%9F%B3%E8%A7%86%E9%A2%91%E5%9F%BA%E7%A1%80%E4%B8%8E%E4%B9%A0%E9%A2%98/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    D1 复习包
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E8%A1%A5%E5%85%85-%E5%BF%83%E7%90%86%E5%A3%B0%E5%AD%A6/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    心理声学
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Opus 与 AAC
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Opus 与 AAC
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#0" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        0. 术语表（先读这里）
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="0. 术语表（先读这里）">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#01" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        0.1 延迟相关
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#02-opus" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        0.2 Opus 结构
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#03-aac" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        0.3 AAC 结构
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#04" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        0.4 传输与鲁棒性
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. 结论先行
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-lookahead" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. 延迟：从帧长和 lookahead 算起
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2. 延迟：从帧长和 lookahead 算起">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#21" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.1 延迟的构成
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#22-opus" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.2 Opus 的延迟
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#23-aac" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.3 AAC 的延迟
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#24" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.4 对比
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-opus" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. 码率自适应：为什么 Opus 能逐帧改
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3. 码率自适应：为什么 Opus 能逐帧改">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#31-opus" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.1 Opus 的包头是自描述的
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#32-api" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.2 编码器 API 允许随时改
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#33" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.3 码率范围宽
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#34-aac" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.4 AAC 为什么不行
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-codec-vs" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. 抗弱网：codec 级工具 vs 传输层
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4. 抗弱网：codec 级工具 vs 传输层">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#41-opus" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.1 Opus 的三件套
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#42-aac" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.2 AAC 为什么弱
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#43" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.3 但要公平
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. 算法结构差异
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="5. 算法结构差异">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#51-opus" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.1 Opus 的双层结构
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#52-aac" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.2 AAC 的单层结构
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#53" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.3 为什么算法决定了下限
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. 公平比较
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7. 面试答法
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="7. 面试答法">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#30" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        30 秒版
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2 分钟版
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#8-5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8. 自测（5 题）
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        参考
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E8%A1%A5%E5%85%85-MP4-TS-FLV%E5%B0%81%E8%A3%85%E6%A0%BC%E5%BC%8F/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    MP4/TS/FLV
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    系统
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    系统
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../systems/WebRTC%E7%BC%96%E8%AF%91%E8%BF%90%E8%A1%8C%E6%8C%87%E5%8D%97/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    编译运行
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../systems/WebRTC%E8%B0%83%E8%AF%95%E6%8C%87%E5%8D%97/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    调试
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../systems/SRS-RTMP%E8%BD%ACRTP%E6%9C%BA%E5%88%B6/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    SRS
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../systems/mediasoup-%E6%88%BF%E9%97%B4%E6%88%90%E5%91%98%E8%A7%92%E8%89%B2%E6%A8%A1%E5%9E%8B/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    mediasoup
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7" >
+        
+          
+          <label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    算法
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    算法
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../algorithms/209-%E9%95%BF%E5%BA%A6%E6%9C%80%E5%B0%8F%E7%9A%84%E5%AD%90%E6%95%B0%E7%BB%84/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    209 长度最小的子数组
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../algorithms/56-%E5%90%88%E5%B9%B6%E5%8C%BA%E9%97%B4/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    56 合并区间
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_8" >
+        
+          
+          <label class="md-nav__link" for="__nav_8" id="__nav_8_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    附件
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_8_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_8">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    附件
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../assets/api-%E5%88%86%E5%B1%82%E5%9B%BE/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    api 分层图
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_9" >
+        
+          
+          <label class="md-nav__link" for="__nav_9" id="__nav_9_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    模板
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_9_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_9">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    模板
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../tpl/%E6%AF%8F%E6%97%A5%E8%AE%B0%E5%BD%95/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    每日记录
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../tpl/%E6%BA%90%E7%A0%81%E5%8D%A1%E7%89%87/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    源码卡片
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../tpl/%E9%94%99%E9%A2%98%E5%8D%A1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    错题卡
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../tpl/%E9%9D%A2%E8%AF%95%E9%A2%98%E5%8D%A1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    面试题卡
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E5%86%99%E4%BD%9C%E7%BA%A6%E5%AE%9A/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    写作约定
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#0" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        0. 术语表（先读这里）
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="0. 术语表（先读这里）">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#01" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        0.1 延迟相关
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#02-opus" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        0.2 Opus 结构
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#03-aac" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        0.3 AAC 结构
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#04" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        0.4 传输与鲁棒性
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. 结论先行
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-lookahead" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. 延迟：从帧长和 lookahead 算起
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2. 延迟：从帧长和 lookahead 算起">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#21" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.1 延迟的构成
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#22-opus" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.2 Opus 的延迟
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#23-aac" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.3 AAC 的延迟
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#24" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.4 对比
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-opus" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. 码率自适应：为什么 Opus 能逐帧改
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3. 码率自适应：为什么 Opus 能逐帧改">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#31-opus" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.1 Opus 的包头是自描述的
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#32-api" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.2 编码器 API 允许随时改
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#33" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.3 码率范围宽
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#34-aac" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.4 AAC 为什么不行
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-codec-vs" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. 抗弱网：codec 级工具 vs 传输层
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4. 抗弱网：codec 级工具 vs 传输层">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#41-opus" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.1 Opus 的三件套
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#42-aac" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.2 AAC 为什么弱
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#43" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.3 但要公平
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. 算法结构差异
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="5. 算法结构差异">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#51-opus" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.1 Opus 的双层结构
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#52-aac" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.2 AAC 的单层结构
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#53" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.3 为什么算法决定了下限
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. 公平比较
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7. 面试答法
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="7. 面试答法">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#30" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        30 秒版
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2 分钟版
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#8-5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8. 自测（5 题）
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        参考
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+<h1 id="opus-aac">补充：Opus 与 AAC 的延迟、码率自适应、抗弱网对比<a class="headerlink" href="#opus-aac" title="Permanent link">&para;</a></h1>
+<blockquote>
+<p>配套 D1「音频基础」1.4 节。
+一句话：<strong>Opus 是为「实时交互」设计的，AAC 是为「存储/广播」设计的。延迟、自适应、抗弱网这三件事，一半由算法决定，一半由设计目标和传输栈决定。</strong></p>
+</blockquote>
+<hr />
+<h2 id="0">0. 术语表（先读这里）<a class="headerlink" href="#0" title="Permanent link">&para;</a></h2>
+<h3 id="01">0.1 延迟相关<a class="headerlink" href="#01" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>术语</th>
+<th>英文</th>
+<th>含义</th>
+<th>量级</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>算法延迟</td>
+<td>algorithmic delay</td>
+<td>编解码器本身引入的延迟，不含网络和缓冲</td>
+<td>ms</td>
+</tr>
+<tr>
+<td>帧长</td>
+<td>frame size / frame duration</td>
+<td>一帧覆盖的音频时长</td>
+<td>Opus 2.5–60ms；AAC 约 21.3ms</td>
+</tr>
+<tr>
+<td>前视</td>
+<td>lookahead</td>
+<td>编码器需要「未来样本」才能编码当前帧</td>
+<td>Opus 2.5–6.5ms；AAC ≥1024 样本</td>
+</tr>
+<tr>
+<td>预热</td>
+<td>priming / encoder delay</td>
+<td>编码器在真实音频前补的静音样本</td>
+<td>AAC ≥1024 样本</td>
+</tr>
+<tr>
+<td>MDCT</td>
+<td>modified DCT</td>
+<td>改进离散余弦变换，50% 重叠</td>
+<td>AAC 2048 点；CELT 低重叠</td>
+</tr>
+<tr>
+<td>重叠</td>
+<td>overlap</td>
+<td>相邻变换窗共享的样本比例</td>
+<td>AAC 50%；CELT 约 2.5ms 固定</td>
+</tr>
+<tr>
+<td>抖动缓冲</td>
+<td>jitter buffer</td>
+<td>接收端吸收网络抖动的缓冲</td>
+<td>通常 1–3 帧</td>
+</tr>
+</tbody>
+</table>
+<h3 id="02-opus">0.2 Opus 结构<a class="headerlink" href="#02-opus" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>术语</th>
+<th>含义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>SILK</td>
+<td>语音编码层，LPC + 基音预测，帧长 10/20/40/60ms</td>
+</tr>
+<tr>
+<td>CELT</td>
+<td>音乐/低延迟层，低重叠 MDCT，帧长 2.5/5/10/20ms</td>
+</tr>
+<tr>
+<td>Hybrid</td>
+<td>SILK + CELT 混合，帧长 10/20ms</td>
+</tr>
+<tr>
+<td>TOC</td>
+<td>Opus 包头的 Table of Contents 字节，自描述模式/帧长/带宽/帧数</td>
+</tr>
+<tr>
+<td>LBRR</td>
+<td>Low Bit-Rate Redundancy，SILK 层的带内 FEC</td>
+</tr>
+<tr>
+<td>DTX</td>
+<td>Discontinuous Transmission，静音时不发包</td>
+</tr>
+<tr>
+<td>PLC</td>
+<td>Packet Loss Concealment，丢包隐藏</td>
+</tr>
+</tbody>
+</table>
+<h3 id="03-aac">0.3 AAC 结构<a class="headerlink" href="#03-aac" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>术语</th>
+<th>含义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>AAC-LC</td>
+<td>Low Complexity，最常用档次，1024 样本帧</td>
+</tr>
+<tr>
+<td>MDCT 长块/短块</td>
+<td>2048 点（长块）/ 256 点（短块，8 个短块）</td>
+</tr>
+<tr>
+<td>TNS</td>
+<td>时域噪声整形</td>
+</tr>
+<tr>
+<td>PNS</td>
+<td>感知噪声替换</td>
+</tr>
+<tr>
+<td>SBR</td>
+<td>频带复制，HE-AAC 用，增加高频但<strong>增加延迟</strong></td>
+</tr>
+<tr>
+<td>PS</td>
+<td>参数立体声，HE-AAC v2</td>
+</tr>
+<tr>
+<td>ADTS</td>
+<td>带同步字的 AAC 传输格式，头里带 profile/采样率/声道</td>
+</tr>
+<tr>
+<td>ASC</td>
+<td>AudioSpecificConfig，MP4 里的编解码配置</td>
+</tr>
+</tbody>
+</table>
+<h3 id="04">0.4 传输与鲁棒性<a class="headerlink" href="#04" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>术语</th>
+<th>含义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>RTP 载荷</td>
+<td>Opus 用 RFC 7587（一包一 Opus 包）；AAC 用 RFC 3640（带 AU headers）</td>
+</tr>
+<tr>
+<td>带内 FEC</td>
+<td>编码器在码流里塞冗余，丢包时可恢复</td>
+</tr>
+<tr>
+<td>传输层 FEC</td>
+<td>RTP 层的 ULPFEC/FlexFEC，与编码器无关</td>
+</tr>
+<tr>
+<td>队头阻塞</td>
+<td>TCP 丢包后后续数据被阻塞</td>
+</tr>
+<tr>
+<td>CBR/VBR</td>
+<td>恒定/可变码率</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="1">1. 结论先行<a class="headerlink" href="#1" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>维度</th>
+<th>Opus</th>
+<th>AAC-LC</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>设计目标</td>
+<td>实时交互（RTP/WebRTC）</td>
+<td>存储/广播（MP4/HLS/RTMP）</td>
+</tr>
+<tr>
+<td>默认算法延迟</td>
+<td><strong>26.5ms</strong>（20ms 帧）</td>
+<td><strong>约 42.7ms</strong>（2048 样本 @48k）</td>
+</tr>
+<tr>
+<td>最低延迟</td>
+<td><strong>5ms</strong>（2.5ms 帧，CELT）</td>
+<td>标准 LC 做不到；需 AAC-LD/ELD</td>
+</tr>
+<tr>
+<td>帧长</td>
+<td>2.5–60ms，可逐包变</td>
+<td>固定 1024 样本（约 21.3ms）</td>
+</tr>
+<tr>
+<td>码率范围</td>
+<td>6–510 kbps，<strong>逐帧可改</strong></td>
+<td>通常会话内固定</td>
+</tr>
+<tr>
+<td>带内 FEC</td>
+<td>✅ SILK LBRR</td>
+<td>❌ 标准里没有</td>
+</tr>
+<tr>
+<td>DTX</td>
+<td>✅</td>
+<td>❌</td>
+</tr>
+<tr>
+<td>PLC</td>
+<td>✅ 解码器内置</td>
+<td>依赖实现，非标准</td>
+</tr>
+<tr>
+<td>RTP 封装</td>
+<td>简单（无 AU 头）</td>
+<td>需要 AU headers，开销更大</td>
+</tr>
+<tr>
+<td>典型场景</td>
+<td>WebRTC、Zoom、Discord</td>
+<td>HLS、MP4、RTMP、音乐</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>结论：<strong>不是「Opus 算法更先进」，而是两者的优化目标不同。</strong> Opus 用「短帧 + 低重叠 + 自描述包头 + 带内冗余」换低延迟和鲁棒性；AAC 用「长帧 + 高重叠 + 固定配置」换高码率下的编码效率。</p>
+</blockquote>
+<hr />
+<h2 id="2-lookahead">2. 延迟：从帧长和 lookahead 算起<a class="headerlink" href="#2-lookahead" title="Permanent link">&para;</a></h2>
+<h3 id="21">2.1 延迟的构成<a class="headerlink" href="#21" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>端到端延迟 = 采集缓冲 + 编码算法延迟 + 打包 + 网络 + 抖动缓冲 + 解码 + 播放缓冲
+</code></pre></div>
+<p>编码器能控制的只有「算法延迟」：</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>算法延迟 ≈ 帧长 + lookahead
+</code></pre></div>
+<ul>
+<li>帧长：必须攒够一帧才能编码。</li>
+<li>lookahead：编码器需要未来样本（窗函数、噪声整形、线性预测）。</li>
+</ul>
+<h3 id="22-opus">2.2 Opus 的延迟<a class="headerlink" href="#22-opus" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>帧长</th>
+<th>模式</th>
+<th>lookahead</th>
+<th>算法延迟</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>2.5 ms</td>
+<td>CELT</td>
+<td>2.5 ms</td>
+<td><strong>5 ms</strong></td>
+</tr>
+<tr>
+<td>5 ms</td>
+<td>CELT</td>
+<td>2.5 ms</td>
+<td>7.5 ms</td>
+</tr>
+<tr>
+<td>10 ms</td>
+<td>CELT/SILK</td>
+<td>2.5/6.5 ms</td>
+<td>12.5–16.5 ms</td>
+</tr>
+<tr>
+<td>20 ms</td>
+<td>SILK/Hybrid</td>
+<td>6.5 ms</td>
+<td><strong>26.5 ms</strong>（默认）</td>
+</tr>
+<tr>
+<td>40 ms</td>
+<td>SILK</td>
+<td>6.5 ms</td>
+<td>46.5 ms</td>
+</tr>
+<tr>
+<td>60 ms</td>
+<td>SILK</td>
+<td>6.5 ms</td>
+<td>66.5 ms</td>
+</tr>
+</tbody>
+</table>
+<p>关键设计：</p>
+<ul>
+<li><strong>CELT 用低重叠 MDCT</strong>，lookahead 只有 2.5ms，所以能做到 5ms 延迟。</li>
+<li><strong>SILK 有 5ms 噪声整形 lookahead + 1.5ms 重采样延迟 = 6.5ms</strong>。</li>
+<li>帧长短于 10ms 时强制走 CELT（SILK 不支持）。</li>
+</ul>
+<h3 id="23-aac">2.3 AAC 的延迟<a class="headerlink" href="#23-aac" title="Permanent link">&para;</a></h3>
+<p>AAC-LC 的变换结构（Apple 文档）：</p>
+<ul>
+<li>对 <strong>2048 个连续样本</strong>做 MDCT，每 <strong>1024 个样本</strong>滑动一次（50% 重叠）。</li>
+<li>为了正确解码任意 1024 样本，需要前后两个变换窗。</li>
+<li>编码器至少补 <strong>1024 样本静音</strong>（priming），解码器还需要 <strong>1024 样本</strong>预卷。</li>
+</ul>
+<p>所以：</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>编码器延迟 ≥ 1024 样本
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>解码器延迟 ≈ 1024 样本
+<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>合计 ≈ 2048 样本 = 42.7 ms @ 48 kHz
+</code></pre></div>
+<p>再加上：</p>
+<ul>
+<li><strong>AAC 帧长固定 1024</strong>（21.3ms），无法像 Opus 那样切到 2.5ms。</li>
+<li><strong>HE-AAC 的 SBR/PS 额外增加延迟</strong>，端到端常见 60–100ms。</li>
+<li>块切换（短块 256）是为了抗预回声，不是为了降延迟。</li>
+</ul>
+<h3 id="24">2.4 对比<a class="headerlink" href="#24" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>Opus 默认</th>
+<th>Opus 最低</th>
+<th>AAC-LC</th>
+<th>HE-AAC</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>算法延迟</td>
+<td>26.5 ms</td>
+<td>5 ms</td>
+<td>≈42.7 ms</td>
+<td>60–100 ms+</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>注意：这里的数字是<strong>算法延迟</strong>。实际端到端还要加抖动缓冲，Opus 也常配 40–60ms 的 jitter buffer。</p>
+</blockquote>
+<hr />
+<h2 id="3-opus">3. 码率自适应：为什么 Opus 能逐帧改<a class="headerlink" href="#3-opus" title="Permanent link">&para;</a></h2>
+<h3 id="31-opus">3.1 Opus 的包头是自描述的<a class="headerlink" href="#31-opus" title="Permanent link">&para;</a></h3>
+<p>Opus 包的第一个字节是 <strong>TOC</strong>，里面编码了：</p>
+<ul>
+<li>模式（SILK / CELT / Hybrid）</li>
+<li>帧长（2.5–60ms）</li>
+<li>带宽（NB/WB/SWB/FB）</li>
+<li>声道数（mono/stereo）</li>
+<li>帧数（一包可含 1–48 帧）</li>
+</ul>
+<p>这意味着：<strong>每个包自带解码所需信息，接收端不需要重新协商</strong>。发送端可以在任意一帧切换码率、模式、带宽、帧长。</p>
+<h3 id="32-api">3.2 编码器 API 允许随时改<a class="headerlink" href="#32-api" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="n">opus_encoder_ctl</span><span class="p">(</span><span class="n">enc</span><span class="p">,</span><span class="w"> </span><span class="n">OPUS_SET_BITRATE</span><span class="p">(</span><span class="n">bitrate</span><span class="p">));</span><span class="w">   </span><span class="c1">// 任意时刻</span>
+<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="n">opus_encoder_ctl</span><span class="p">(</span><span class="n">enc</span><span class="p">,</span><span class="w"> </span><span class="n">OPUS_SET_FORCE_MODE</span><span class="p">(...));</span>
+</code></pre></div>
+<p>配合 GCC 的带宽估计，可以做到每 20ms 调一次目标码率，不需要信令。</p>
+<h3 id="33">3.3 码率范围宽<a class="headerlink" href="#33" title="Permanent link">&para;</a></h3>
+<ul>
+<li>6 kbps 窄带语音（极端弱网）</li>
+<li>16–32 kbps 宽带语音（通话）</li>
+<li>64–128 kbps 音乐</li>
+<li>510 kbps 全带宽立体声</li>
+</ul>
+<h3 id="34-aac">3.4 AAC 为什么不行<a class="headerlink" href="#34-aac" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>ADTS/ASC 是会话级配置</strong>：profile、采样率、声道在流开始时确定，包头里没有「本帧码率」。</li>
+<li><strong>帧预算固定</strong>：每帧时长固定 21.3ms，码率 × 帧时长 = 每帧比特数；改码率意味着改每帧比特预算，编码器的心理声学模型和比特分配需要重新收敛。</li>
+<li><strong>没有逐帧模式切换</strong>：AAC 不能在这一帧用语音模式、下一帧用音乐模式。</li>
+<li><strong>传输栈通常固定码率</strong>：RTMP/HLS 的生产链路一般按固定码率配置，运行时改码率需要重新协商或重启编码器。</li>
+</ul>
+<blockquote>
+<p>所以 AAC 也能做 VBR，但它是「平均码率可变」，不是「每帧可随网络瞬时调整」。</p>
+</blockquote>
+<hr />
+<h2 id="4-codec-vs">4. 抗弱网：codec 级工具 vs 传输层<a class="headerlink" href="#4-codec-vs" title="Permanent link">&para;</a></h2>
+<h3 id="41-opus">4.1 Opus 的三件套<a class="headerlink" href="#41-opus" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>工具</th>
+<th>作用</th>
+<th>代价</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>带内 FEC（LBRR）</strong></td>
+<td>在 SILK 帧里嵌入前一帧的低码率冗余，丢包时可恢复</td>
+<td>额外码率；只能修复<strong>前一帧</strong>；不是所有模式都有</td>
+</tr>
+<tr>
+<td><strong>DTX</strong></td>
+<td>静音段不发包，只发舒适噪声参数</td>
+<td>需要 VAD，音乐场景不适用</td>
+</tr>
+<tr>
+<td><strong>PLC</strong></td>
+<td>解码器用前一帧外推，掩盖丢包</td>
+<td>音质下降，长丢包会失真</td>
+</tr>
+</tbody>
+</table>
+<p>配合小帧（20ms），抖动缓冲可以做得更细，丢包影响范围更小。</p>
+<h3 id="42-aac">4.2 AAC 为什么弱<a class="headerlink" href="#42-aac" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>标准 AAC-LC 没有带内 FEC</strong>：丢包只能靠解码器 PLC（实现相关，质量参差）。</li>
+<li><strong>没有 DTX</strong>：静音也照发。</li>
+<li><strong>RTP 封装更重</strong>：RFC 3640 需要 AU-headers（每个 AU 的大小/长度），增加开销和解析复杂度。</li>
+<li><strong>常见传输是 RTMP over TCP</strong>：丢包触发 TCP 重传，<strong>队头阻塞</strong>会把延迟推高，这比编码器本身更致命。</li>
+</ul>
+<h3 id="43">4.3 但要公平<a class="headerlink" href="#43" title="Permanent link">&para;</a></h3>
+<ul>
+<li>AAC <strong>可以</strong>跑在 RTP 上，配合 ULPFEC/FlexFEC、NACK，抗弱网并不必然差。</li>
+<li>Opus 的带内 FEC 也有局限：只在 SILK 层、只能修复前一帧、修复质量低。</li>
+<li>「AAC 抗弱网差」更多是<strong>部署方式</strong>（RTMP/TCP、无 FEC）造成的，不完全是算法。</li>
+</ul>
+<hr />
+<h2 id="5">5. 算法结构差异<a class="headerlink" href="#5" title="Permanent link">&para;</a></h2>
+<h3 id="51-opus">5.1 Opus 的双层结构<a class="headerlink" href="#51-opus" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>SILK：语音，LPC + 基音预测，10–60ms 帧，6.5ms lookahead
+<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>CELT：音乐，低重叠 MDCT，2.5–20ms 帧，2.5ms lookahead
+<a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a>Hybrid：两者结合，10/20ms 帧
+</code></pre></div>
+<p>编码器按码率、带宽、内容自动选层：</p>
+<ul>
+<li>低码率语音 → SILK</li>
+<li>高码率音乐 → CELT</li>
+<li>中码率混合 → Hybrid</li>
+</ul>
+<h3 id="52-aac">5.2 AAC 的单层结构<a class="headerlink" href="#52-aac" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>MDCT（长块 2048 / 短块 256） + 心理声学模型 + 量化 + 熵编码
+<a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>+ TNS / PNS / M-S / 强度立体声
+</code></pre></div>
+<ul>
+<li>帧长固定，块切换只为抗瞬态。</li>
+<li>为存储优化：高码率下编码效率高，但不考虑实时交互。</li>
+</ul>
+<h3 id="53">5.3 为什么算法决定了下限<a class="headerlink" href="#53" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>MDCT 的重叠长度决定 lookahead</strong>：AAC 50% 重叠 → 至少 1024 样本；CELT 低重叠 → 2.5ms。</li>
+<li><strong>帧长决定最小延迟</strong>：AAC 固定 1024；Opus 可到 2.5ms。</li>
+<li><strong>包头设计决定能否逐帧自适应</strong>：Opus TOC 自描述；AAC ADTS/ASC 是会话级配置。</li>
+</ul>
+<p>这三条是「算法层面」的决定性因素，不是实现优化能绕过的。</p>
+<hr />
+<h2 id="6">6. 公平比较<a class="headerlink" href="#6" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>场景</th>
+<th>更合适</th>
+<th>原因</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>WebRTC 通话</td>
+<td>Opus</td>
+<td>低延迟、FEC、DTX、逐帧自适应</td>
+</tr>
+<tr>
+<td>直播（HLS/RTMP）</td>
+<td>AAC</td>
+<td>生态成熟、硬件支持好、高码率音质好</td>
+</tr>
+<tr>
+<td>音乐存储</td>
+<td>AAC/FLAC</td>
+<td>高码率效率高；无损用 FLAC</td>
+</tr>
+<tr>
+<td>会议（低延迟）</td>
+<td>Opus / AAC-LD/ELD</td>
+<td>AAC-LD 专为低延迟设计，但生态小</td>
+</tr>
+<tr>
+<td>极致弱网语音</td>
+<td>Opus（SILK 模式）</td>
+<td>6kbps 仍可懂，带内 FEC</td>
+</tr>
+</tbody>
+</table>
+<p>补充：</p>
+<ul>
+<li><strong>AAC-LD/ELD</strong> 是 AAC 的低延迟变体，算法延迟可到 15–25ms，但主要用于专业会议/广播，WebRTC 不常用。</li>
+<li><strong>Opus 在高码率音乐上不一定赢 AAC</strong>：128kbps 以上，AAC-LC 的编码效率仍然很强。</li>
+<li><strong>HE-AAC 的 SBR 不是为延迟设计</strong>，它是为了低码率下的高频重建，代价是延迟更高。</li>
+</ul>
+<hr />
+<h2 id="7">7. 面试答法<a class="headerlink" href="#7" title="Permanent link">&para;</a></h2>
+<h3 id="30">30 秒版<a class="headerlink" href="#30" title="Permanent link">&para;</a></h3>
+<blockquote>
+<p>Opus 的低延迟来自短帧和低重叠 MDCT，默认 20ms 帧 26.5ms 算法延迟，最低 5ms；码率自适应来自自描述 TOC 和可逐帧改的编码器 API；抗弱网来自 SILK 带内 FEC、DTX 和 PLC。AAC-LC 的 2048 点 MDCT 和 1024 样本预热决定了它约 42.7ms 的延迟下限，标准里没有带内 FEC/DTX，加上常跑在 RTMP/TCP 上，所以实时性差。</p>
+</blockquote>
+<h3 id="2">2 分钟版<a class="headerlink" href="#2" title="Permanent link">&para;</a></h3>
+<ol>
+<li><strong>延迟</strong>：算法延迟 ≈ 帧长 + lookahead。Opus 帧长可到 2.5ms，CELT lookahead 2.5ms；AAC 固定 1024 样本帧、50% 重叠，编解码各 1024 预热，合计约 2048 样本。</li>
+<li><strong>自适应</strong>：Opus 每包 TOC 自描述模式/帧长/码率，解码器无需重协商；AAC 的 ADTS/ASC 是会话级配置，帧预算固定。</li>
+<li><strong>抗弱网</strong>：Opus 有 LBRR 带内 FEC（仅 SILK、修复前一帧）、DTX、PLC；AAC 标准没有，靠传输层。</li>
+<li><strong>归因</strong>：一半是算法（MDCT 重叠、帧长、包头设计），一半是设计目标（实时 vs 存储）和传输栈（UDP/RTP vs TCP/RTMP）。</li>
+</ol>
+<hr />
+<h2 id="8-5">8. 自测（5 题）<a class="headerlink" href="#8-5" title="Permanent link">&para;</a></h2>
+<ol>
+<li>Opus 默认 20ms 帧的 26.5ms 是怎么算出来的？</li>
+<li>AAC-LC 的 42.7ms 由哪几部分组成？</li>
+<li>为什么 Opus 能逐帧改码率，AAC 不能？</li>
+<li>Opus 的带内 FEC 有什么局限？</li>
+<li>为什么说「AAC 抗弱网差」不完全公平？</li>
+</ol>
+<blockquote>
+<p>答案在第 2、3、4 节。</p>
+</blockquote>
+<hr />
+<h2 id="_1">参考<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
+<ul>
+<li>RFC 6716（Opus）与勘误：https://www.rfc-editor.org/errata_search.php?rfc=6716&amp;eid=4392</li>
+<li>Apple：AAC 编码背景（2048/1024、priming、decoder delay）：https://developer.apple.com/documentation/quicktime-file-format/background_aac_encoding</li>
+<li>Wikipedia：Opus 帧长与模式：https://en.wikipedia.org/wiki/Opus_(audio_format)</li>
+<li>Opus 带内 FEC 与 ULPFEC 的组合：https://datatracker.ietf.org/doc/draft-oancea-avtcore-opus-ulpfec/</li>
+</ul>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  回到页面顶部
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.sections", "navigation.top", "search.suggest", "search.highlight", "content.code.copy"], "search": "../../assets/javascripts/workers/search.a7633da7.min.js", "tags": null, "translations": {"clipboard.copied": "\u5df2\u590d\u5236", "clipboard.copy": "\u590d\u5236", "search.result.more.one": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.more.other": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 # \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.term.missing": "\u7f3a\u5c11", "select.version": "\u9009\u62e9\u5f53\u524d\u7248\u672c"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.a5f9d56c.min.js"></script>
+      
+        <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+      
+        <script src="../../javascripts/mermaid.js"></script>
+      
+    
+  </body>
+</html>

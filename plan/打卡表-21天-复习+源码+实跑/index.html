@@ -1,0 +1,3167 @@
+
+<!doctype html>
+<html lang="zh" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="WebRTC / 音视频 / RTC 专项复习与长期学习">
+      
+      
+      
+        <link rel="canonical" href="https://zhang-xpongz.github.io/rtc-study/plan/%E6%89%93%E5%8D%A1%E8%A1%A8-21%E5%A4%A9-%E5%A4%8D%E4%B9%A0%2B%E6%BA%90%E7%A0%81%2B%E5%AE%9E%E8%B7%91/">
+      
+      
+        <link rel="prev" href="../%E5%A4%8D%E4%B9%A0%E8%B5%84%E6%96%99%E5%8C%85-%E9%80%90%E6%97%A5%E6%B8%85%E5%8D%95/">
+      
+      
+        <link rel="next" href="../%E4%B8%93%E6%B3%A8%E6%B8%85%E5%8D%95-21%E5%A4%A9%E4%BB%BB%E5%8A%A1/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.8.1">
+    
+    
+      
+        <title>21 天打卡 - RTC 学习笔记</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.57a0d79d.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.fb2fffe2.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#21" class="md-skip">
+          跳转至
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="页眉">
+    <a href="../.." title="RTC 学习笔记" class="md-header__button md-logo" aria-label="RTC 学习笔记" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            RTC 学习笔记
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              21 天打卡
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="切换到深色"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="切换到深色" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="切换到浅色"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="切换到浅色" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="搜索" placeholder="搜索" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="查找">
+        
+        <button type="reset" class="md-search__icon md-icon" title="清空当前内容" aria-label="清空当前内容" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            正在初始化搜索引擎
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/zhang-xpongz/rtc-study" title="前往仓库" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    zhang-xpongz/rtc-study
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="导航栏" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="RTC 学习笔记" class="md-nav__button md-logo" aria-label="RTC 学习笔记" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    RTC 学习笔记
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/zhang-xpongz/rtc-study" title="前往仓库" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    zhang-xpongz/rtc-study
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    首页
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    复习计划
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    复习计划
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E5%A4%8D%E4%B9%A0%E8%AE%A1%E5%88%92-3%E5%91%A8%E5%86%B2%E5%88%BA/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    3 周冲刺
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E5%A4%8D%E4%B9%A0%E8%B5%84%E6%96%99%E5%8C%85-%E9%80%90%E6%97%A5%E6%B8%85%E5%8D%95/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    逐日清单
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    21 天打卡
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    21 天打卡
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#0-9" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        0. 每日时间块（9 小时版）
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1-21" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. 21 天总表
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1. 21 天总表">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        第 1 周：骨架 + 连接 + 基础协议
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        第 2 周：发送 + 接收 + 音频
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        第 3 周：媒体服务 + 设备 + 设计
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. 每日打卡区
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2. 每日打卡区">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        第 1 周
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        第 2 周
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        第 3 周
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-e1e20" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. 实跑实验库（E1–E20）
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3. 实跑实验库（E1–E20）">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#12" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        环境准备（今天 1–2 小时）
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#e1-d1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        E1 首次通话观测（D1）
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#e2-ffmpeg-srs-chromed2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        E2 ffmpeg → SRS → Chrome（D2）
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#e3-tshark-rtpd3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        E3 tshark 抓 RTP（D3）
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#e4-p2p-candidated4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        E4 P2P 与 candidate（D4）
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#e5-d5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        E5 码率与弱网（D5）
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#e6-d6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        E6 发送节奏（D6）
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#e7-d7" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        E7 复盘（D7）
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#e8-sdp-d8" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        E8 SDP 逐行分析（D8）
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#e9-turn-relayd9" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        E9 TURN relay（D9）
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#e10-d10" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        E10 乱序/丢包注入（D10）
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#e11-aec-d11" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        E11 AEC 录音对比（D11）
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#e12-simulcast-d12" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        E12 Simulcast 观察（D12）
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#e13-nackplid13" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        E13 NACK/PLI（D13）
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#e14-sfu-d15" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        E14 网关/SFU 部署（D15）
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#e15-d16" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        E15 录制 + 转推（D16）
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#e16-d17" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        E16 压测 + 监控（D17）
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#e17-rtsp-d18" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        E17 RTSP 摄像头接入（D18）
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#e18-d19" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        E18 弱网端到端（D19）
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#e19-d20" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        E19 设计演练（D20）
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#e20-d21" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        E20 总结（D21）
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. 每周验收
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. 调整规则
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-webrtc-21" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. 可选：构建 WebRTC（不排进 21 天）
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        附录：常用命令
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="附录：常用命令">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#srs" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        SRS（已验证端到端）
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mediamtx" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        mediamtx（备选）
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        已验证的镜像
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2026-11-12" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        实测记录（2026-11-12）
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E4%B8%93%E6%B3%A8%E6%B8%85%E5%8D%95-21%E5%A4%A9%E4%BB%BB%E5%8A%A1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    专注清单
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    每日记录
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    每日记录
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../daily/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    索引
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../daily/2026-11/2026-11-13/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2026-11-13
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../daily/2026-11/2026-11-17/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2026-11-17
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    源码走读
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    源码走读
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../source/WebRTC%E6%BA%90%E7%A0%81%E8%B5%B0%E8%AF%BB%E5%9C%B0%E5%9B%BE/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    走读地图
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../source/%E5%A6%82%E4%BD%95%E8%B5%B0%E8%AF%BBWebRTC%E4%BB%A3%E7%A0%81/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    如何走读
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../source/%E6%BA%90%E7%A0%81%E8%B5%B0%E8%AF%BB%E6%A8%A1%E6%9D%BF%E4%B8%8E%E7%A4%BA%E4%BE%8B-PeerConnection/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    PeerConnection 示例
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../source/FrameBuffer/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    FrameBuffer 卡片
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../source/%E5%8D%95%E5%85%83%E6%B5%8B%E8%AF%95%E8%BF%90%E8%A1%8C%E9%80%BB%E8%BE%91-PeerConnectionEndToEndTest/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    单测运行逻辑
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    基础
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    基础
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../fundamentals/D1-%E5%A4%8D%E4%B9%A0%E5%8C%85-%E9%9F%B3%E8%A7%86%E9%A2%91%E5%9F%BA%E7%A1%80%E4%B8%8E%E4%B9%A0%E9%A2%98/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    D1 复习包
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../fundamentals/%E8%A1%A5%E5%85%85-%E5%BF%83%E7%90%86%E5%A3%B0%E5%AD%A6/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    心理声学
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../fundamentals/%E8%A1%A5%E5%85%85-Opus%E4%B8%8EAAC%E5%AF%B9%E6%AF%94/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Opus 与 AAC
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../fundamentals/%E8%A1%A5%E5%85%85-MP4-TS-FLV%E5%B0%81%E8%A3%85%E6%A0%BC%E5%BC%8F/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    MP4/TS/FLV
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    系统
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    系统
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../systems/WebRTC%E7%BC%96%E8%AF%91%E8%BF%90%E8%A1%8C%E6%8C%87%E5%8D%97/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    编译运行
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../systems/WebRTC%E8%B0%83%E8%AF%95%E6%8C%87%E5%8D%97/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    调试
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../systems/SRS-RTMP%E8%BD%ACRTP%E6%9C%BA%E5%88%B6/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    SRS
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../systems/mediasoup-%E6%88%BF%E9%97%B4%E6%88%90%E5%91%98%E8%A7%92%E8%89%B2%E6%A8%A1%E5%9E%8B/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    mediasoup
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7" >
+        
+          
+          <label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    算法
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    算法
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../algorithms/209-%E9%95%BF%E5%BA%A6%E6%9C%80%E5%B0%8F%E7%9A%84%E5%AD%90%E6%95%B0%E7%BB%84/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    209 长度最小的子数组
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../algorithms/56-%E5%90%88%E5%B9%B6%E5%8C%BA%E9%97%B4/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    56 合并区间
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_8" >
+        
+          
+          <label class="md-nav__link" for="__nav_8" id="__nav_8_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    附件
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_8_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_8">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    附件
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../assets/api-%E5%88%86%E5%B1%82%E5%9B%BE/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    api 分层图
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_9" >
+        
+          
+          <label class="md-nav__link" for="__nav_9" id="__nav_9_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    模板
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_9_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_9">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    模板
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../tpl/%E6%AF%8F%E6%97%A5%E8%AE%B0%E5%BD%95/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    每日记录
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../tpl/%E6%BA%90%E7%A0%81%E5%8D%A1%E7%89%87/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    源码卡片
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../tpl/%E9%94%99%E9%A2%98%E5%8D%A1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    错题卡
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../tpl/%E9%9D%A2%E8%AF%95%E9%A2%98%E5%8D%A1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    面试题卡
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E5%86%99%E4%BD%9C%E7%BA%A6%E5%AE%9A/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    写作约定
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#0-9" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        0. 每日时间块（9 小时版）
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1-21" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. 21 天总表
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1. 21 天总表">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        第 1 周：骨架 + 连接 + 基础协议
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        第 2 周：发送 + 接收 + 音频
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        第 3 周：媒体服务 + 设备 + 设计
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. 每日打卡区
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2. 每日打卡区">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        第 1 周
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        第 2 周
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        第 3 周
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-e1e20" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. 实跑实验库（E1–E20）
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3. 实跑实验库（E1–E20）">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#12" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        环境准备（今天 1–2 小时）
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#e1-d1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        E1 首次通话观测（D1）
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#e2-ffmpeg-srs-chromed2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        E2 ffmpeg → SRS → Chrome（D2）
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#e3-tshark-rtpd3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        E3 tshark 抓 RTP（D3）
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#e4-p2p-candidated4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        E4 P2P 与 candidate（D4）
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#e5-d5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        E5 码率与弱网（D5）
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#e6-d6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        E6 发送节奏（D6）
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#e7-d7" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        E7 复盘（D7）
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#e8-sdp-d8" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        E8 SDP 逐行分析（D8）
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#e9-turn-relayd9" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        E9 TURN relay（D9）
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#e10-d10" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        E10 乱序/丢包注入（D10）
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#e11-aec-d11" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        E11 AEC 录音对比（D11）
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#e12-simulcast-d12" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        E12 Simulcast 观察（D12）
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#e13-nackplid13" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        E13 NACK/PLI（D13）
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#e14-sfu-d15" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        E14 网关/SFU 部署（D15）
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#e15-d16" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        E15 录制 + 转推（D16）
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#e16-d17" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        E16 压测 + 监控（D17）
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#e17-rtsp-d18" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        E17 RTSP 摄像头接入（D18）
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#e18-d19" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        E18 弱网端到端（D19）
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#e19-d20" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        E19 设计演练（D20）
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#e20-d21" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        E20 总结（D21）
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. 每周验收
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. 调整规则
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-webrtc-21" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. 可选：构建 WebRTC（不排进 21 天）
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        附录：常用命令
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="附录：常用命令">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#srs" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        SRS（已验证端到端）
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mediamtx" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        mediamtx（备选）
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        已验证的镜像
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2026-11-12" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        实测记录（2026-11-12）
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+<h1 id="21">21 天打卡表：复习 + 源码走读 + 实跑<a class="headerlink" href="#21" title="Permanent link">&para;</a></h1>
+<blockquote>
+<p>适用：每天 8–10 小时可投入
+周期：2026-11-13 → 2026-12-03（21 天）
+三条线并行：<strong>专题复习 3h</strong> ｜ <strong>源码走读 2.5h</strong> ｜ <strong>实跑实验 2h</strong> ｜ 算法 1h ｜ 输出 0.5h</p>
+</blockquote>
+<hr />
+<h2 id="0-9">0. 每日时间块（9 小时版）<a class="headerlink" href="#0-9" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>时段</th>
+<th>内容</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>08:30–11:30</td>
+<td>专题复习（3h）</td>
+<td>按《复习资料包》M1–M16</td>
+</tr>
+<tr>
+<td>13:30–16:00</td>
+<td>源码走读（2.5h）</td>
+<td>按《WebRTC源码走读地图》</td>
+</tr>
+<tr>
+<td>16:15–18:15</td>
+<td>实跑实验（2h）</td>
+<td>抓包/日志/部署，对照源码</td>
+</tr>
+<tr>
+<td>20:00–21:00</td>
+<td>算法（1h）</td>
+<td>2 道中等题，限时</td>
+</tr>
+<tr>
+<td>21:00–21:30</td>
+<td>输出（0.5h）</td>
+<td>画图 / 录音 / 写 3 行日志</td>
+</tr>
+</tbody>
+</table>
+<p><strong>弹性规则</strong>
+- 只有 8 小时：砍掉当天实验的一半，<strong>不要砍算法和输出</strong>。
+- 有 10 小时：多出的 1 小时给「补昨天没懂的」，别提前学新模块。
+- 源码走读<strong>用计时器</strong>，2.5 小时到点就停，陷进一个大文件是最常见的时间黑洞。</p>
+<hr />
+<h2 id="1-21">1. 21 天总表<a class="headerlink" href="#1-21" title="Permanent link">&para;</a></h2>
+<h3 id="1">第 1 周：骨架 + 连接 + 基础协议<a class="headerlink" href="#1" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Day</th>
+<th>日期</th>
+<th>复习（3h）</th>
+<th>源码（2.5h）</th>
+<th>实跑（2h）</th>
+<th>产出</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>D1</td>
+<td>11/13</td>
+<td>M1 音视频基础</td>
+<td><code>api/</code> 全局 + 分层</td>
+<td>E1 环境 + 首次通话</td>
+<td>分层图</td>
+</tr>
+<tr>
+<td>D2</td>
+<td>11/14</td>
+<td>M2 H.264/H.265</td>
+<td><code>pc/</code> 会话三入口</td>
+<td>E2 ffmpeg→mediamtx→Chrome</td>
+<td>编码参数图</td>
+</tr>
+<tr>
+<td>D3</td>
+<td>11/15</td>
+<td>M3 FFmpeg</td>
+<td>JSEP / DTLS</td>
+<td>E3 tshark 抓 RTP</td>
+<td>连接时序图</td>
+</tr>
+<tr>
+<td>D4</td>
+<td>11/16</td>
+<td>M4 RTP/RTCP</td>
+<td><code>p2p/</code> ICE</td>
+<td>E4 P2P + candidate</td>
+<td>RTP 头图</td>
+</tr>
+<tr>
+<td>D5</td>
+<td>11/17</td>
+<td>M5 GCC / 弱网</td>
+<td>带宽估计</td>
+<td>E5 码率与弱网观测</td>
+<td>GCC 控制环</td>
+</tr>
+<tr>
+<td>D6</td>
+<td>11/18</td>
+<td>M16 C++ 并发</td>
+<td><code>modules/pacing</code></td>
+<td>E6 发送节奏抓包</td>
+<td>线程池</td>
+</tr>
+<tr>
+<td>D7</td>
+<td>11/19</td>
+<td>周测 20 题</td>
+<td>连接链路串讲</td>
+<td>E7 复盘补图</td>
+<td>录音 10min</td>
+</tr>
+</tbody>
+</table>
+<h3 id="2">第 2 周：发送 + 接收 + 音频<a class="headerlink" href="#2" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Day</th>
+<th>日期</th>
+<th>复习（3h）</th>
+<th>源码（2.5h）</th>
+<th>实跑（2h）</th>
+<th>产出</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>D8</td>
+<td>11/20</td>
+<td>M6 连接建立</td>
+<td><code>call/</code> 流管理</td>
+<td>E8 SDP 逐行分析</td>
+<td>连接时序图 v2</td>
+</tr>
+<tr>
+<td>D9</td>
+<td>11/21</td>
+<td>M6 ICE/STUN/TURN</td>
+<td><code>RtpVideoSender</code> / 发送</td>
+<td>E9 coturn relay 观察</td>
+<td>NAT 决策树</td>
+</tr>
+<tr>
+<td>D10</td>
+<td>11/22</td>
+<td>M7 jitter / NetEq</td>
+<td><code>FrameBuffer</code> + 缓冲控制</td>
+<td>E10 乱序/丢包注入</td>
+<td>状态机图</td>
+</tr>
+<tr>
+<td>D11</td>
+<td>11/23</td>
+<td>M8 音频 3A</td>
+<td><code>audio_processing/aec3</code></td>
+<td>E11 AEC 录音对比</td>
+<td>3A 链路图</td>
+</tr>
+<tr>
+<td>D12</td>
+<td>11/24</td>
+<td>M9 Simulcast/SVC</td>
+<td><code>svc/</code> + codecs</td>
+<td>E12 simulcast 观察</td>
+<td>对比表</td>
+</tr>
+<tr>
+<td>D13</td>
+<td>11/25</td>
+<td>端到端弱网</td>
+<td>接收链路串讲</td>
+<td>E13 NACK/PLI 触发</td>
+<td>弱网决策树</td>
+</tr>
+<tr>
+<td>D14</td>
+<td>11/26</td>
+<td>周测 20 题</td>
+<td>接收链路串讲</td>
+<td>E13 续 + 复盘</td>
+<td>录音 15min</td>
+</tr>
+</tbody>
+</table>
+<h3 id="3">第 3 周：媒体服务 + 设备 + 设计<a class="headerlink" href="#3" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Day</th>
+<th>日期</th>
+<th>复习（3h）</th>
+<th>源码（2.5h）</th>
+<th>实跑（2h）</th>
+<th>产出</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>D15</td>
+<td>11/27</td>
+<td>M9 SFU/级联</td>
+<td><code>media/engine</code></td>
+<td>E14 网关/SFU 部署</td>
+<td>SFU 架构图</td>
+</tr>
+<tr>
+<td>D16</td>
+<td>11/28</td>
+<td>M10 录制/转推</td>
+<td><code>audio/</code> 发送</td>
+<td>E15 录制 + 转推</td>
+<td>录制链路图</td>
+</tr>
+<tr>
+<td>D17</td>
+<td>11/29</td>
+<td>M11 大规模/云原生</td>
+<td><code>audio/</code> 接收 + NetEq</td>
+<td>E16 压测 + 监控</td>
+<td>10 万并发架构图</td>
+</tr>
+<tr>
+<td>D18</td>
+<td>11/30</td>
+<td>M12 GB28181/ONVIF</td>
+<td><code>sdk/</code></td>
+<td>E17 RTSP 摄像头接入</td>
+<td>信令时序图</td>
+</tr>
+<tr>
+<td>D19</td>
+<td>12/01</td>
+<td>M13 端侧</td>
+<td>端到端全链路</td>
+<td>E18 弱网端到端</td>
+<td>端侧管线图</td>
+</tr>
+<tr>
+<td>D20</td>
+<td>12/02</td>
+<td>M14 系统设计</td>
+<td>端到端串讲</td>
+<td>E19 设计演练</td>
+<td>3 页设计稿</td>
+</tr>
+<tr>
+<td>D21</td>
+<td>12/03</td>
+<td>模拟面</td>
+<td>补漏</td>
+<td>E20 总结</td>
+<td>复盘文档</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="2_1">2. 每日打卡区<a class="headerlink" href="#2_1" title="Permanent link">&para;</a></h2>
+<blockquote>
+<p>每天 5 个勾，全勾算完成；缺的第二天补，不要欠三天以上。</p>
+</blockquote>
+<h3 id="1_1">第 1 周<a class="headerlink" href="#1_1" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>D1  11/13  ☑复习 M1      ☑源码 api      ☑实验 E1  ☑算法 2 题  ☑输出
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>D2  11/14  ☐复习 M2      ☐源码 pc       ☐实验 E2  ☐算法 2 题  ☐输出
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>D3  11/15  ☐复习 M3      ☐源码 JSEP     ☐实验 E3  ☐算法 2 题  ☐输出
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>D4  11/16  ☐复习 M4      ☐源码 ICE      ☐实验 E4  ☐算法 2 题  ☐输出
+<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>D5  11/17  ☐复习 M5      ☐源码 带宽     ☐实验 E5  ☐算法 2 题  ☐输出
+<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>D6  11/18  ☐复习 M16     ☐源码 pacing   ☐实验 E6  ☐算法 2 题  ☐输出
+<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>D7  11/19  ☐周测 20 题   ☐串讲          ☐复盘 E7  ☐错题重做  ☐录音
+</code></pre></div>
+<blockquote>
+<p>图例：☑ 完成 ｜ ◐ 部分完成 ｜ ☐ 未开始</p>
+<p>11/17 实际：补 D1 源码（FrameBuffer 走读 + 卡片），D1 的「源码 api」记为部分完成；D5 的 M5 / E5 / GCC 图顺延到 11/18。
+11/14–11/16 无每日记录，D2–D4 保持未勾，待确认后再补。</p>
+</blockquote>
+<h3 id="2_2">第 2 周<a class="headerlink" href="#2_2" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>D8  11/20  ☐复习 M6      ☐源码 call     ☐实验 E8  ☐算法 2 题  ☐输出
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>D9  11/21  ☐复习 M6      ☐源码 发送     ☐实验 E9  ☐算法 2 题  ☐输出
+<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>D10 11/22  ☐复习 M7      ☐源码 帧缓冲   ☐实验 E10 ☐算法 2 题  ☐输出
+<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>D11 11/23  ☐复习 M8      ☐源码 3A       ☐实验 E11 ☐算法 2 题  ☐输出
+<a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a>D12 11/24  ☐复习 M9      ☐源码 SVC      ☐实验 E12 ☐算法 2 题  ☐输出
+<a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a>D13 11/25  ☐复习 弱网    ☐源码 接收     ☐实验 E13 ☐算法 2 题  ☐输出
+<a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a>D14 11/26  ☐周测 20 题   ☐串讲          ☐复盘    ☐错题重做  ☐录音
+</code></pre></div>
+<h3 id="3_1">第 3 周<a class="headerlink" href="#3_1" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>D15 11/27  ☐复习 SFU     ☐源码 引擎     ☐实验 E14 ☐算法 2 题  ☐输出
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>D16 11/28  ☐复习 录制    ☐源码 音频发送 ☐实验 E15 ☐算法 2 题  ☐输出
+<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>D17 11/29  ☐复习 大规模  ☐源码 音频接收 ☐实验 E16 ☐算法 2 题  ☐输出
+<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a>D18 11/30  ☐复习 设备    ☐源码 sdk      ☐实验 E17 ☐算法 2 题  ☐输出
+<a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a>D19 12/01  ☐复习 端侧    ☐源码 端到端   ☐实验 E18 ☐算法 2 题  ☐输出
+<a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a>D20 12/02  ☐复习 设计    ☐串讲          ☐实验 E19 ☐算法 2 题  ☐设计稿
+<a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a>D21 12/03  ☐模拟面       ☐补漏          ☐复盘 E20 ☐错题     ☐复盘文档
+</code></pre></div>
+<hr />
+<h2 id="3-e1e20">3. 实跑实验库（E1–E20）<a class="headerlink" href="#3-e1e20" title="Permanent link">&para;</a></h2>
+<blockquote>
+<p>目标不是"跑通"，是<strong>用抓包/日志去印证源码里的函数</strong>。每个实验结束写一行：观察到什么 → 对应哪个类/函数。</p>
+</blockquote>
+<h3 id="12">环境准备（今天 1–2 小时）<a class="headerlink" href="#12" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="c1"># 方案 A：容器（推荐，已验证可跑）</span>
+<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>docker<span class="w"> </span>run<span class="w"> </span>-d<span class="w"> </span>--name<span class="w"> </span>srs<span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="w">  </span>-p<span class="w"> </span><span class="m">1935</span>:1935<span class="w"> </span>-p<span class="w"> </span><span class="m">1985</span>:1985<span class="w"> </span>-p<span class="w"> </span><span class="m">8080</span>:8080<span class="w"> </span>-p<span class="w"> </span><span class="m">8000</span>:8000/udp<span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a><span class="w">  </span>ossrs/srs:5
+<a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a>
+<a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a><span class="c1"># 方案 B：本地二进制（不想用容器时）</span>
+<a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a>brew<span class="w"> </span>install<span class="w"> </span>mediamtx
+<a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a>brew<span class="w"> </span>install<span class="w"> </span>--cask<span class="w"> </span>wireshark<span class="w">    </span><span class="c1"># 或官网下载，确保 tshark 可用</span>
+<a id="__codelineno-3-9" name="__codelineno-3-9" href="#__codelineno-3-9"></a>python3<span class="w"> </span>-m<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>--user<span class="w"> </span>aiortc<span class="w">   </span><span class="c1"># 可选：可编程的 WebRTC 端</span>
+</code></pre></div>
+<ul>
+<li>Docker Desktop 必须先启动；本机 4 核 / 约 2GB 内存，跑 SRS + 抓包够用，压测会吃紧。</li>
+<li>已实测：<code>ossrs/srs:5</code> 启动后 <code>http://localhost:1985/api/v1/versions</code> 返回 5.0.225，控制台 8080 返回 200。</li>
+<li>SRS 的 <code>rtc_server</code> 默认开启（UDP 8000），可直接做 RTMP→WebRTC。</li>
+<li>Chrome 已有，<code>chrome://webrtc-internals</code> 是最重要的观测面板。</li>
+</ul>
+<hr />
+<h3 id="e1-d1">E1 首次通话观测（D1）<a class="headerlink" href="#e1-d1" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>做什么</strong>：Chrome 打开任意 WebRTC demo（或 mediamtx 的 WebRTC 页），开一次音视频通话。</li>
+<li><strong>看什么</strong>：<code>chrome://webrtc-internals</code> 里的 <code>outbound-rtp</code> / <code>inbound-rtp</code>、码率、RTT、jitter、丢包。</li>
+<li><strong>对应源码</strong>：<code>api/</code> 里的 stats 结构；<code>VideoReceiveStream2</code> 的统计回调。</li>
+</ul>
+<h3 id="e2-ffmpeg-srs-chromed2">E2 ffmpeg → SRS → Chrome（D2）<a class="headerlink" href="#e2-ffmpeg-srs-chromed2" title="Permanent link">&para;</a></h3>
+<p><div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="c1"># SRS 容器（见环境准备）</span>
+<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>ffmpeg<span class="w"> </span>-re<span class="w"> </span>-stream_loop<span class="w"> </span>-1<span class="w"> </span>-f<span class="w"> </span>lavfi<span class="w"> </span>-i<span class="w"> </span><span class="nv">testsrc2</span><span class="o">=</span><span class="nv">size</span><span class="o">=</span>1280x720:rate<span class="o">=</span><span class="m">30</span><span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a><span class="w">  </span>-c:v<span class="w"> </span>libx264<span class="w"> </span>-preset<span class="w"> </span>ultrafast<span class="w"> </span>-tune<span class="w"> </span>zerolatency<span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a><span class="w">  </span>-f<span class="w"> </span>flv<span class="w"> </span>rtmp://localhost:1935/live/livestream
+<a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a>
+<a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a><span class="c1"># 浏览器打开 SRS 控制台自带的播放器：</span>
+<a id="__codelineno-4-7" name="__codelineno-4-7" href="#__codelineno-4-7"></a><span class="c1">#   http://localhost:8080/players/rtc_player.html?stream=livestream</span>
+<a id="__codelineno-4-8" name="__codelineno-4-8" href="#__codelineno-4-8"></a><span class="c1"># 或直接走 WHEP：http://localhost:1985/rtc/v1/whep/?app=live&amp;stream=livestream</span>
+</code></pre></div>
+- <strong>看什么</strong>：SDP 里的 codec、payload type、<code>a=rtpmap</code>、ICE ufrag、<code>a=setup</code>。
+- <strong>对应源码</strong>：<code>pc/sdp_offer_answer.cc</code> 的 SDP 生成；<code>media/engine</code> 的 codec 协商。
+- <strong>备选</strong>：不想用容器就用 mediamtx（RTSP 8554 / WebRTC 8889），命令见附录。</p>
+<h3 id="e3-tshark-rtpd3">E3 tshark 抓 RTP（D3）<a class="headerlink" href="#e3-tshark-rtpd3" title="Permanent link">&para;</a></h3>
+<p><div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>sudo<span class="w"> </span>tshark<span class="w"> </span>-i<span class="w"> </span>en0<span class="w"> </span>-f<span class="w"> </span><span class="s2">"udp port 8554"</span><span class="w"> </span>-Y<span class="w"> </span>rtp<span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a><span class="w">  </span>-T<span class="w"> </span>fields<span class="w"> </span>-e<span class="w"> </span>rtp.seq<span class="w"> </span>-e<span class="w"> </span>rtp.timestamp<span class="w"> </span>-e<span class="w"> </span>rtp.ssrc<span class="w"> </span>-e<span class="w"> </span>rtp.marker<span class="w"> </span><span class="p">|</span><span class="w"> </span>head<span class="w"> </span>-50
+</code></pre></div>
+- <strong>看什么</strong>：seq 连续递增、timestamp 按 90000Hz 步进、marker 标记帧尾。
+- <strong>对应源码</strong>：<code>modules/rtp_rtcp/source/rtp_sender_video.cc</code> 的打包逻辑。</p>
+<h3 id="e4-p2p-candidated4">E4 P2P 与 candidate（D4）<a class="headerlink" href="#e4-p2p-candidated4" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>做什么</strong>：Chrome 两个标签页互连（或用 aiortc 起一个端），看 SDP 里的 candidate。</li>
+<li><strong>看什么</strong>：<code>host</code> / <code>srflx</code> / <code>relay</code> 各出现几个，优先级顺序。</li>
+<li><strong>对应源码</strong>：<code>p2p/base/p2p_transport_channel.cc</code>、<code>basic_ice_controller.cc</code>。</li>
+</ul>
+<h3 id="e5-d5">E5 码率与弱网（D5）<a class="headerlink" href="#e5-d5" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>做什么</strong>：通话中看 <code>webrtc-internals</code> 的 <code>availableOutgoingBitrate</code> 变化；用 Network Link Conditioner 或手机热点限速制造波动。</li>
+<li><strong>看什么</strong>：码率下降时先降分辨率还是帧率？关键帧请求是否变多？</li>
+<li><strong>对应源码</strong>：<code>goog_cc/goog_cc_network_control.cc</code>、<code>video/adaptation/</code>。</li>
+</ul>
+<h3 id="e6-d6">E6 发送节奏（D6）<a class="headerlink" href="#e6-d6" title="Permanent link">&para;</a></h3>
+<p><div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>sudo<span class="w"> </span>tshark<span class="w"> </span>-i<span class="w"> </span>en0<span class="w"> </span>-Y<span class="w"> </span><span class="s2">"rtp"</span><span class="w"> </span>-T<span class="w"> </span>fields<span class="w"> </span>-e<span class="w"> </span>frame.time_delta<span class="w"> </span>-e<span class="w"> </span>rtp.seq<span class="w"> </span><span class="p">|</span><span class="w"> </span>head<span class="w"> </span>-100
+</code></pre></div>
+- <strong>看什么</strong>：包间隔是否均匀（pacing 生效），突发是否成簇（probe）。
+- <strong>对应源码</strong>：<code>modules/pacing/pacing_controller.cc</code>。</p>
+<h3 id="e7-d7">E7 复盘（D7）<a class="headerlink" href="#e7-d7" title="Permanent link">&para;</a></h3>
+<ul>
+<li>把 W1 的图补齐：分层图、连接时序、RTP 头、GCC 环。</li>
+</ul>
+<h3 id="e8-sdp-d8">E8 SDP 逐行分析（D8）<a class="headerlink" href="#e8-sdp-d8" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>做什么</strong>：保存一次 Offer/Answer，逐行标注：m-line、codec、<code>a=setup</code>、<code>a=ice-ufrag</code>、<code>a=fingerprint</code>、<code>a=ssrc</code>。</li>
+<li><strong>对应源码</strong>：<code>pc/sdp_offer_answer.cc</code>、<code>pc/jsep_transport_controller.cc</code>。</li>
+</ul>
+<h3 id="e9-turn-relayd9">E9 TURN relay（D9）<a class="headerlink" href="#e9-turn-relayd9" title="Permanent link">&para;</a></h3>
+<p><div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>docker<span class="w"> </span>run<span class="w"> </span>-d<span class="w"> </span>--name<span class="w"> </span>coturn<span class="w"> </span>--network<span class="w"> </span>host<span class="w"> </span>coturn/coturn<span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a><span class="w">  </span>-n<span class="w"> </span>--realm<span class="o">=</span>example.org<span class="w"> </span>--user<span class="o">=</span>test:test<span class="w"> </span>--lt-cred-mech<span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a><span class="w">  </span>--listening-port<span class="o">=</span><span class="m">3478</span><span class="w"> </span>--fingerprint
+<a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a><span class="c1"># Chrome 里把 iceTransportPolicy 设为 relay，或在 SRS 端只给 relay candidate</span>
+</code></pre></div>
+- <strong>看什么</strong>：SDP 出现 <code>typ relay</code>，RTT 变大，码率下降。
+- <strong>对应源码</strong>：<code>p2p/base/turn_port.cc</code>。</p>
+<h3 id="e10-d10">E10 乱序/丢包注入（D10）<a class="headerlink" href="#e10-d10" title="Permanent link">&para;</a></h3>
+<p><strong>方案 A（推荐，可控）</strong>：起一个 Linux 容器做 UDP 代理，用 <code>tc netem</code> 加丢包/延迟：</p>
+<p><div class="highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>docker<span class="w"> </span>run<span class="w"> </span>-it<span class="w"> </span>--rm<span class="w"> </span>--cap-add<span class="o">=</span>NET_ADMIN<span class="w"> </span>--name<span class="w"> </span>netem<span class="w"> </span>ubuntu:22.04<span class="w"> </span>bash
+<a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a><span class="c1"># 容器内：</span>
+<a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a>apt<span class="w"> </span>update<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>-y<span class="w"> </span>iproute2
+<a id="__codelineno-8-4" name="__codelineno-8-4" href="#__codelineno-8-4"></a>tc<span class="w"> </span>qdisc<span class="w"> </span>add<span class="w"> </span>dev<span class="w"> </span>eth0<span class="w"> </span>root<span class="w"> </span>netem<span class="w"> </span>loss<span class="w"> </span><span class="m">10</span>%<span class="w"> </span>delay<span class="w"> </span>100ms
+</code></pre></div>
+再把 WebRTC 的 UDP 端口指到这个容器转发（或用 socat 做端口映射）。</p>
+<p><strong>方案 B（最省事）</strong>：macOS 安装 Xcode 的 Network Link Conditioner，选 3G/Lossy 预设。</p>
+<ul>
+<li><strong>看什么</strong>：NACK 重传、卡顿、jitter buffer 增长、码率下降顺序。</li>
+<li><strong>对应源码</strong>：<code>api/video/frame_buffer.cc</code>、<code>modules/video_coding/nack_requester.cc</code>。</li>
+</ul>
+<h3 id="e11-aec-d11">E11 AEC 录音对比（D11）<a class="headerlink" href="#e11-aec-d11" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>做什么</strong>：开/关 AEC 各录一段（扬声器外放 + 麦克风），对比回声残留。</li>
+<li><strong>对应源码</strong>：<code>modules/audio_processing/aec3/echo_canceller3.cc</code>。</li>
+</ul>
+<h3 id="e12-simulcast-d12">E12 Simulcast 观察（D12）<a class="headerlink" href="#e12-simulcast-d12" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>做什么</strong>：SRS 支持 WebRTC 多流；或用 mediasoup demo 观察三层流。</li>
+<li><strong>看什么</strong>：订阅端带宽变化时切到哪一层，是否请求关键帧。</li>
+<li><strong>对应源码</strong>：<code>modules/video_coding/svc/</code>、<code>video/adaptation/</code>。</li>
+</ul>
+<h3 id="e13-nackplid13">E13 NACK/PLI（D13）<a class="headerlink" href="#e13-nackplid13" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>做什么</strong>：E10 的弱网环境下，在 SRS 控制台或日志里看 RTCP 反馈。</li>
+<li><strong>看什么</strong>：丢包后 NACK 频率、PLI 触发、关键帧变大。</li>
+<li><strong>对应源码</strong>：<code>rtp_video_stream_receiver2.cc</code> 的 <code>nack_module_</code>、<code>RequestKeyFrame</code>。</li>
+</ul>
+<h3 id="e14-sfu-d15">E14 网关/SFU 部署（D15）<a class="headerlink" href="#e14-sfu-d15" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>做什么</strong>：SRS 容器同时接 RTMP 和 WebRTC，多路推流、多路播放，观察转发关系。</li>
+<li><strong>看什么</strong>：一路输入、多路订阅时 SRS 的 CPU 与带宽；WebRTC 播放的端到端延迟。</li>
+<li><strong>对应源码</strong>：<code>media/engine/webrtc_video_engine.cc</code>。</li>
+</ul>
+<h3 id="e15-d16">E15 录制 + 转推（D16）<a class="headerlink" href="#e15-d16" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>做什么</strong>：SRS 容器开 DVR 录制；ffmpeg 把流转推到另一个 RTMP 实例。</li>
+<li><strong>看什么</strong>：录制文件的时间戳、转推延迟。</li>
+<li><strong>对应源码</strong>：<code>call/rtp_video_sender.cc</code>、音频发送路径。</li>
+</ul>
+<h3 id="e16-d17">E16 压测 + 监控（D17）<a class="headerlink" href="#e16-d17" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>做什么</strong>：ffmpeg 起 5–10 路推流，观察 mediamtx CPU/内存与丢包。</li>
+<li><strong>看什么</strong>：瓶颈在解码、转发还是网络。</li>
+<li><strong>对应源码</strong>：<code>rtp_video_stream_receiver2</code> 的收包路径。</li>
+</ul>
+<h3 id="e17-rtsp-d18">E17 RTSP 摄像头接入（D18）<a class="headerlink" href="#e17-rtsp-d18" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>做什么</strong>：用 ffmpeg 模拟 RTSP 源（或真实摄像头），经 mediamtx 转 WebRTC。</li>
+<li><strong>看什么</strong>：首帧时间、GOP 影响、时间戳对齐。</li>
+<li><strong>对应源码</strong>：<code>pc/</code> 的 SDP 协商、<code>video/timing/</code>。</li>
+</ul>
+<h3 id="e18-d19">E18 弱网端到端（D19）<a class="headerlink" href="#e18-d19" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>做什么</strong>：30% 丢包 + 200ms 延迟下跑完整通话。</li>
+<li><strong>看什么</strong>：卡顿率、码率、分辨率、音频是否优先保。</li>
+<li><strong>对应源码</strong>：<code>call/rtp_transport_controller_send.cc</code>、<code>modules/pacing</code>。</li>
+</ul>
+<h3 id="e19-d20">E19 设计演练（D20）<a class="headerlink" href="#e19-d20" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>做什么</strong>：白板画「百万设备接入 + 数十万并发观看」，标出瓶颈。</li>
+<li><strong>对照</strong>：你的积加（百万设备）+ 好未来（数十万在线）经历。</li>
+</ul>
+<h3 id="e20-d21">E20 总结（D21）<a class="headerlink" href="#e20-d21" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>做什么</strong>：把 7 张图 + 3 个项目卡片 + 弱网决策树串成 30 分钟讲解。</li>
+</ul>
+<hr />
+<h2 id="4">4. 每周验收<a class="headerlink" href="#4" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>周</th>
+<th>能回答的问题</th>
+<th>产出</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>W1</td>
+<td>连接怎么建立？RTP 头每个字段干嘛？pacing 为什么存在？</td>
+<td>4 张图 + 1 次录音</td>
+</tr>
+<tr>
+<td>W2</td>
+<td>一帧视频怎么发出去/收进来？jitter buffer 怎么工作？AEC 怎么消回声？</td>
+<td>4 张图 + 1 次录音</td>
+</tr>
+<tr>
+<td>W3</td>
+<td>SFU 怎么转发？弱网怎么降级？百万设备怎么接？</td>
+<td>3 张图 + 设计稿</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="5">5. 调整规则<a class="headerlink" href="#5" title="Permanent link">&para;</a></h2>
+<ol>
+<li><strong>实验优先于读书</strong>：实验能跑通、能观察到，比多看一章书有用。</li>
+<li><strong>源码卡住超过 40 分钟就跳过</strong>：标记下来，第二天问或查 codesearch，不要死磕。</li>
+<li><strong>每周日不排新内容</strong>：只复盘、补欠账、重画图。</li>
+<li><strong>面试邀约优先</strong>：12 月一旦开始面试，把当天实验砍掉，保留复习和复盘。</li>
+<li><strong>连续三天没完成 → 砍掉 M15 的一半题量</strong>，保住三线节奏。</li>
+</ol>
+<hr />
+<h2 id="6-webrtc-21">6. 可选：构建 WebRTC（不排进 21 天）<a class="headerlink" href="#6-webrtc-21" title="Permanent link">&para;</a></h2>
+<p>想真正断点调试源码，需要 <code>depot_tools + gclient sync</code>，约 20–30GB，且官方源被墙，需要稳定代理。这件事放在<strong>拿到 offer 之后</strong>或某个周末单独做，不要占用当前 21 天。</p>
+<hr />
+<h2 id="_1">附录：常用命令<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
+<h3 id="srs">SRS（已验证端到端）<a class="headerlink" href="#srs" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="c1"># 启动（CANDIDATE 必须填宿主机 IP，否则 SDP 里是容器内网地址，浏览器连不上）</span>
+<a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a>docker<span class="w"> </span>run<span class="w"> </span>-d<span class="w"> </span>--name<span class="w"> </span>srs<span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a><span class="w">  </span>-e<span class="w"> </span><span class="nv">CANDIDATE</span><span class="o">=</span><span class="k">$(</span>ipconfig<span class="w"> </span>getifaddr<span class="w"> </span>en0<span class="k">)</span><span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-9-4" name="__codelineno-9-4" href="#__codelineno-9-4"></a><span class="w">  </span>-p<span class="w"> </span><span class="m">1935</span>:1935<span class="w"> </span>-p<span class="w"> </span><span class="m">1985</span>:1985<span class="w"> </span>-p<span class="w"> </span><span class="m">8080</span>:8080<span class="w"> </span>-p<span class="w"> </span><span class="m">8000</span>:8000/udp<span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-9-5" name="__codelineno-9-5" href="#__codelineno-9-5"></a><span class="w">  </span>ossrs/srs:5
+<a id="__codelineno-9-6" name="__codelineno-9-6" href="#__codelineno-9-6"></a>
+<a id="__codelineno-9-7" name="__codelineno-9-7" href="#__codelineno-9-7"></a><span class="c1"># 健康检查</span>
+<a id="__codelineno-9-8" name="__codelineno-9-8" href="#__codelineno-9-8"></a>curl<span class="w"> </span>-s<span class="w"> </span>http://localhost:1985/api/v1/versions
+<a id="__codelineno-9-9" name="__codelineno-9-9" href="#__codelineno-9-9"></a>
+<a id="__codelineno-9-10" name="__codelineno-9-10" href="#__codelineno-9-10"></a><span class="c1"># 推流</span>
+<a id="__codelineno-9-11" name="__codelineno-9-11" href="#__codelineno-9-11"></a>ffmpeg<span class="w"> </span>-re<span class="w"> </span>-f<span class="w"> </span>lavfi<span class="w"> </span>-i<span class="w"> </span><span class="nv">testsrc2</span><span class="o">=</span><span class="nv">size</span><span class="o">=</span>1280x720:rate<span class="o">=</span><span class="m">30</span><span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-9-12" name="__codelineno-9-12" href="#__codelineno-9-12"></a><span class="w">  </span>-c:v<span class="w"> </span>libx264<span class="w"> </span>-preset<span class="w"> </span>ultrafast<span class="w"> </span>-tune<span class="w"> </span>zerolatency<span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-9-13" name="__codelineno-9-13" href="#__codelineno-9-13"></a><span class="w">  </span>-f<span class="w"> </span>flv<span class="w"> </span>rtmp://localhost:1935/live/livestream
+<a id="__codelineno-9-14" name="__codelineno-9-14" href="#__codelineno-9-14"></a>
+<a id="__codelineno-9-15" name="__codelineno-9-15" href="#__codelineno-9-15"></a><span class="c1"># 看流</span>
+<a id="__codelineno-9-16" name="__codelineno-9-16" href="#__codelineno-9-16"></a>curl<span class="w"> </span>-s<span class="w"> </span>http://localhost:1985/api/v1/streams/<span class="w"> </span><span class="p">|</span><span class="w"> </span>python3<span class="w"> </span>-m<span class="w"> </span>json.tool
+<a id="__codelineno-9-17" name="__codelineno-9-17" href="#__codelineno-9-17"></a>
+<a id="__codelineno-9-18" name="__codelineno-9-18" href="#__codelineno-9-18"></a><span class="c1"># 播放</span>
+<a id="__codelineno-9-19" name="__codelineno-9-19" href="#__codelineno-9-19"></a><span class="c1"># 控制台： http://localhost:8080/players/rtc_player.html?stream=livestream</span>
+<a id="__codelineno-9-20" name="__codelineno-9-20" href="#__codelineno-9-20"></a><span class="c1"># WHEP  ： http://localhost:1985/rtc/v1/whep/?app=live&amp;stream=livestream</span>
+<a id="__codelineno-9-21" name="__codelineno-9-21" href="#__codelineno-9-21"></a>
+<a id="__codelineno-9-22" name="__codelineno-9-22" href="#__codelineno-9-22"></a><span class="c1"># 停止/删除</span>
+<a id="__codelineno-9-23" name="__codelineno-9-23" href="#__codelineno-9-23"></a>docker<span class="w"> </span>rm<span class="w"> </span>-f<span class="w"> </span>srs
+</code></pre></div>
+<h3 id="mediamtx">mediamtx（备选）<a class="headerlink" href="#mediamtx" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a>brew<span class="w"> </span>install<span class="w"> </span>mediamtx
+<a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a>mediamtx<span class="w"> </span><span class="p">&amp;</span>
+<a id="__codelineno-10-3" name="__codelineno-10-3" href="#__codelineno-10-3"></a>ffmpeg<span class="w"> </span>-re<span class="w"> </span>-f<span class="w"> </span>lavfi<span class="w"> </span>-i<span class="w"> </span><span class="nv">testsrc2</span><span class="o">=</span><span class="nv">size</span><span class="o">=</span>1280x720:rate<span class="o">=</span><span class="m">30</span><span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-10-4" name="__codelineno-10-4" href="#__codelineno-10-4"></a><span class="w">  </span>-c:v<span class="w"> </span>libx264<span class="w"> </span>-preset<span class="w"> </span>ultrafast<span class="w"> </span>-tune<span class="w"> </span>zerolatency<span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-10-5" name="__codelineno-10-5" href="#__codelineno-10-5"></a><span class="w">  </span>-f<span class="w"> </span>rtsp<span class="w"> </span>rtsp://localhost:8554/live
+<a id="__codelineno-10-6" name="__codelineno-10-6" href="#__codelineno-10-6"></a><span class="c1"># 播放：http://localhost:8889/live</span>
+</code></pre></div>
+<h3 id="_2">已验证的镜像<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>镜像</th>
+<th>用途</th>
+<th>大小</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>ossrs/srs:5</code></td>
+<td>RTMP/WebRTC 媒体服务器</td>
+<td>142MB</td>
+</tr>
+<tr>
+<td><code>coturn/coturn</code></td>
+<td>TURN 中继</td>
+<td>152MB</td>
+</tr>
+<tr>
+<td><code>alpine:3.19</code></td>
+<td>测试/工具容器</td>
+<td>7.7MB</td>
+</tr>
+</tbody>
+</table>
+<h3 id="2026-11-12">实测记录（2026-11-12）<a class="headerlink" href="#2026-11-12" title="Permanent link">&para;</a></h3>
+<ul>
+<li>推流：ffmpeg → RTMP，H.264 1280×720 + AAC，SRS API 能查到流。</li>
+<li>播放：Headless Chrome 157 通过 WHEP 建立连接，<code>connection=connected</code>，解码 8 帧，1280×720 / 31fps，jitter 3ms，0 丢包。</li>
+<li>SRS 日志：<code>RTC: Subscriber url=/live/livestream established</code>，<code>spkts=(349, rtp:343)</code>，<code>rtcp=(pli:2)</code>。</li>
+<li>关键点：Docker 里必须 <code>-e CANDIDATE=&lt;宿主机IP&gt;</code>，否则 SDP 给的是容器内网地址。</li>
+</ul>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  回到页面顶部
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.sections", "navigation.top", "search.suggest", "search.highlight", "content.code.copy"], "search": "../../assets/javascripts/workers/search.a7633da7.min.js", "tags": null, "translations": {"clipboard.copied": "\u5df2\u590d\u5236", "clipboard.copy": "\u590d\u5236", "search.result.more.one": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.more.other": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 # \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.term.missing": "\u7f3a\u5c11", "select.version": "\u9009\u62e9\u5f53\u524d\u7248\u672c"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.a5f9d56c.min.js"></script>
+      
+        <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+      
+        <script src="../../javascripts/mermaid.js"></script>
+      
+    
+  </body>
+</html>

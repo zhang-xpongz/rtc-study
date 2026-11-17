@@ -1,0 +1,2413 @@
+
+<!doctype html>
+<html lang="zh" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="WebRTC / 音视频 / RTC 专项复习与长期学习">
+      
+      
+      
+        <link rel="canonical" href="https://zhang-xpongz.github.io/rtc-study/source/%E5%8D%95%E5%85%83%E6%B5%8B%E8%AF%95%E8%BF%90%E8%A1%8C%E9%80%BB%E8%BE%91-PeerConnectionEndToEndTest/">
+      
+      
+        <link rel="prev" href="../FrameBuffer/">
+      
+      
+        <link rel="next" href="../../fundamentals/D1-%E5%A4%8D%E4%B9%A0%E5%8C%85-%E9%9F%B3%E8%A7%86%E9%A2%91%E5%9F%BA%E7%A1%80%E4%B8%8E%E4%B9%A0%E9%A2%98/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.8.1">
+    
+    
+      
+        <title>单测运行逻辑 - RTC 学习笔记</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.57a0d79d.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.fb2fffe2.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#peerconnectionendtoendtestcall" class="md-skip">
+          跳转至
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="页眉">
+    <a href="../.." title="RTC 学习笔记" class="md-header__button md-logo" aria-label="RTC 学习笔记" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            RTC 学习笔记
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              单测运行逻辑
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="切换到深色"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="切换到深色" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="切换到浅色"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="切换到浅色" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="搜索" placeholder="搜索" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="查找">
+        
+        <button type="reset" class="md-search__icon md-icon" title="清空当前内容" aria-label="清空当前内容" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            正在初始化搜索引擎
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/zhang-xpongz/rtc-study" title="前往仓库" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    zhang-xpongz/rtc-study
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="导航栏" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="RTC 学习笔记" class="md-nav__button md-logo" aria-label="RTC 学习笔记" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    RTC 学习笔记
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/zhang-xpongz/rtc-study" title="前往仓库" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    zhang-xpongz/rtc-study
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    首页
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    复习计划
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    复习计划
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../plan/%E5%A4%8D%E4%B9%A0%E8%AE%A1%E5%88%92-3%E5%91%A8%E5%86%B2%E5%88%BA/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    3 周冲刺
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../plan/%E5%A4%8D%E4%B9%A0%E8%B5%84%E6%96%99%E5%8C%85-%E9%80%90%E6%97%A5%E6%B8%85%E5%8D%95/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    逐日清单
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../plan/%E6%89%93%E5%8D%A1%E8%A1%A8-21%E5%A4%A9-%E5%A4%8D%E4%B9%A0%2B%E6%BA%90%E7%A0%81%2B%E5%AE%9E%E8%B7%91/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    21 天打卡
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../plan/%E4%B8%93%E6%B3%A8%E6%B8%85%E5%8D%95-21%E5%A4%A9%E4%BB%BB%E5%8A%A1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    专注清单
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    每日记录
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    每日记录
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../daily/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    索引
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../daily/2026-11/2026-11-13/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2026-11-13
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../daily/2026-11/2026-11-17/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2026-11-17
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    源码走读
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    源码走读
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../WebRTC%E6%BA%90%E7%A0%81%E8%B5%B0%E8%AF%BB%E5%9C%B0%E5%9B%BE/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    走读地图
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E5%A6%82%E4%BD%95%E8%B5%B0%E8%AF%BBWebRTC%E4%BB%A3%E7%A0%81/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    如何走读
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E6%BA%90%E7%A0%81%E8%B5%B0%E8%AF%BB%E6%A8%A1%E6%9D%BF%E4%B8%8E%E7%A4%BA%E4%BE%8B-PeerConnection/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    PeerConnection 示例
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../FrameBuffer/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    FrameBuffer 卡片
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    单测运行逻辑
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    单测运行逻辑
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#0" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        0. 一句话概括
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. 进程启动链路
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. 测试是怎么注册的
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-fixture" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Fixture：搭一个"假但真实"的环境
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3. Fixture：搭一个&#34;假但真实&#34;的环境">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#31" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.1 构造函数
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#32-createpcs-peerconnection" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.2 CreatePcs()：造两端 PeerConnection
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#33-getandaddusermedia" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.3 GetAndAddUserMedia()：加音视频轨
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#34-negotiate-offeranswer" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.4 Negotiate()：走一遍 Offer/Answer
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#35-waitforcallestablished" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.5 WaitForCallEstablished()：等待三个条件
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. 实测日志逐段对照
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. 时序图
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. 用这套方法学源码的步骤
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7. 关键文件
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#8" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8. 注意点
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    基础
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    基础
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../fundamentals/D1-%E5%A4%8D%E4%B9%A0%E5%8C%85-%E9%9F%B3%E8%A7%86%E9%A2%91%E5%9F%BA%E7%A1%80%E4%B8%8E%E4%B9%A0%E9%A2%98/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    D1 复习包
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../fundamentals/%E8%A1%A5%E5%85%85-%E5%BF%83%E7%90%86%E5%A3%B0%E5%AD%A6/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    心理声学
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../fundamentals/%E8%A1%A5%E5%85%85-Opus%E4%B8%8EAAC%E5%AF%B9%E6%AF%94/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Opus 与 AAC
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../fundamentals/%E8%A1%A5%E5%85%85-MP4-TS-FLV%E5%B0%81%E8%A3%85%E6%A0%BC%E5%BC%8F/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    MP4/TS/FLV
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    系统
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    系统
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../systems/WebRTC%E7%BC%96%E8%AF%91%E8%BF%90%E8%A1%8C%E6%8C%87%E5%8D%97/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    编译运行
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../systems/WebRTC%E8%B0%83%E8%AF%95%E6%8C%87%E5%8D%97/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    调试
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../systems/SRS-RTMP%E8%BD%ACRTP%E6%9C%BA%E5%88%B6/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    SRS
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../systems/mediasoup-%E6%88%BF%E9%97%B4%E6%88%90%E5%91%98%E8%A7%92%E8%89%B2%E6%A8%A1%E5%9E%8B/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    mediasoup
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7" >
+        
+          
+          <label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    算法
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    算法
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../algorithms/209-%E9%95%BF%E5%BA%A6%E6%9C%80%E5%B0%8F%E7%9A%84%E5%AD%90%E6%95%B0%E7%BB%84/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    209 长度最小的子数组
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../algorithms/56-%E5%90%88%E5%B9%B6%E5%8C%BA%E9%97%B4/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    56 合并区间
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_8" >
+        
+          
+          <label class="md-nav__link" for="__nav_8" id="__nav_8_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    附件
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_8_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_8">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    附件
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../assets/api-%E5%88%86%E5%B1%82%E5%9B%BE/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    api 分层图
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_9" >
+        
+          
+          <label class="md-nav__link" for="__nav_9" id="__nav_9_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    模板
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_9_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_9">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    模板
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../tpl/%E6%AF%8F%E6%97%A5%E8%AE%B0%E5%BD%95/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    每日记录
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../tpl/%E6%BA%90%E7%A0%81%E5%8D%A1%E7%89%87/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    源码卡片
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../tpl/%E9%94%99%E9%A2%98%E5%8D%A1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    错题卡
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../tpl/%E9%9D%A2%E8%AF%95%E9%A2%98%E5%8D%A1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    面试题卡
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E5%86%99%E4%BD%9C%E7%BA%A6%E5%AE%9A/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    写作约定
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#0" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        0. 一句话概括
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. 进程启动链路
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. 测试是怎么注册的
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-fixture" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Fixture：搭一个"假但真实"的环境
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3. Fixture：搭一个&#34;假但真实&#34;的环境">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#31" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.1 构造函数
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#32-createpcs-peerconnection" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.2 CreatePcs()：造两端 PeerConnection
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#33-getandaddusermedia" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.3 GetAndAddUserMedia()：加音视频轨
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#34-negotiate-offeranswer" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.4 Negotiate()：走一遍 Offer/Answer
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#35-waitforcallestablished" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.5 WaitForCallEstablished()：等待三个条件
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. 实测日志逐段对照
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. 时序图
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. 用这套方法学源码的步骤
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7. 关键文件
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#8" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8. 注意点
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+<h1 id="peerconnectionendtoendtestcall">单元测试运行逻辑：以 <code>PeerConnectionEndToEndTest.Call</code> 为例<a class="headerlink" href="#peerconnectionendtoendtestcall" title="Permanent link">&para;</a></h1>
+<blockquote>
+<p>环境：<code>/Volumes/SSD/Code/webrtc-build/src</code>，目标 <code>pc:peerconnection_unittests</code>
+实测命令：
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>./webrtc-test.sh<span class="w"> </span>peerconnection_unittests<span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="w">  </span>--gtest_filter<span class="o">=</span><span class="s1">'PeerConnectionEndToEndTest/PeerConnectionEndToEndTest.Call/0'</span>
+</code></pre></div>
+实测耗时 346–419 ms，日志约 1280 行。</p>
+</blockquote>
+<hr />
+<h2 id="0">0. 一句话概括<a class="headerlink" href="#0" title="Permanent link">&para;</a></h2>
+<p>一个 gtest 二进制就是：<strong><code>main</code> → <code>TestMain</code> 初始化 → <code>RUN_ALL_TESTS()</code> → 逐个执行 <code>TEST_P</code></strong>。
+每个测试是一个 fixture 对象：<strong>构造函数搭环境 → <code>TestBody</code> 跑场景 → 析构函数清理</strong>。
+参数化的 <code>TEST_P</code> 会被展开成 <code>Call/0</code>、<code>Call/1</code> 两个独立测试。</p>
+<hr />
+<h2 id="1">1. 进程启动链路<a class="headerlink" href="#1" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>main()                                  test/test_main.cc:58
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a> ├─ testing::InitGoogleMock(&amp;argc, argv)   // 解析 --gtest_filter 等
+<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a> ├─ absl::ParseCommandLine                  // 解析 --log_level/--logs/--verbose
+<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a> ├─ TestMain::Create()                      // test_main_lib.cc:397
+<a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a> ├─ main-&gt;Init()                            // test_main_lib.cc:192
+<a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a> │   ├─ 设置日志级别/输出                   // :198-207
+<a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a> │   ├─ metrics::Enable()
+<a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a> │   └─ InitializeSSL()                     // DTLS 需要
+<a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a> └─ main-&gt;Run(argc, argv)                   // test_main_lib.cc:230
+<a id="__codelineno-1-10" name="__codelineno-1-10" href="#__codelineno-1-10"></a>     └─ RUN_ALL_TESTS()                     // test_main_lib.cc:269
+</code></pre></div>
+<p>关键点：</p>
+<ul>
+<li><code>--log_level</code> 在这里落地（<code>config.set_min_severity</code>），<strong>默认是 <code>LS_WARNING</code></strong>，所以 <code>RTC_LOG(LS_INFO)</code> 默认看不到。</li>
+<li><code>InitializeSSL()</code> 在这里调用，后面 DTLS 握手才能跑。</li>
+<li><code>RUN_ALL_TESTS()</code> 之后还会输出 metrics（<code>RESULT: ... TotalTestCount</code> 那几行）。</li>
+</ul>
+<hr />
+<h2 id="2">2. 测试是怎么注册的<a class="headerlink" href="#2" title="Permanent link">&para;</a></h2>
+<p><code>pc/peer_connection_end_to_end_unittest.cc</code>：</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="c1">// :395</span>
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="n">TEST_P</span><span class="p">(</span><span class="n">PeerConnectionEndToEndTest</span><span class="p">,</span><span class="w"> </span><span class="n">Call</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="w">  </span><span class="n">scoped_refptr</span><span class="o">&lt;</span><span class="n">AudioDecoderFactory</span><span class="o">&gt;</span><span class="w"> </span><span class="n">real_decoder_factory</span><span class="w"> </span><span class="o">=</span>
+<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="w">      </span><span class="n">CreateOpusAudioDecoderFactory</span><span class="p">();</span>
+<a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a><span class="w">  </span><span class="n">CreatePcs</span><span class="p">(</span><span class="n">CreateOpusAudioEncoderFactory</span><span class="p">(),</span>
+<a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a><span class="w">            </span><span class="n">CreateForwardingMockDecoderFactory</span><span class="p">(</span><span class="n">real_decoder_factory</span><span class="p">.</span><span class="n">get</span><span class="p">()));</span>
+<a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a><span class="w">  </span><span class="n">GetAndAddUserMedia</span><span class="p">();</span>
+<a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a><span class="w">  </span><span class="n">Negotiate</span><span class="p">();</span>
+<a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a><span class="w">  </span><span class="n">WaitForCallEstablished</span><span class="p">();</span>
+<a id="__codelineno-2-10" name="__codelineno-2-10" href="#__codelineno-2-10"></a><span class="p">}</span>
+<a id="__codelineno-2-11" name="__codelineno-2-11" href="#__codelineno-2-11"></a>
+<a id="__codelineno-2-12" name="__codelineno-2-12" href="#__codelineno-2-12"></a><span class="c1">// :784</span>
+<a id="__codelineno-2-13" name="__codelineno-2-13" href="#__codelineno-2-13"></a><span class="n">INSTANTIATE_TEST_SUITE_P</span><span class="p">(</span><span class="n">PeerConnectionEndToEndTest</span><span class="p">,</span>
+<a id="__codelineno-2-14" name="__codelineno-2-14" href="#__codelineno-2-14"></a><span class="w">                         </span><span class="n">PeerConnectionEndToEndTest</span><span class="p">,</span>
+<a id="__codelineno-2-15" name="__codelineno-2-15" href="#__codelineno-2-15"></a><span class="w">                         </span><span class="n">Values</span><span class="p">(</span><span class="n">SdpSemantics</span><span class="o">::</span><span class="n">kPlanB_DEPRECATED</span><span class="p">,</span>
+<a id="__codelineno-2-16" name="__codelineno-2-16" href="#__codelineno-2-16"></a><span class="w">                                </span><span class="n">SdpSemantics</span><span class="o">::</span><span class="n">kUnifiedPlan</span><span class="p">));</span>
+</code></pre></div>
+<p><code>Values(...)</code> 有两个参数，所以生成两个实例：</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>PeerConnectionEndToEndTest/PeerConnectionEndToEndTest.Call/0   ← PlanB
+<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>PeerConnectionEndToEndTest/PeerConnectionEndToEndTest.Call/1   ← UnifiedPlan
+</code></pre></div>
+<p>这就是为什么测试名里带 <code>/0</code>，也是为什么 filter 必须加引号（zsh 会展开 <code>*</code>）。</p>
+<hr />
+<h2 id="3-fixture">3. Fixture：搭一个"假但真实"的环境<a class="headerlink" href="#3-fixture" title="Permanent link">&para;</a></h2>
+<h3 id="31">3.1 构造函数<a class="headerlink" href="#31" title="Permanent link">&para;</a></h3>
+<p><code>PeerConnectionEndToEndBaseTest</code>（:77）：</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="k">explicit</span><span class="w"> </span><span class="n">PeerConnectionEndToEndBaseTest</span><span class="p">(</span><span class="n">SdpSemantics</span><span class="w"> </span><span class="n">sdp_semantics</span><span class="p">)</span>
+<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="w">    </span><span class="o">:</span><span class="w"> </span><span class="n">env_</span><span class="p">(</span><span class="n">CreateTestEnvironment</span><span class="p">()),</span>
+<a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a><span class="w">      </span><span class="n">network_thread_</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">make_unique</span><span class="o">&lt;</span><span class="n">Thread</span><span class="o">&gt;</span><span class="p">(</span><span class="o">&amp;</span><span class="n">pss_</span><span class="p">))</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a><span class="w">  </span><span class="n">RTC_CHECK</span><span class="p">(</span><span class="n">network_thread_</span><span class="o">-&gt;</span><span class="n">Start</span><span class="p">());</span>
+<a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a><span class="w">  </span><span class="n">caller_</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">make_ref_counted</span><span class="o">&lt;</span><span class="n">PeerConnectionTestWrapper</span><span class="o">&gt;</span><span class="p">(</span>
+<a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a><span class="w">      </span><span class="s">"caller"</span><span class="p">,</span><span class="w"> </span><span class="n">env_</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">pss_</span><span class="p">,</span><span class="w"> </span><span class="n">network_thread_</span><span class="p">.</span><span class="n">get</span><span class="p">());</span>
+<a id="__codelineno-4-7" name="__codelineno-4-7" href="#__codelineno-4-7"></a><span class="w">  </span><span class="n">callee_</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">make_ref_counted</span><span class="o">&lt;</span><span class="n">PeerConnectionTestWrapper</span><span class="o">&gt;</span><span class="p">(</span>
+<a id="__codelineno-4-8" name="__codelineno-4-8" href="#__codelineno-4-8"></a><span class="w">      </span><span class="s">"callee"</span><span class="p">,</span><span class="w"> </span><span class="n">env_</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">pss_</span><span class="p">,</span><span class="w"> </span><span class="n">network_thread_</span><span class="p">.</span><span class="n">get</span><span class="p">());</span>
+<a id="__codelineno-4-9" name="__codelineno-4-9" href="#__codelineno-4-9"></a><span class="w">  </span><span class="p">...</span>
+<a id="__codelineno-4-10" name="__codelineno-4-10" href="#__codelineno-4-10"></a><span class="p">}</span>
+</code></pre></div>
+<p>它创建了：</p>
+<table>
+<thead>
+<tr>
+<th>对象</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>PhysicalSocketServer</code></td>
+<td>套接字服务器（供测试线程使用）</td>
+</tr>
+<tr>
+<td><code>Thread network_thread_</code></td>
+<td>模拟网络线程</td>
+</tr>
+<tr>
+<td><code>caller_</code> / <code>callee_</code></td>
+<td>两端 PeerConnection 的封装</td>
+</tr>
+<tr>
+<td><code>RTCConfiguration</code></td>
+<td>SDP 语义（PlanB / UnifiedPlan）</td>
+</tr>
+</tbody>
+</table>
+<h3 id="32-createpcs-peerconnection">3.2 <code>CreatePcs()</code>：造两端 PeerConnection<a class="headerlink" href="#32-createpcs-peerconnection" title="Permanent link">&para;</a></h3>
+<p>:97 调用 <code>PeerConnectionTestWrapper::CreatePc</code>（wrapper:175），内部：</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="k">auto</span><span class="w"> </span><span class="n">port_allocator</span><span class="w"> </span><span class="o">=</span>
+<a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a><span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">make_unique</span><span class="o">&lt;</span><span class="n">FakePortAllocator</span><span class="o">&gt;</span><span class="p">(</span><span class="n">env</span><span class="p">,</span><span class="w"> </span><span class="n">socket_server_</span><span class="p">,</span><span class="w"> </span><span class="n">network_thread_</span><span class="p">);</span>
+<a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a><span class="n">fake_audio_capture_module_</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">FakeAudioCaptureModule</span><span class="o">::</span><span class="n">Create</span><span class="p">();</span><span class="w">  </span><span class="c1">// :190</span>
+<a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a><span class="p">...</span>
+<a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a><span class="n">dependencies</span><span class="p">.</span><span class="n">adm</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">fake_audio_capture_module_</span><span class="p">;</span>
+<a id="__codelineno-5-6" name="__codelineno-5-6" href="#__codelineno-5-6"></a><span class="p">...</span>
+<a id="__codelineno-5-7" name="__codelineno-5-7" href="#__codelineno-5-7"></a><span class="n">cert_generator</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">make_unique</span><span class="o">&lt;</span><span class="n">FakeRTCCertificateGenerator</span><span class="o">&gt;</span><span class="p">();</span><span class="w">  </span><span class="c1">// :215</span>
+</code></pre></div>
+<ul>
+<li><strong>FakePortAllocator</strong>：ICE 候选是伪造的，不走真实网络</li>
+<li><strong>FakeAudioCaptureModule</strong>：假音频采集</li>
+<li><strong>FakeRTCCertificateGenerator</strong>：假证书</li>
+<li>但 <strong>DTLS 用的是真 OpenSSL</strong>，SDP、RTP、编解码都是真实代码</li>
+</ul>
+<p>然后 <code>Connect()</code>（wrapper:117）把两端的回调接起来：</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="n">caller</span><span class="o">-&gt;</span><span class="n">SubscribeOnIceCandidateReady</span><span class="p">(</span><span class="n">callee</span><span class="p">,</span><span class="w"> </span><span class="p">...);</span><span class="w">  </span><span class="c1">// 候选互发</span>
+<a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a><span class="n">callee</span><span class="o">-&gt;</span><span class="n">SubscribeOnIceCandidateReady</span><span class="p">(</span><span class="n">caller</span><span class="p">,</span><span class="w"> </span><span class="p">...);</span>
+<a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a><span class="n">caller</span><span class="o">-&gt;</span><span class="n">SubscribeOnSdpReady</span><span class="p">(</span><span class="n">callee</span><span class="p">,</span><span class="w"> </span><span class="p">...);</span><span class="w">           </span><span class="c1">// Offer 交给对方</span>
+<a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a><span class="n">callee</span><span class="o">-&gt;</span><span class="n">SubscribeOnSdpReady</span><span class="p">(</span><span class="n">caller</span><span class="p">,</span><span class="w"> </span><span class="p">...);</span><span class="w">           </span><span class="c1">// Answer 交回</span>
+</code></pre></div>
+<h3 id="33-getandaddusermedia">3.3 <code>GetAndAddUserMedia()</code>：加音视频轨<a class="headerlink" href="#33-getandaddusermedia" title="Permanent link">&para;</a></h3>
+<p>:123 → wrapper:496：</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="n">GetUserMedia</span><span class="p">(</span><span class="n">audio</span><span class="p">,</span><span class="w"> </span><span class="n">audio_options</span><span class="p">,</span><span class="w"> </span><span class="n">video</span><span class="p">);</span><span class="w">   </span><span class="c1">// 内部创建 fake 源</span>
+<a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a><span class="n">peer_connection_</span><span class="o">-&gt;</span><span class="n">AddTrack</span><span class="p">(</span><span class="n">audio_track</span><span class="p">,</span><span class="w"> </span><span class="p">{</span><span class="n">stream</span><span class="o">-&gt;</span><span class="n">id</span><span class="p">()});</span>
+<a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a><span class="n">peer_connection_</span><span class="o">-&gt;</span><span class="n">AddTrack</span><span class="p">(</span><span class="n">video_track</span><span class="p">,</span><span class="w"> </span><span class="p">{</span><span class="n">stream</span><span class="o">-&gt;</span><span class="n">id</span><span class="p">()});</span>
+</code></pre></div>
+<ul>
+<li>音频：<code>CreateAudioSource</code> + <code>FakeAudioCaptureModule</code></li>
+<li>视频：<code>FakePeriodicVideoTrackSource</code>（按固定帧率产生假画面）</li>
+</ul>
+<h3 id="34-negotiate-offeranswer">3.4 <code>Negotiate()</code>：走一遍 Offer/Answer<a class="headerlink" href="#34-negotiate-offeranswer" title="Permanent link">&para;</a></h3>
+<p>:135：</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="n">caller_</span><span class="o">-&gt;</span><span class="n">CreateOffer</span><span class="p">(</span><span class="n">RTCOfferAnswerOptions</span><span class="p">());</span>
+</code></pre></div>
+<p>后续由 wrapper 的 SDP 回调驱动：</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a>caller CreateOffer
+<a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a>  → SdpReady → callee ReceiveOfferSdp
+<a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a>  → callee CreateAnswer
+<a id="__codelineno-9-4" name="__codelineno-9-4" href="#__codelineno-9-4"></a>  → SdpReady → caller ReceiveAnswer
+<a id="__codelineno-9-5" name="__codelineno-9-5" href="#__codelineno-9-5"></a>  → ICE candidates 互发
+</code></pre></div>
+<h3 id="35-waitforcallestablished">3.5 <code>WaitForCallEstablished()</code>：等待三个条件<a class="headerlink" href="#35-waitforcallestablished" title="Permanent link">&para;</a></h3>
+<p>wrapper:435：</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="o">!</span><span class="n">WaitForConnection</span><span class="p">())</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="nb">false</span><span class="p">;</span><span class="w">  </span><span class="c1">// ICE connected</span>
+<a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="o">!</span><span class="n">WaitForAudio</span><span class="p">())</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="nb">false</span><span class="p">;</span><span class="w">       </span><span class="c1">// 收到足够音频帧</span>
+<a id="__codelineno-10-3" name="__codelineno-10-3" href="#__codelineno-10-3"></a><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="o">!</span><span class="n">WaitForVideo</span><span class="p">())</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="nb">false</span><span class="p">;</span><span class="w">       </span><span class="c1">// 渲染足够视频帧</span>
+</code></pre></div>
+<table>
+<thead>
+<tr>
+<th>等待</th>
+<th>判定</th>
+<th>日志</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>连接</td>
+<td><code>ice_connection_state == connected/completed</code></td>
+<td><code>Connected.</code></td>
+</tr>
+<tr>
+<td>音频</td>
+<td><code>frames_received &gt;= kTestAudioFrameCount</code></td>
+<td><code>Got enough audio frames.</code></td>
+</tr>
+<tr>
+<td>视频</td>
+<td><code>renderer_-&gt;num_rendered_frames() &gt;= kTestVideoFrameCount</code></td>
+<td><code>Got enough video frames.</code></td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="4">4. 实测日志逐段对照<a class="headerlink" href="#4" title="Permanent link">&para;</a></h2>
+<p>下面是这次运行的关键日志（节选），按执行顺序排列：</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a>[ RUN      ] PeerConnectionEndToEndTest/PeerConnectionEndToEndTest.Call/0
+<a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a>(peer_connection_factory.cc:252): PeerConnection constructed with legacy SDP semantics!
+<a id="__codelineno-11-3" name="__codelineno-11-3" href="#__codelineno-11-3"></a>(peer_connection_test_wrapper.cc:385): PeerConnectionTestWrapper caller: CreateOffer.
+<a id="__codelineno-11-4" name="__codelineno-11-4" href="#__codelineno-11-4"></a>(peer_connection.cc:1495): === MY DEBUG LOG: PeerConnection::CreateOffer called ===
+<a id="__codelineno-11-5" name="__codelineno-11-5" href="#__codelineno-11-5"></a>(p2p_transport_channel.cc:494): Set ICE ufrag: h/AC pwd: ... on transport audio
+<a id="__codelineno-11-6" name="__codelineno-11-6" href="#__codelineno-11-6"></a>(p2p_transport_channel.cc:494): Set ICE ufrag: h/AC pwd: ... on transport video
+<a id="__codelineno-11-7" name="__codelineno-11-7" href="#__codelineno-11-7"></a>(p2p_transport_channel.cc:505): Received remote ICE parameters: ufrag=...
+<a id="__codelineno-11-8" name="__codelineno-11-8" href="#__codelineno-11-8"></a>(peer_connection_test_wrapper.cc:392): PeerConnectionTestWrapper callee: CreateAnswer.
+<a id="__codelineno-11-9" name="__codelineno-11-9" href="#__codelineno-11-9"></a>(dtls_transport.cc:592): DtlsTransport[audio|1|__]: DTLS setup complete
+<a id="__codelineno-11-10" name="__codelineno-11-10" href="#__codelineno-11-10"></a>(dtls_transport.cc:1076): ... Start DTLS handshake active=1 role=client
+<a id="__codelineno-11-11" name="__codelineno-11-11" href="#__codelineno-11-11"></a>(dtls_transport.cc:1076): ... Start DTLS handshake active=1 role=server
+<a id="__codelineno-11-12" name="__codelineno-11-12" href="#__codelineno-11-12"></a>(dtls_transport.cc:1001): DtlsTransport[audio|1|__]: DTLS handshake complete.
+<a id="__codelineno-11-13" name="__codelineno-11-13" href="#__codelineno-11-13"></a>(peer_connection.cc:2613): Changing to ICE connected state because all transports are writable.
+<a id="__codelineno-11-14" name="__codelineno-11-14" href="#__codelineno-11-14"></a>(peer_connection_test_wrapper.cc:451): PeerConnectionTestWrapper caller: Connected.
+<a id="__codelineno-11-15" name="__codelineno-11-15" href="#__codelineno-11-15"></a>(peer_connection_test_wrapper.cc:468): PeerConnectionTestWrapper caller: Got enough audio frames.
+<a id="__codelineno-11-16" name="__codelineno-11-16" href="#__codelineno-11-16"></a>(peer_connection_test_wrapper.cc:484): PeerConnectionTestWrapper caller: Got enough video frames.
+<a id="__codelineno-11-17" name="__codelineno-11-17" href="#__codelineno-11-17"></a>(peer_connection_test_wrapper.cc:451): PeerConnectionTestWrapper callee: Connected.
+<a id="__codelineno-11-18" name="__codelineno-11-18" href="#__codelineno-11-18"></a>(peer_connection.cc:2640): Changing to ICE completed state because all transports are complete.
+<a id="__codelineno-11-19" name="__codelineno-11-19" href="#__codelineno-11-19"></a>(dtls_transport.cc:1032): DtlsTransport[audio|1|_W]: DTLS transport closed by remote
+<a id="__codelineno-11-20" name="__codelineno-11-20" href="#__codelineno-11-20"></a>[       OK ] PeerConnectionEndToEndTest/PeerConnectionEndToEndTest.Call/0 (346 ms)
+</code></pre></div>
+<table>
+<thead>
+<tr>
+<th>日志</th>
+<th>代码位置</th>
+<th>阶段</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>PeerConnection constructed</code></td>
+<td><code>pc/peer_connection_factory.cc:252</code></td>
+<td>CreatePcs 建好两端</td>
+</tr>
+<tr>
+<td><code>caller: CreateOffer.</code></td>
+<td><code>pc/test/peer_connection_test_wrapper.cc:385</code></td>
+<td>Negotiate 开始</td>
+</tr>
+<tr>
+<td><code>MY DEBUG LOG ... CreateOffer</code></td>
+<td><code>pc/peer_connection.cc:1495</code></td>
+<td><strong>我们加的日志</strong></td>
+</tr>
+<tr>
+<td><code>Set ICE ufrag</code></td>
+<td><code>p2p/base/p2p_transport_channel.cc:494</code></td>
+<td>本地 ICE 参数</td>
+</tr>
+<tr>
+<td><code>Received remote ICE parameters</code></td>
+<td>同文件 :505</td>
+<td>收到对端 ICE 参数</td>
+</tr>
+<tr>
+<td><code>callee: CreateAnswer.</code></td>
+<td>wrapper:392</td>
+<td>对端回 Answer</td>
+</tr>
+<tr>
+<td><code>DTLS setup complete</code></td>
+<td><code>p2p/dtls/dtls_transport.cc:592</code></td>
+<td>DTLS 上下文就绪</td>
+</tr>
+<tr>
+<td><code>Start DTLS handshake</code></td>
+<td><code>p2p/dtls/dtls_transport.cc:1076</code></td>
+<td>客户端/服务端角色确定</td>
+</tr>
+<tr>
+<td><code>DTLS handshake complete</code></td>
+<td><code>p2p/dtls/dtls_transport.cc:1001</code></td>
+<td>握手完成，SRTP 密钥就绪</td>
+</tr>
+<tr>
+<td><code>Changing to ICE connected</code></td>
+<td><code>pc/peer_connection.cc:2613</code></td>
+<td>ICE 连通</td>
+</tr>
+<tr>
+<td><code>Connected.</code></td>
+<td>wrapper:451</td>
+<td>WaitForConnection 通过</td>
+</tr>
+<tr>
+<td><code>Got enough audio frames.</code></td>
+<td>wrapper:468</td>
+<td>WaitForAudio 通过</td>
+</tr>
+<tr>
+<td><code>Got enough video frames.</code></td>
+<td>wrapper:484</td>
+<td>WaitForVideo 通过</td>
+</tr>
+<tr>
+<td><code>Changing to ICE completed</code></td>
+<td><code>pc/peer_connection.cc:2640</code></td>
+<td>连接稳定</td>
+</tr>
+<tr>
+<td><code>closed by remote</code></td>
+<td><code>p2p/dtls/dtls_transport.cc:1032</code></td>
+<td>测试结束，析构关闭</td>
+</tr>
+<tr>
+<td><code>[ OK ] ... (346 ms)</code></td>
+<td>gtest</td>
+<td>整体通过</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>日志格式 <code>(文件:行): 消息</code>，可以直接 <code>vim +行号 文件</code> 跳过去看上下文。</p>
+</blockquote>
+<hr />
+<h2 id="5">5. 时序图<a class="headerlink" href="#5" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a>gtest                caller (PC)              callee (PC)
+<a id="__codelineno-12-2" name="__codelineno-12-2" href="#__codelineno-12-2"></a>  │                     │                       │
+<a id="__codelineno-12-3" name="__codelineno-12-3" href="#__codelineno-12-3"></a>  ├─ SetUp: 构造 fixture ────────────────────────┤
+<a id="__codelineno-12-4" name="__codelineno-12-4" href="#__codelineno-12-4"></a>  │   env / network thread / 两个 wrapper        │
+<a id="__codelineno-12-5" name="__codelineno-12-5" href="#__codelineno-12-5"></a>  ├─ CreatePcs ─────────┤                       │
+<a id="__codelineno-12-6" name="__codelineno-12-6" href="#__codelineno-12-6"></a>  │                     │ FakePortAllocator     │
+<a id="__codelineno-12-7" name="__codelineno-12-7" href="#__codelineno-12-7"></a>  │                     │ FakeAudioCapture      │
+<a id="__codelineno-12-8" name="__codelineno-12-8" href="#__codelineno-12-8"></a>  ├─ GetAndAddUserMedia ┤ AddTrack(audio/video)  │
+<a id="__codelineno-12-9" name="__codelineno-12-9" href="#__codelineno-12-9"></a>  ├─ Negotiate ─────────┤ CreateOffer           │
+<a id="__codelineno-12-10" name="__codelineno-12-10" href="#__codelineno-12-10"></a>  │                     ├── SDP ───────────────►│ SetRemoteDescription
+<a id="__codelineno-12-11" name="__codelineno-12-11" href="#__codelineno-12-11"></a>  │                     │                       ├─ CreateAnswer
+<a id="__codelineno-12-12" name="__codelineno-12-12" href="#__codelineno-12-12"></a>  │                     │◄──────── SDP ─────────┤ SetLocalDescription
+<a id="__codelineno-12-13" name="__codelineno-12-13" href="#__codelineno-12-13"></a>  │                     ├─ SetRemoteDescription  │
+<a id="__codelineno-12-14" name="__codelineno-12-14" href="#__codelineno-12-14"></a>  │                     ├── ICE candidates ────►│
+<a id="__codelineno-12-15" name="__codelineno-12-15" href="#__codelineno-12-15"></a>  │                     │◄── ICE candidates ────┤
+<a id="__codelineno-12-16" name="__codelineno-12-16" href="#__codelineno-12-16"></a>  │                     ├── DTLS handshake ────►│
+<a id="__codelineno-12-17" name="__codelineno-12-17" href="#__codelineno-12-17"></a>  │                     │◄── DTLS handshake ────┤
+<a id="__codelineno-12-18" name="__codelineno-12-18" href="#__codelineno-12-18"></a>  ├─ WaitForCallEstablished                    │
+<a id="__codelineno-12-19" name="__codelineno-12-19" href="#__codelineno-12-19"></a>  │   ├─ ICE connected   │                       │
+<a id="__codelineno-12-20" name="__codelineno-12-20" href="#__codelineno-12-20"></a>  │   ├─ audio frames    │                       │
+<a id="__codelineno-12-21" name="__codelineno-12-21" href="#__codelineno-12-21"></a>  │   └─ video frames    │                       │
+<a id="__codelineno-12-22" name="__codelineno-12-22" href="#__codelineno-12-22"></a>  ├─ TearDown: 析构 fixture ─────────────────────┤
+<a id="__codelineno-12-23" name="__codelineno-12-23" href="#__codelineno-12-23"></a>  │   StopFakeVideoSources / pc-&gt;Close()         │
+<a id="__codelineno-12-24" name="__codelineno-12-24" href="#__codelineno-12-24"></a>  └─ [ OK ]                                     │
+</code></pre></div>
+<hr />
+<h2 id="6">6. 用这套方法学源码的步骤<a class="headerlink" href="#6" title="Permanent link">&para;</a></h2>
+<ol>
+<li><strong>选一个测试</strong>：先看 <code>TEST_P</code> 的函数体，通常只有 5–10 行，场景一目了然。</li>
+<li><strong>读 fixture</strong>：顺着 <code>CreatePcs</code> / <code>GetAndAddUserMedia</code> / <code>Negotiate</code> / <code>WaitFor...</code> 读下去，环境是怎么搭的。</li>
+<li><strong>跑一遍存日志</strong>：
+   <div class="highlight"><pre><span></span><code><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a>./webrtc-test.sh<span class="w"> </span>peerconnection_unittests<span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-13-2" name="__codelineno-13-2" href="#__codelineno-13-2"></a><span class="w">  </span>--gtest_filter<span class="o">=</span><span class="s1">'PeerConnectionEndToEndTest/PeerConnectionEndToEndTest.Call/0'</span><span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-13-3" name="__codelineno-13-3" href="#__codelineno-13-3"></a><span class="w">  </span>&gt;<span class="w"> </span>/tmp/e2e.log<span class="w"> </span><span class="m">2</span>&gt;<span class="p">&amp;</span><span class="m">1</span>
+</code></pre></div></li>
+<li><strong>按阶段切日志</strong>：
+   <div class="highlight"><pre><span></span><code><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a>grep<span class="w"> </span>-nE<span class="w"> </span><span class="s2">"CreateOffer|CreateAnswer|DTLS|ICE connected|Got enough"</span><span class="w"> </span>/tmp/e2e.log
+</code></pre></div></li>
+<li><strong>加日志到你想看的点</strong>，重编重跑：
+   <div class="highlight"><pre><span></span><code><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a>autoninja<span class="w"> </span>-C<span class="w"> </span>out/Debug<span class="w"> </span>pc:peerconnection_unittests
+<a id="__codelineno-15-2" name="__codelineno-15-2" href="#__codelineno-15-2"></a>./webrtc-test.sh<span class="w"> </span>peerconnection_unittests<span class="w"> </span>--gtest_filter<span class="o">=</span><span class="s1">'...'</span>
+</code></pre></div></li>
+<li><strong>对照行号读源码</strong>：日志里 <code>(file:line)</code> 就是最好的路标。</li>
+</ol>
+<hr />
+<h2 id="7">7. 关键文件<a class="headerlink" href="#7" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>文件</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>test/test_main.cc</code></td>
+<td>进程入口</td>
+</tr>
+<tr>
+<td><code>test/test_main_lib.cc</code></td>
+<td>日志、SSL、<code>RUN_ALL_TESTS</code></td>
+</tr>
+<tr>
+<td><code>pc/peer_connection_end_to_end_unittest.cc</code></td>
+<td>测试定义与 fixture</td>
+</tr>
+<tr>
+<td><code>pc/test/peer_connection_test_wrapper.cc</code></td>
+<td>两端 PC 的封装、SDP/ICE 回调</td>
+</tr>
+<tr>
+<td><code>p2p/base/p2p_transport_channel.cc</code></td>
+<td><strong>ICE 状态机</strong>（GetState/ComputeState）</td>
+</tr>
+<tr>
+<td><code>p2p/dtls/dtls_transport.cc</code></td>
+<td>DTLS 状态机与握手（日志在这里）</td>
+</tr>
+<tr>
+<td><code>pc/dtls_transport.cc</code></td>
+<td>DTLS 的 API 层封装（不含握手实现）</td>
+</tr>
+<tr>
+<td><code>pc/peer_connection.cc</code></td>
+<td>连接状态机</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="8">8. 注意点<a class="headerlink" href="#8" title="Permanent link">&para;</a></h2>
+<ol>
+<li><strong>网络是假的</strong>：<code>FakePortAllocator</code> 不真正打洞，但 ICE 状态机、DTLS、RTP、编解码都是真的。</li>
+<li><strong>音视频源是假的</strong>：<code>FakeAudioCaptureModule</code>、<code>FakePeriodicVideoTrackSource</code>，但编码器是真实 VP8/VP9/H264。</li>
+<li><strong>日志默认 <code>LS_WARNING</code></strong>：不加 <code>--log_level=info</code> 看不到 <code>RTC_LOG(LS_INFO)</code>。</li>
+<li><strong>测试名带 <code>/0</code> <code>/1</code></strong>：参数化实例，filter 要写全或加引号通配。</li>
+<li><strong>耗时不代表复杂度</strong>：346ms 是因为 fake 网络和 fake 源，真实网络会慢得多。</li>
+</ol>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  回到页面顶部
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.sections", "navigation.top", "search.suggest", "search.highlight", "content.code.copy"], "search": "../../assets/javascripts/workers/search.a7633da7.min.js", "tags": null, "translations": {"clipboard.copied": "\u5df2\u590d\u5236", "clipboard.copy": "\u590d\u5236", "search.result.more.one": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.more.other": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 # \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.term.missing": "\u7f3a\u5c11", "select.version": "\u9009\u62e9\u5f53\u524d\u7248\u672c"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.a5f9d56c.min.js"></script>
+      
+        <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+      
+        <script src="../../javascripts/mermaid.js"></script>
+      
+    
+  </body>
+</html>

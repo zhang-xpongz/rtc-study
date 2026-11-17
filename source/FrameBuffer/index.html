@@ -1,0 +1,2608 @@
+
+<!doctype html>
+<html lang="zh" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="WebRTC / 音视频 / RTC 专项复习与长期学习">
+      
+      
+      
+        <link rel="canonical" href="https://zhang-xpongz.github.io/rtc-study/source/FrameBuffer/">
+      
+      
+        <link rel="prev" href="../%E6%BA%90%E7%A0%81%E8%B5%B0%E8%AF%BB%E6%A8%A1%E6%9D%BF%E4%B8%8E%E7%A4%BA%E4%BE%8B-PeerConnection/">
+      
+      
+        <link rel="next" href="../%E5%8D%95%E5%85%83%E6%B5%8B%E8%AF%95%E8%BF%90%E8%A1%8C%E9%80%BB%E8%BE%91-PeerConnectionEndToEndTest/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.8.1">
+    
+    
+      
+        <title>FrameBuffer 卡片 - RTC 学习笔记</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.57a0d79d.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.fb2fffe2.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#framebuffer" class="md-skip">
+          跳转至
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="页眉">
+    <a href="../.." title="RTC 学习笔记" class="md-header__button md-logo" aria-label="RTC 学习笔记" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            RTC 学习笔记
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              FrameBuffer 卡片
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="切换到深色"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="切换到深色" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="切换到浅色"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="切换到浅色" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="搜索" placeholder="搜索" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="查找">
+        
+        <button type="reset" class="md-search__icon md-icon" title="清空当前内容" aria-label="清空当前内容" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            正在初始化搜索引擎
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/zhang-xpongz/rtc-study" title="前往仓库" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    zhang-xpongz/rtc-study
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="导航栏" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="RTC 学习笔记" class="md-nav__button md-logo" aria-label="RTC 学习笔记" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    RTC 学习笔记
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/zhang-xpongz/rtc-study" title="前往仓库" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    zhang-xpongz/rtc-study
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    首页
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    复习计划
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    复习计划
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../plan/%E5%A4%8D%E4%B9%A0%E8%AE%A1%E5%88%92-3%E5%91%A8%E5%86%B2%E5%88%BA/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    3 周冲刺
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../plan/%E5%A4%8D%E4%B9%A0%E8%B5%84%E6%96%99%E5%8C%85-%E9%80%90%E6%97%A5%E6%B8%85%E5%8D%95/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    逐日清单
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../plan/%E6%89%93%E5%8D%A1%E8%A1%A8-21%E5%A4%A9-%E5%A4%8D%E4%B9%A0%2B%E6%BA%90%E7%A0%81%2B%E5%AE%9E%E8%B7%91/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    21 天打卡
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../plan/%E4%B8%93%E6%B3%A8%E6%B8%85%E5%8D%95-21%E5%A4%A9%E4%BB%BB%E5%8A%A1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    专注清单
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    每日记录
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    每日记录
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../daily/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    索引
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../daily/2026-11/2026-11-13/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2026-11-13
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../daily/2026-11/2026-11-17/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2026-11-17
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    源码走读
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    源码走读
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../WebRTC%E6%BA%90%E7%A0%81%E8%B5%B0%E8%AF%BB%E5%9C%B0%E5%9B%BE/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    走读地图
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E5%A6%82%E4%BD%95%E8%B5%B0%E8%AF%BBWebRTC%E4%BB%A3%E7%A0%81/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    如何走读
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E6%BA%90%E7%A0%81%E8%B5%B0%E8%AF%BB%E6%A8%A1%E6%9D%BF%E4%B8%8E%E7%A4%BA%E4%BE%8B-PeerConnection/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    PeerConnection 示例
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    FrameBuffer 卡片
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    FrameBuffer 卡片
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        这个模块解决什么问题
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        关键类 / 函数
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        输入 / 输出
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        容量与参数
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#frame-id" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Frame ID 从哪来
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        调用链
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="调用链">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#insertframe-apivideoframe_buffercc76" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        InsertFrame 内部步骤（api/video/frame_buffer.cc:76）
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        关键日志
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        线程与生命周期
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_8" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        复杂度与测试
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="复杂度与测试">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_9" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        单测解析（测试即规格）
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_10" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        面试可讲点
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_11" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        没搞懂的地方
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E5%8D%95%E5%85%83%E6%B5%8B%E8%AF%95%E8%BF%90%E8%A1%8C%E9%80%BB%E8%BE%91-PeerConnectionEndToEndTest/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    单测运行逻辑
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    基础
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    基础
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../fundamentals/D1-%E5%A4%8D%E4%B9%A0%E5%8C%85-%E9%9F%B3%E8%A7%86%E9%A2%91%E5%9F%BA%E7%A1%80%E4%B8%8E%E4%B9%A0%E9%A2%98/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    D1 复习包
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../fundamentals/%E8%A1%A5%E5%85%85-%E5%BF%83%E7%90%86%E5%A3%B0%E5%AD%A6/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    心理声学
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../fundamentals/%E8%A1%A5%E5%85%85-Opus%E4%B8%8EAAC%E5%AF%B9%E6%AF%94/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Opus 与 AAC
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../fundamentals/%E8%A1%A5%E5%85%85-MP4-TS-FLV%E5%B0%81%E8%A3%85%E6%A0%BC%E5%BC%8F/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    MP4/TS/FLV
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    系统
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    系统
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../systems/WebRTC%E7%BC%96%E8%AF%91%E8%BF%90%E8%A1%8C%E6%8C%87%E5%8D%97/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    编译运行
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../systems/WebRTC%E8%B0%83%E8%AF%95%E6%8C%87%E5%8D%97/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    调试
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../systems/SRS-RTMP%E8%BD%ACRTP%E6%9C%BA%E5%88%B6/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    SRS
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../systems/mediasoup-%E6%88%BF%E9%97%B4%E6%88%90%E5%91%98%E8%A7%92%E8%89%B2%E6%A8%A1%E5%9E%8B/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    mediasoup
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7" >
+        
+          
+          <label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    算法
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    算法
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../algorithms/209-%E9%95%BF%E5%BA%A6%E6%9C%80%E5%B0%8F%E7%9A%84%E5%AD%90%E6%95%B0%E7%BB%84/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    209 长度最小的子数组
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../algorithms/56-%E5%90%88%E5%B9%B6%E5%8C%BA%E9%97%B4/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    56 合并区间
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_8" >
+        
+          
+          <label class="md-nav__link" for="__nav_8" id="__nav_8_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    附件
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_8_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_8">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    附件
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../assets/api-%E5%88%86%E5%B1%82%E5%9B%BE/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    api 分层图
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_9" >
+        
+          
+          <label class="md-nav__link" for="__nav_9" id="__nav_9_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    模板
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_9_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_9">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    模板
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../tpl/%E6%AF%8F%E6%97%A5%E8%AE%B0%E5%BD%95/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    每日记录
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../tpl/%E6%BA%90%E7%A0%81%E5%8D%A1%E7%89%87/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    源码卡片
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../tpl/%E9%94%99%E9%A2%98%E5%8D%A1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    错题卡
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../tpl/%E9%9D%A2%E8%AF%95%E9%A2%98%E5%8D%A1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    面试题卡
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E5%86%99%E4%BD%9C%E7%BA%A6%E5%AE%9A/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    写作约定
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        这个模块解决什么问题
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        关键类 / 函数
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        输入 / 输出
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        容量与参数
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#frame-id" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Frame ID 从哪来
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        调用链
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="调用链">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#insertframe-apivideoframe_buffercc76" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        InsertFrame 内部步骤（api/video/frame_buffer.cc:76）
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        关键日志
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        线程与生命周期
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_8" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        复杂度与测试
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="复杂度与测试">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_9" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        单测解析（测试即规格）
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_10" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        面试可讲点
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_11" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        没搞懂的地方
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+<h1 id="framebuffer">源码卡片 · FrameBuffer<a class="headerlink" href="#framebuffer" title="Permanent link">&para;</a></h1>
+<blockquote>
+<p>文件：<code>api/video/frame_buffer.h</code> ｜ 日期：2026-11-17</p>
+</blockquote>
+<h2 id="_1">这个模块解决什么问题<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
+<p>FrameBuffer 是一个<strong>线程不安全</strong>的帧缓冲数据结构：按 frame ID 排序、按时间戳组成 temporal unit，判定哪些 unit 可解码/连续，并记录解码历史；它不负责调度和计时。</p>
+<h2 id="_2">关键类 / 函数<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>类/函数</th>
+<th>文件:行</th>
+<th>作用</th>
+<th>调用方</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>FrameBuffer</code></td>
+<td><code>api/video/frame_buffer.h:33</code></td>
+<td>存储/排序 <code>EncodedFrame</code>，判定连续性/可解码性</td>
+<td><code>VideoStreamBufferController</code></td>
+</tr>
+<tr>
+<td>构造函数</td>
+<td><code>api/video/frame_buffer.cc:71</code></td>
+<td><code>max_size</code> 帧上限、<code>max_decode_history</code> 历史窗口</td>
+<td>controller</td>
+</tr>
+<tr>
+<td><code>InsertFrame</code></td>
+<td><code>api/video/frame_buffer.cc:76</code></td>
+<td>插入已编码帧</td>
+<td><code>VideoStreamBufferController::InsertFrame</code></td>
+</tr>
+<tr>
+<td><code>ExtractNextDecodableTemporalUnit</code></td>
+<td><code>:128</code></td>
+<td>取出下一个可解码 unit（可能多帧）</td>
+<td><code>FrameReadyForDecode</code></td>
+</tr>
+<tr>
+<td><code>DropNextDecodableTemporalUnit</code></td>
+<td><code>:145</code></td>
+<td>丢弃该 unit</td>
+<td><code>Extract...</code>（取完自动丢）、<code>MaybeScheduleFrameForRelease</code>（无法调度时丢）</td>
+</tr>
+<tr>
+<td><code>LastContinuousFrameId</code></td>
+<td><code>:159</code></td>
+<td>连续<strong>帧</strong>的最大 ID</td>
+<td><code>VideoReceiveStream2::OnCompleteFrame</code></td>
+</tr>
+<tr>
+<td><code>LastContinuousTemporalUnitFrameId</code></td>
+<td><code>:163</code></td>
+<td>连续 <strong>unit</strong> 的最后一帧 ID</td>
+<td>内部字段（<code>FindNext...</code> 扫描边界）</td>
+</tr>
+<tr>
+<td><code>DecodableTemporalUnitsInfo</code></td>
+<td><code>:167</code></td>
+<td>可解码范围（next/last RTP timestamp）</td>
+<td><code>MaybeScheduleFrameForRelease</code>、<code>FrameReadyForDecode</code></td>
+</tr>
+<tr>
+<td><code>NewContinuousTemporalUnits</code></td>
+<td><code>:172</code></td>
+<td>本次插入新增的连续 unit 时间戳</td>
+<td>controller 的 <code>InsertFrame</code></td>
+</tr>
+<tr>
+<td><code>IsContinuous</code></td>
+<td><code>:187</code></td>
+<td>单帧参考是否都可用</td>
+<td><code>PropagateContinuity</code></td>
+</tr>
+<tr>
+<td><code>PropagateContinuity</code></td>
+<td><code>:205</code></td>
+<td>沿 ID 向后传播连续标记</td>
+<td><code>InsertFrame</code></td>
+</tr>
+<tr>
+<td><code>FindNextAndLastDecodableTemporalUnit</code></td>
+<td><code>:225</code></td>
+<td>找下一个可解码 unit、更新可解码范围</td>
+<td><code>InsertFrame</code>、<code>Extract...</code>、<code>Drop...</code></td>
+</tr>
+<tr>
+<td><code>Clear</code></td>
+<td><code>:285</code></td>
+<td>清空帧、历史、连续性状态</td>
+<td><code>InsertFrame</code>（关键帧重置）</td>
+</tr>
+<tr>
+<td><code>DecodedFramesHistory</code></td>
+<td><code>modules/video_coding/utility/decoded_frames_history.h</code></td>
+<td>记录已解码帧 ID/时间戳</td>
+<td><code>IsContinuous</code>、<code>FindNext...</code></td>
+</tr>
+</tbody>
+</table>
+<h2 id="_3">输入 / 输出<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h2>
+<ul>
+<li><strong>输入</strong>：<code>InsertFrame(std::unique_ptr&lt;EncodedFrame&gt;)</code></li>
+<li><strong>输出帧</strong>：<code>ExtractNextDecodableTemporalUnit()</code> 返回 <code>absl::InlinedVector&lt;std::unique_ptr&lt;EncodedFrame&gt;, 4&gt;</code></li>
+<li><strong>状态</strong>：<code>LastContinuousFrameId()</code>、<code>LastContinuousTemporalUnitFrameId()</code>、<code>DecodableTemporalUnitsInfo()</code>、<code>NewContinuousTemporalUnits()</code></li>
+<li><strong>计数</strong>：<code>CurrentSize()</code>、<code>GetTotalNumberOfContinuousTemporalUnits()</code>、<code>GetTotalNumberOfDroppedFrames()</code></li>
+</ul>
+<p>关键数据结构：</p>
+<ul>
+<li><code>FrameInfo { std::unique_ptr&lt;EncodedFrame&gt; encoded_frame; bool continuous = false; }</code></li>
+<li><code>FrameMap = std::map&lt;int64_t, FrameInfo&gt;</code>：按 frame ID 排序</li>
+<li><code>TemporalUnit { FrameIterator first_frame; FrameIterator last_frame; }</code></li>
+<li><code>DecodabilityInfo { uint32_t next_rtp_timestamp; uint32_t last_rtp_timestamp; }</code></li>
+<li><code>DecodedFramesHistory</code>：已解码帧的历史窗口</li>
+</ul>
+<h2 id="_4">容量与参数<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="c1">// api/video/frame_buffer.h:43</span>
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="n">FrameBuffer</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">max_size</span><span class="p">,</span>
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="w">            </span><span class="kt">int</span><span class="w"> </span><span class="n">max_decode_history</span><span class="p">,</span>
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="w">            </span><span class="k">const</span><span class="w"> </span><span class="n">FieldTrialsView</span><span class="o">&amp;</span><span class="w"> </span><span class="n">field_trials</span><span class="p">);</span>
+</code></pre></div>
+<p>controller 创建时传的默认值（<code>video/video_stream_buffer_controller.cc:46-48</code>）：</p>
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th>值</th>
+<th>含义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>kMaxFramesBuffered</code></td>
+<td><strong>800</strong></td>
+<td>最多缓存的帧数</td>
+</tr>
+<tr>
+<td><code>kMaxFramesHistory</code></td>
+<td><strong>8192</strong>（<code>1 &lt;&lt; 13</code>）</td>
+<td>解码历史窗口</td>
+</tr>
+</tbody>
+</table>
+<p>缓冲满时：</p>
+<ul>
+<li>非关键帧 → 丢弃</li>
+<li>关键帧 → <code>Clear()</code> 后插入</li>
+</ul>
+<h2 id="frame-id">Frame ID 从哪来<a class="headerlink" href="#frame-id" title="Permanent link">&para;</a></h2>
+<p>Frame ID 由接收端参考帧查找器赋值，<code>references[]</code> 里存的也是 Frame ID，不是 RTP 时间戳：</p>
+<table>
+<thead>
+<tr>
+<th>codec</th>
+<th>Frame ID 来源</th>
+<th>文件</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>H.264 / 默认</td>
+<td>最后一个 RTP 包的 seq，展开成 64 位</td>
+<td><code>rtp_seq_num_only_ref_finder.cc:122</code></td>
+</tr>
+<tr>
+<td>VP8</td>
+<td><code>pictureId</code> 展开</td>
+<td><code>rtp_vp8_ref_finder.cc:42</code></td>
+</tr>
+<tr>
+<td>VP9</td>
+<td><code>picture_id</code> 展开</td>
+<td><code>rtp_vp9_ref_finder.cc:44</code></td>
+</tr>
+<tr>
+<td>AV1 / DD</td>
+<td>DependencyDescriptor 的 <code>frame_id</code></td>
+<td><code>rtp_generic_ref_finder.cc:46</code></td>
+</tr>
+</tbody>
+</table>
+<p>codec 切换时会加 <code>picture_id_offset_</code> 防止新旧 ID 重叠（<code>rtp_frame_reference_finder.cc:211</code>）。</p>
+<h2 id="_5">调用链<a class="headerlink" href="#_5" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>插入：
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>VideoReceiveStream2::OnCompleteFrame (network)
+<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>  → VideoStreamBufferController::InsertFrame
+<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>    → FrameBuffer::InsertFrame
+<a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a>      → 返回 LastContinuousFrameId
+<a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a>
+<a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a>取帧：
+<a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a>FrameDecodeScheduler 到点
+<a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a>  → VideoStreamBufferController::FrameReadyForDecode   (.cc:287)
+<a id="__codelineno-1-10" name="__codelineno-1-10" href="#__codelineno-1-10"></a>    → buffer_-&gt;DecodableTemporalUnitsInfo()            // 先校验
+<a id="__codelineno-1-11" name="__codelineno-1-11" href="#__codelineno-1-11"></a>    → buffer_-&gt;ExtractNextDecodableTemporalUnit()      (:128)
+<a id="__codelineno-1-12" name="__codelineno-1-12" href="#__codelineno-1-12"></a>      → VideoStreamBufferController::OnFrameReady      (.cc:208)
+<a id="__codelineno-1-13" name="__codelineno-1-13" href="#__codelineno-1-13"></a>        → receiver_-&gt;OnEncodedFrame → VideoStreamDecoder
+<a id="__codelineno-1-14" name="__codelineno-1-14" href="#__codelineno-1-14"></a>
+<a id="__codelineno-1-15" name="__codelineno-1-15" href="#__codelineno-1-15"></a>丢弃：
+<a id="__codelineno-1-16" name="__codelineno-1-16" href="#__codelineno-1-16"></a>VideoStreamBufferController::MaybeScheduleFrameForRelease (.cc:380)
+<a id="__codelineno-1-17" name="__codelineno-1-17" href="#__codelineno-1-17"></a>  → 当前 unit 无法调度
+<a id="__codelineno-1-18" name="__codelineno-1-18" href="#__codelineno-1-18"></a>    → buffer_-&gt;DropNextDecodableTemporalUnit()          (:145)
+</code></pre></div>
+<h3 id="insertframe-apivideoframe_buffercc76">InsertFrame 内部步骤（<code>api/video/frame_buffer.cc:76</code>）<a class="headerlink" href="#insertframe-apivideoframe_buffercc76" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>步骤</th>
+<th>行</th>
+<th>行为</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1. 清空本次新增</td>
+<td><code>:77</code></td>
+<td><code>new_continuous_temporal_units_.clear()</code>，每次插入重置</td>
+</tr>
+<tr>
+<td>2. 校验参考</td>
+<td><code>:78</code></td>
+<td><code>ValidReferences</code>：参考必须更早、不能重复；失败丢帧</td>
+</tr>
+<tr>
+<td>3. 旧帧判断</td>
+<td><code>:84</code></td>
+<td>ID ≤ 最后解码 ID：普通旧帧丢弃；<strong>关键帧且时间戳更新则 <code>Clear()</code></strong></td>
+</tr>
+<tr>
+<td>4. 缓冲满</td>
+<td><code>:98</code></td>
+<td>关键帧 <code>Clear()</code> 后插入；非关键帧丢弃</td>
+</tr>
+<tr>
+<td>5. 按 ID 插入</td>
+<td><code>:111</code></td>
+<td><code>map::emplace</code>，重复 ID 失败</td>
+</tr>
+<tr>
+<td>6. 传播连续性</td>
+<td><code>:122</code></td>
+<td><code>PropagateContinuity</code>：标记连续帧、更新 <code>last_continuous_*</code></td>
+</tr>
+<tr>
+<td>7. 重算可解码单元</td>
+<td><code>:123</code></td>
+<td><code>FindNextAndLastDecodableTemporalUnit</code>：按时间戳分组，找第一个可解码 unit</td>
+</tr>
+<tr>
+<td>8. 返回</td>
+<td><code>:124</code></td>
+<td><code>true</code>=已插入；<code>false</code>=丢弃</td>
+</tr>
+</tbody>
+</table>
+<p>分支汇总：</p>
+<table>
+<thead>
+<tr>
+<th>场景</th>
+<th>结果</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>参考非法（前向/重复）</td>
+<td>丢弃，<code>false</code></td>
+</tr>
+<tr>
+<td>重复 frame ID</td>
+<td>丢弃，<code>false</code></td>
+</tr>
+<tr>
+<td>旧帧（ID ≤ 最后解码）</td>
+<td>丢弃，<code>false</code></td>
+</tr>
+<tr>
+<td>关键帧 ID 旧但时间戳新</td>
+<td><code>Clear()</code> + 插入，<code>true</code></td>
+</tr>
+<tr>
+<td>缓冲满 + 非关键帧</td>
+<td>丢弃，<code>false</code></td>
+</tr>
+<tr>
+<td>缓冲满 + 关键帧</td>
+<td><code>Clear()</code> + 插入，<code>true</code></td>
+</tr>
+<tr>
+<td>正常帧</td>
+<td>插入 + 更新连续性，<code>true</code></td>
+</tr>
+</tbody>
+</table>
+<p>两个容易混的概念：</p>
+<ul>
+<li><strong>连续（continuous）</strong>：单帧的所有参考要么已解码，要么在缓冲里且连续。</li>
+<li><strong>可解码 unit（decodable）</strong>：整个 temporal unit 的参考都能满足（已解码或 unit 内）。</li>
+</ul>
+<p>两个 <code>last_continuous_*</code>：</p>
+<table>
+<thead>
+<tr>
+<th>字段</th>
+<th>含义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>last_continuous_frame_id_</code></td>
+<td>连续<strong>帧</strong>的最大 ID</td>
+</tr>
+<tr>
+<td><code>last_continuous_temporal_unit_frame_id_</code></td>
+<td>连续 <strong>unit</strong> 的最后一帧 ID，<code>FindNext...</code> 用它做扫描边界</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>关键帧能清空满缓冲，是因为它不参考任何帧，是新的依赖根；旧帧对新流没有价值，清掉才能避免死锁。</p>
+</blockquote>
+<h2 id="_6">关键日志<a class="headerlink" href="#_6" title="Permanent link">&para;</a></h2>
+<p>FrameBuffer 没有常规 <code>RTC_LOG</code>，只有 4 条 <code>RTC_DLOG(LS_WARNING)</code>，<strong>仅在 Debug 构建且触发异常路径时输出</strong>：</p>
+<table>
+<thead>
+<tr>
+<th>日志</th>
+<th>位置</th>
+<th>触发条件</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>Frame X has invalid references, dropping frame.</code></td>
+<td><code>frame_buffer.cc:79</code></td>
+<td>参考关系非法（重复引用/前向引用），丢帧</td>
+</tr>
+<tr>
+<td><code>Keyframe X has newer timestamp but older picture id, clearing buffer.</code></td>
+<td><code>:88</code></td>
+<td>关键帧时间戳更新但 picture id 更旧，清空缓冲</td>
+</tr>
+<tr>
+<td><code>Keyframe X inserted into full buffer, clearing buffer.</code></td>
+<td><code>:100</code></td>
+<td>缓冲满时收到关键帧，清空重来</td>
+</tr>
+<tr>
+<td><code>Frame X inserted, buffer is now full.</code></td>
+<td><code>:118</code></td>
+<td>缓冲达到上限</td>
+</tr>
+</tbody>
+</table>
+<p>正常路径没有日志，排查主要靠断点和统计：</p>
+<ul>
+<li><code>FrameBuffer::InsertFrame</code>（<code>:76</code>）</li>
+<li><code>ExtractNextDecodableTemporalUnit</code>（<code>:128</code>）</li>
+<li><code>LastContinuousFrameId</code>（<code>:159</code>）</li>
+<li><code>getStats</code> 里的 jitter buffer 指标（<code>jitterBufferDelay</code>、<code>jitterBufferEmittedCount</code>）</li>
+</ul>
+<h2 id="_7">线程与生命周期<a class="headerlink" href="#_7" title="Permanent link">&para;</a></h2>
+<ul>
+<li><strong>跑在哪个线程</strong>：network 线程。<code>Call::CreateVideoReceiveStream</code> 在 network 线程（<code>call/call.cc:925</code>），创建 <code>VideoReceiveStream2</code> 时把 <code>call-&gt;network_thread()</code> 传给 controller（<code>video/video_receive_stream2.cc:199-200</code>）；<code>OnCompleteFrame</code> 也在 network 线程（<code>:909</code>）。成员名 <code>worker_sequence_checker_</code> 是历史命名，不代表 worker 线程。</li>
+<li><strong>谁创建</strong>：<code>Call::CreateVideoReceiveStream</code> → <code>new VideoReceiveStream2</code> → 构造函数 → <code>CreateBuffer()</code> 辅助函数创建 <code>VideoStreamBufferController</code> → controller 构造函数中 <code>std::make_unique&lt;FrameBuffer&gt;</code>（<code>video_stream_buffer_controller.cc:109</code>）。</li>
+<li><strong>谁销毁</strong>：<code>Call::DestroyVideoReceiveStream</code>（<code>call/call.cc:954</code>）→ <code>UnregisterFromTransport()</code> → <code>video_receive_streams_.erase()</code> → <code>delete</code>；FrameBuffer 随 controller 一起销毁。</li>
+<li><strong>重建</strong>：<code>Clear()</code> 会 <code>make_unique&lt;FrameBuffer&gt;</code> 重新开始（<code>video_stream_buffer_controller.cc:148</code>）。</li>
+</ul>
+<h2 id="_8">复杂度与测试<a class="headerlink" href="#_8" title="Permanent link">&para;</a></h2>
+<ul>
+<li>插入：<code>map::emplace</code>，<code>O(log n)</code></li>
+<li>连续性传播 / 找可解码 unit：从插入点向后扫描，<code>O(n)</code></li>
+<li>单次最多处理 <code>n ≤ 800</code> 帧，实际开销可控</li>
+<li>已解码查询：<code>DecodedFramesHistory::WasDecoded</code>，<code>O(1)</code></li>
+</ul>
+<h3 id="_9">单测解析（测试即规格）<a class="headerlink" href="#_9" title="Permanent link">&para;</a></h3>
+<p>文件：<code>api/video/frame_buffer_unittest.cc</code>，suite 名 <code>FrameBuffer3Test</code>。</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>autoninja<span class="w"> </span>-C<span class="w"> </span>out/Debug<span class="w"> </span>frame_buffer_unittest
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>./out/Debug/frame_buffer_unittest<span class="w"> </span>--gtest_filter<span class="o">=</span><span class="s1">'FrameBuffer3Test.*'</span>
+</code></pre></div>
+<p><strong>测试脚手架</strong></p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="n">test</span><span class="o">::</span><span class="n">FakeFrameBuilder</span><span class="p">().</span><span class="n">Time</span><span class="p">(</span><span class="mi">10</span><span class="p">).</span><span class="n">Id</span><span class="p">(</span><span class="mi">1</span><span class="p">).</span><span class="n">Refs</span><span class="p">({...}).</span><span class="n">AsLast</span><span class="p">().</span><span class="n">Build</span><span class="p">()</span>
+</code></pre></div>
+<table>
+<thead>
+<tr>
+<th>方法</th>
+<th>含义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>Time(ts)</code></td>
+<td>RTP 时间戳，<strong>相同 Time = 同一个 temporal unit</strong></td>
+</tr>
+<tr>
+<td><code>Id(id)</code></td>
+<td>Frame ID</td>
+</tr>
+<tr>
+<td><code>Refs({...})</code></td>
+<td>参考帧 ID；不写 = 关键帧</td>
+</tr>
+<tr>
+<td><code>AsLast()</code></td>
+<td><code>is_last_spatial_layer = true</code>，<strong>关闭当前 unit</strong></td>
+</tr>
+<tr>
+<td><code>Build()</code></td>
+<td>生成 <code>FakeEncodedFrame</code></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>不加 <code>AsLast()</code>，unit 就不完整，即使帧已经连续——这模拟 SVC 的基层/增强层。</p>
+</blockquote>
+<p><strong>核心用例</strong></p>
+<table>
+<thead>
+<tr>
+<th>用例</th>
+<th>场景</th>
+<th>保护的不变量</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>RejectInvalidRefs</code></td>
+<td>Id0 refs{0}→false；Id1→true；Id2 refs{1,1}→false</td>
+<td>参考必须更早、不能重复；非法帧不改状态</td>
+</tr>
+<tr>
+<td><code>LastContinuousUpdatesOnInsertedFrames</code></td>
+<td>Id1 Time10 非 last；Id2 Time10 refs{1} AsLast</td>
+<td>帧连续 ≠ unit 连续；<code>AsLast</code> 才关闭 unit</td>
+</tr>
+<tr>
+<td><code>LastContinuousFrameReordering</code></td>
+<td>Id3 refs{2} 先到不连续；Id2 到达后 1→3</td>
+<td>乱序补齐后向前传播</td>
+</tr>
+<tr>
+<td><code>LastContinuousTemporalUnitReordering</code></td>
+<td>缺 Id2 卡住 unit20；补 Id2 后完成 unit10/20</td>
+<td>跨 unit 级联解锁</td>
+</tr>
+<tr>
+<td><code>NextDecodable</code></td>
+<td>初始 nullopt；Id1 AsLast → next=10</td>
+<td>关键帧单独可解码</td>
+</tr>
+<tr>
+<td><code>AdvanceNextDecodableOnExtraction</code></td>
+<td>1/2/3(ref2)，逐次 Extract</td>
+<td>提取标记 decoded，解锁依赖帧</td>
+</tr>
+<tr>
+<td><code>AdvanceLastDecodableOnExtraction</code></td>
+<td>2、3 都 ref{1}；提取 1 后 last 10→30</td>
+<td><code>last_rtp_timestamp</code> 是最后可解码 unit，可跳变</td>
+</tr>
+<tr>
+<td><code>KeyframeClearsFullBuffer</code></td>
+<td>max=5 满；Id6 非关键帧 false；Id7 关键帧 Clear</td>
+<td>满缓冲靠关键帧重置</td>
+</tr>
+<tr>
+<td><code>OldFramesAreIgnored</code></td>
+<td>提取 1/2 后重插 false；Id3 ref{1} true</td>
+<td>旧帧拒绝，新帧可引用已解码帧</td>
+</tr>
+<tr>
+<td><code>ReturnFullTemporalUnitKSVC</code></td>
+<td>Time10 三帧，Extract 返回 [1,2,3]</td>
+<td>整组提取、按 ID 顺序</td>
+</tr>
+</tbody>
+</table>
+<p><strong>其余用例</strong></p>
+<table>
+<thead>
+<tr>
+<th>用例</th>
+<th>保护点</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>LastContinuousTemporalUnit</code></td>
+<td>两帧同 Time，第二帧 AsLast 才关闭 unit</td>
+</tr>
+<tr>
+<td><code>FrameUpdatesNextDecodable</code></td>
+<td>先插 Id2、后插 Id1，next 回退到 10</td>
+</tr>
+<tr>
+<td><code>DropNextDecodableTemporalUnit</code></td>
+<td>提取 1 后 Drop unit2，3 仍可解</td>
+</tr>
+<tr>
+<td><code>InterleavedStream</code></td>
+<td>交错依赖按序提取；旧帧 6 被拒</td>
+</tr>
+<tr>
+<td><code>LegacyFrameIdJumpBehavior</code></td>
+<td>Id3 先到、Id2 旧帧、Id1 关键帧：旧非关键帧丢弃，关键帧时间戳新则清空</td>
+</tr>
+<tr>
+<td><code>TotalNumberOfContinuousTemporalUnits</code></td>
+<td>补齐 Id3 后计数 1→3，按 unit 累加</td>
+</tr>
+<tr>
+<td><code>TotalNumberOfDroppedFrames</code></td>
+<td>Drop unit20 两帧，只统计 Drop 的帧</td>
+</tr>
+<tr>
+<td><code>NewContinuousTemporalUnits</code></td>
+<td>只报告本次新完成 unit 的时间戳</td>
+</tr>
+<tr>
+<td><code>...WithReordering</code></td>
+<td>补 Id2 后一次报 20/30/40，级联按时间顺序</td>
+</tr>
+<tr>
+<td><code>...ReportsOlderFrames</code></td>
+<td>后完成的 unit 先报，旧 unit 补报</td>
+</tr>
+<tr>
+<td><code>...WithWraparound</code></td>
+<td>0xFFFFFFF0 → 2000，回绕比较正确</td>
+</tr>
+</tbody>
+</table>
+<p><strong>测试 → 代码分支</strong></p>
+<table>
+<thead>
+<tr>
+<th>测试</th>
+<th>覆盖代码</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>RejectInvalidRefs</code></td>
+<td><code>ValidReferences</code>（<code>:31</code>）、<code>InsertFrame:78</code></td>
+</tr>
+<tr>
+<td><code>LastContinuous*</code></td>
+<td><code>PropagateContinuity</code>（<code>:205</code>）、<code>IsContinuous</code>（<code>:187</code>）</td>
+</tr>
+<tr>
+<td><code>NextDecodable*</code></td>
+<td><code>FindNextAndLastDecodableTemporalUnit</code>（<code>:225</code>）、<code>Extract</code>（<code>:128</code>）</td>
+</tr>
+<tr>
+<td><code>KeyframeClearsFullBuffer</code></td>
+<td><code>InsertFrame:98-102</code></td>
+</tr>
+<tr>
+<td><code>OldFramesAreIgnored</code></td>
+<td><code>InsertFrame:84-95</code></td>
+</tr>
+<tr>
+<td><code>ReturnFullTemporalUnitKSVC</code></td>
+<td><code>Extract</code> 的 unit 循环（<code>:128-143</code>）</td>
+</tr>
+<tr>
+<td><code>TotalNumberOf*</code></td>
+<td><code>Drop</code>（<code>:145</code>）、计数器（<code>:176-181</code>）</td>
+</tr>
+<tr>
+<td><code>NewContinuous*</code></td>
+<td><code>PropagateContinuity:213-218</code></td>
+</tr>
+</tbody>
+</table>
+<p><strong>为什么可信</strong></p>
+<ol>
+<li>纯数据结构：无时钟、网络、调度器，输入只有 ID/时间戳/参考，输出确定。</li>
+<li>直接断言内部状态：<code>LastContinuousFrameId</code>、<code>DecodableTemporalUnitsInfo</code>、计数都是契约。</li>
+<li>覆盖边界：乱序、缺帧、满缓冲、旧帧、ID 回退、时间戳回绕。</li>
+<li>测试即规格：读不懂代码时先读测试，能反推字段语义。</li>
+</ol>
+<h2 id="_10">面试可讲点<a class="headerlink" href="#_10" title="Permanent link">&para;</a></h2>
+<ol>
+<li><strong>为什么按 frame ID 排序，而不是 RTP 时间戳</strong>：frame ID 单调递增、反映解码顺序，且每帧只能引用更早的帧；时间戳可能重复（SVC 多层）或乱序。H.264 没有 picture ID，Frame ID 直接用 RTP 序号展开。<strong>排序用 ID，分组用时间戳</strong>。</li>
+<li><strong>连续 vs 可解码</strong>：<code>continuous</code> 只要求参考链上的帧可用（已解码或在缓冲且连续）；<code>decodable unit</code> 要求整个 unit 的参考都已解码或在 unit 内。两者用 <code>last_continuous_frame_id_</code> / <code>last_continuous_temporal_unit_frame_id_</code> 区分。</li>
+<li><strong>数据与控制分离</strong>：FrameBuffer 是纯数据结构（<code>api/</code>，无时钟/调度，线程不安全，易单测）；VideoStreamBufferController 负责收帧、计时、调度、超时。收益是职责单一、可测试；代价是两层要约定线程（都在 network 线程）和 API 契约。</li>
+</ol>
+<h2 id="_11">没搞懂的地方<a class="headerlink" href="#_11" title="Permanent link">&para;</a></h2>
+<ol>
+<li><code>DecodedFramesHistory</code> 的具体淘汰策略和容量边界？</li>
+<li>SVC 多层时 <code>is_last_spatial_layer</code> 由哪一层设置？H.264 下是否恒为 marker？</li>
+<li>codec 切换时 <code>picture_id_offset_</code> 如何影响 FrameBuffer 的连续性判定？</li>
+</ol>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  回到页面顶部
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.sections", "navigation.top", "search.suggest", "search.highlight", "content.code.copy"], "search": "../../assets/javascripts/workers/search.a7633da7.min.js", "tags": null, "translations": {"clipboard.copied": "\u5df2\u590d\u5236", "clipboard.copy": "\u590d\u5236", "search.result.more.one": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.more.other": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 # \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.term.missing": "\u7f3a\u5c11", "select.version": "\u9009\u62e9\u5f53\u524d\u7248\u672c"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.a5f9d56c.min.js"></script>
+      
+        <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+      
+        <script src="../../javascripts/mermaid.js"></script>
+      
+    
+  </body>
+</html>

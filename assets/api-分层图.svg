@@ -1,0 +1,87 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="880" viewBox="0 0 1600 880">
+<defs><marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L0,6 L9,3 z" fill="#6B7280"/></marker></defs>
+<rect width="1600" height="880" fill="#FFFFFF"/>
+<text x="800" y="48" font-family="PingFang SC, Hiragino Sans GB, Microsoft YaHei, Arial, sans-serif" font-size="28" font-weight="bold" fill="#1F2937" text-anchor="middle">WebRTC 分层图 · 应用 → API → 实现</text>
+<text x="800" y="78" font-family="PingFang SC, Hiragino Sans GB, Microsoft YaHei, Arial, sans-serif" font-size="14" font-weight="normal" fill="#6B7280" text-anchor="middle">自上而下是调用/依赖方向；六个 API 接口与实现层一一对应</text>
+<rect x="60" y="110" width="1480" height="90" rx="14" fill="#F2F6FC" stroke="#C9D6EA" stroke-width="1.5"/>
+<text x="85" y="165" font-family="PingFang SC, Hiragino Sans GB, Microsoft YaHei, Arial, sans-serif" font-size="19" font-weight="bold" fill="#1F2937" text-anchor="start">应用层</text>
+<text x="280" y="150" font-family="PingFang SC, Hiragino Sans GB, Microsoft YaHei, Arial, sans-serif" font-size="19" font-weight="bold" fill="#1F2937" text-anchor="start">App / SDK（Android · iOS · Web）</text>
+<text x="280" y="178" font-family="PingFang SC, Hiragino Sans GB, Microsoft YaHei, Arial, sans-serif" font-size="13.5" font-weight="normal" fill="#4B5563" text-anchor="start">房间管理 · 推拉流 · 设备接入 · 录制</text>
+<rect x="60" y="240" width="1480" height="210" rx="14" fill="#E8F4F1" stroke="#9CCFC4" stroke-width="1.5"/>
+<text x="80" y="270" font-family="PingFang SC, Hiragino Sans GB, Microsoft YaHei, Arial, sans-serif" font-size="19" font-weight="bold" fill="#0F5F54" text-anchor="start">API 层（api/）</text>
+<rect x="60" y="490" width="1480" height="210" rx="14" fill="#FFF3E0" stroke="#F0C48A" stroke-width="1.5"/>
+<text x="80" y="520" font-family="PingFang SC, Hiragino Sans GB, Microsoft YaHei, Arial, sans-serif" font-size="19" font-weight="bold" fill="#8A4B08" text-anchor="start">实现层</text>
+<rect x="60" y="740" width="1480" height="95" rx="14" fill="#F3F0FA" stroke="#C9BEE8" stroke-width="1.5"/>
+<text x="80" y="785" font-family="PingFang SC, Hiragino Sans GB, Microsoft YaHei, Arial, sans-serif" font-size="19" font-weight="bold" fill="#4C3A82" text-anchor="start">基础层</text>
+<rect x="60" y="285" width="230" height="140" rx="10" fill="#FFFFFF" stroke="#4A9D8E" stroke-width="1.6"/>
+<text x="175" y="317" font-family="PingFang SC, Hiragino Sans GB, Microsoft YaHei, Arial, sans-serif" font-size="14.5" font-weight="bold" fill="#0F3D36" text-anchor="middle">PeerConnectionInterface</text>
+<text x="175" y="343" font-family="PingFang SC, Hiragino Sans GB, Microsoft YaHei, Arial, sans-serif" font-size="9.5" font-weight="normal" fill="#6B7280" text-anchor="middle">api/peer_connection_interface.h</text>
+<text x="175" y="377" font-family="PingFang SC, Hiragino Sans GB, Microsoft YaHei, Arial, sans-serif" font-size="11.5" font-weight="normal" fill="#374151" text-anchor="middle">会话门面：协商 / 轨道 / 数据</text>
+<rect x="60" y="535" width="230" height="140" rx="10" fill="#FFFFFF" stroke="#D98B2B" stroke-width="1.6"/>
+<text x="175" y="567" font-family="PingFang SC, Hiragino Sans GB, Microsoft YaHei, Arial, sans-serif" font-size="14.5" font-weight="bold" fill="#5A2E00" text-anchor="middle">pc/PeerConnection</text>
+<text x="175" y="593" font-family="PingFang SC, Hiragino Sans GB, Microsoft YaHei, Arial, sans-serif" font-size="9.5" font-weight="normal" fill="#6B7280" text-anchor="middle">pc/peer_connection.cc</text>
+<text x="175" y="627" font-family="PingFang SC, Hiragino Sans GB, Microsoft YaHei, Arial, sans-serif" font-size="11.5" font-weight="normal" fill="#374151" text-anchor="middle">会话编排</text>
+<line x1="175" y1="425" x2="175" y2="531" stroke="#6B7280" stroke-width="2" marker-end="url(#arrow)"/>
+<rect x="310" y="285" width="230" height="140" rx="10" fill="#FFFFFF" stroke="#4A9D8E" stroke-width="1.6"/>
+<text x="425" y="317" font-family="PingFang SC, Hiragino Sans GB, Microsoft YaHei, Arial, sans-serif" font-size="13.5" font-weight="bold" fill="#0F3D36" text-anchor="middle">VideoFrame / VideoFrameBuffer</text>
+<text x="425" y="343" font-family="PingFang SC, Hiragino Sans GB, Microsoft YaHei, Arial, sans-serif" font-size="9.5" font-weight="normal" fill="#6B7280" text-anchor="middle">api/video/video_frame*.h</text>
+<text x="425" y="377" font-family="PingFang SC, Hiragino Sans GB, Microsoft YaHei, Arial, sans-serif" font-size="11.5" font-weight="normal" fill="#374151" text-anchor="middle">帧数据与内存布局</text>
+<rect x="310" y="535" width="230" height="140" rx="10" fill="#FFFFFF" stroke="#D98B2B" stroke-width="1.6"/>
+<text x="425" y="567" font-family="PingFang SC, Hiragino Sans GB, Microsoft YaHei, Arial, sans-serif" font-size="14.5" font-weight="bold" fill="#5A2E00" text-anchor="middle">video/VideoReceiveStream2</text>
+<text x="425" y="593" font-family="PingFang SC, Hiragino Sans GB, Microsoft YaHei, Arial, sans-serif" font-size="9.5" font-weight="normal" fill="#6B7280" text-anchor="middle">video/video_receive_stream2.cc</text>
+<text x="425" y="627" font-family="PingFang SC, Hiragino Sans GB, Microsoft YaHei, Arial, sans-serif" font-size="11.5" font-weight="normal" fill="#374151" text-anchor="middle">接收流 / 解码调度</text>
+<line x1="425" y1="425" x2="425" y2="531" stroke="#6B7280" stroke-width="2" marker-end="url(#arrow)"/>
+<rect x="560" y="285" width="230" height="140" rx="10" fill="#FFFFFF" stroke="#4A9D8E" stroke-width="1.6"/>
+<text x="675" y="317" font-family="PingFang SC, Hiragino Sans GB, Microsoft YaHei, Arial, sans-serif" font-size="14.5" font-weight="bold" fill="#0F3D36" text-anchor="middle">VideoEncoder / VideoDecoder</text>
+<text x="675" y="343" font-family="PingFang SC, Hiragino Sans GB, Microsoft YaHei, Arial, sans-serif" font-size="9.5" font-weight="normal" fill="#6B7280" text-anchor="middle">api/video_codecs/*.h</text>
+<text x="675" y="377" font-family="PingFang SC, Hiragino Sans GB, Microsoft YaHei, Arial, sans-serif" font-size="11.5" font-weight="normal" fill="#374151" text-anchor="middle">编解码抽象 + 回调</text>
+<rect x="560" y="535" width="230" height="140" rx="10" fill="#FFFFFF" stroke="#D98B2B" stroke-width="1.6"/>
+<text x="675" y="567" font-family="PingFang SC, Hiragino Sans GB, Microsoft YaHei, Arial, sans-serif" font-size="14.5" font-weight="bold" fill="#5A2E00" text-anchor="middle">modules/video_coding</text>
+<text x="675" y="593" font-family="PingFang SC, Hiragino Sans GB, Microsoft YaHei, Arial, sans-serif" font-size="9.5" font-weight="normal" fill="#6B7280" text-anchor="middle">modules/video_coding/</text>
+<text x="675" y="627" font-family="PingFang SC, Hiragino Sans GB, Microsoft YaHei, Arial, sans-serif" font-size="11.5" font-weight="normal" fill="#374151" text-anchor="middle">编解码器、帧缓冲、SVC</text>
+<line x1="675" y1="425" x2="675" y2="531" stroke="#6B7280" stroke-width="2" marker-end="url(#arrow)"/>
+<rect x="810" y="285" width="230" height="140" rx="10" fill="#FFFFFF" stroke="#4A9D8E" stroke-width="1.6"/>
+<text x="925" y="317" font-family="PingFang SC, Hiragino Sans GB, Microsoft YaHei, Arial, sans-serif" font-size="14.5" font-weight="bold" fill="#0F3D36" text-anchor="middle">FrameBuffer</text>
+<text x="925" y="343" font-family="PingFang SC, Hiragino Sans GB, Microsoft YaHei, Arial, sans-serif" font-size="9.5" font-weight="normal" fill="#6B7280" text-anchor="middle">api/video/frame_buffer.h</text>
+<text x="925" y="377" font-family="PingFang SC, Hiragino Sans GB, Microsoft YaHei, Arial, sans-serif" font-size="11.5" font-weight="normal" fill="#374151" text-anchor="middle">排序 / 连续性 / 可解码</text>
+<rect x="810" y="535" width="230" height="140" rx="10" fill="#FFFFFF" stroke="#D98B2B" stroke-width="1.6"/>
+<text x="925" y="567" font-family="PingFang SC, Hiragino Sans GB, Microsoft YaHei, Arial, sans-serif" font-size="12.5" font-weight="bold" fill="#5A2E00" text-anchor="middle">video/VideoStreamBufferController</text>
+<text x="925" y="593" font-family="PingFang SC, Hiragino Sans GB, Microsoft YaHei, Arial, sans-serif" font-size="9.5" font-weight="normal" fill="#6B7280" text-anchor="middle">video/video_stream_buffer_controller.cc</text>
+<text x="925" y="627" font-family="PingFang SC, Hiragino Sans GB, Microsoft YaHei, Arial, sans-serif" font-size="11.5" font-weight="normal" fill="#374151" text-anchor="middle">收帧 / 计时 / 调度</text>
+<line x1="925" y1="425" x2="925" y2="531" stroke="#6B7280" stroke-width="2" marker-end="url(#arrow)"/>
+<rect x="1060" y="285" width="230" height="140" rx="10" fill="#FFFFFF" stroke="#4A9D8E" stroke-width="1.6"/>
+<text x="1175" y="317" font-family="PingFang SC, Hiragino Sans GB, Microsoft YaHei, Arial, sans-serif" font-size="14.5" font-weight="bold" fill="#0F3D36" text-anchor="middle">NetworkControllerInterface</text>
+<text x="1175" y="343" font-family="PingFang SC, Hiragino Sans GB, Microsoft YaHei, Arial, sans-serif" font-size="9.5" font-weight="normal" fill="#6B7280" text-anchor="middle">api/transport/network_control.h</text>
+<text x="1175" y="377" font-family="PingFang SC, Hiragino Sans GB, Microsoft YaHei, Arial, sans-serif" font-size="11.5" font-weight="normal" fill="#374151" text-anchor="middle">反馈 → 目标码率</text>
+<rect x="1060" y="535" width="230" height="140" rx="10" fill="#FFFFFF" stroke="#D98B2B" stroke-width="1.6"/>
+<text x="1175" y="567" font-family="PingFang SC, Hiragino Sans GB, Microsoft YaHei, Arial, sans-serif" font-size="12.5" font-weight="bold" fill="#5A2E00" text-anchor="middle">modules/congestion_controller</text>
+<text x="1175" y="593" font-family="PingFang SC, Hiragino Sans GB, Microsoft YaHei, Arial, sans-serif" font-size="9.5" font-weight="normal" fill="#6B7280" text-anchor="middle">modules/congestion_controller/goog_cc/</text>
+<text x="1175" y="627" font-family="PingFang SC, Hiragino Sans GB, Microsoft YaHei, Arial, sans-serif" font-size="11.5" font-weight="normal" fill="#374151" text-anchor="middle">GCC / BWE</text>
+<line x1="1175" y1="425" x2="1175" y2="531" stroke="#6B7280" stroke-width="2" marker-end="url(#arrow)"/>
+<rect x="1310" y="285" width="230" height="140" rx="10" fill="#FFFFFF" stroke="#4A9D8E" stroke-width="1.6"/>
+<text x="1425" y="317" font-family="PingFang SC, Hiragino Sans GB, Microsoft YaHei, Arial, sans-serif" font-size="14.5" font-weight="bold" fill="#0F3D36" text-anchor="middle">AudioProcessing</text>
+<text x="1425" y="343" font-family="PingFang SC, Hiragino Sans GB, Microsoft YaHei, Arial, sans-serif" font-size="9.5" font-weight="normal" fill="#6B7280" text-anchor="middle">api/audio/audio_processing.h</text>
+<text x="1425" y="377" font-family="PingFang SC, Hiragino Sans GB, Microsoft YaHei, Arial, sans-serif" font-size="11.5" font-weight="normal" fill="#374151" text-anchor="middle">3A：AEC / NS / AGC</text>
+<rect x="1310" y="535" width="230" height="140" rx="10" fill="#FFFFFF" stroke="#D98B2B" stroke-width="1.6"/>
+<text x="1425" y="567" font-family="PingFang SC, Hiragino Sans GB, Microsoft YaHei, Arial, sans-serif" font-size="14.5" font-weight="bold" fill="#5A2E00" text-anchor="middle">modules/audio_processing</text>
+<text x="1425" y="593" font-family="PingFang SC, Hiragino Sans GB, Microsoft YaHei, Arial, sans-serif" font-size="9.5" font-weight="normal" fill="#6B7280" text-anchor="middle">modules/audio_processing/</text>
+<text x="1425" y="627" font-family="PingFang SC, Hiragino Sans GB, Microsoft YaHei, Arial, sans-serif" font-size="11.5" font-weight="normal" fill="#374151" text-anchor="middle">AEC3 / NS / AGC</text>
+<line x1="1425" y1="425" x2="1425" y2="531" stroke="#6B7280" stroke-width="2" marker-end="url(#arrow)"/>
+<line x1="800" y1="202" x2="800" y2="238" stroke="#6B7280" stroke-width="2" marker-end="url(#arrow)"/>
+<text x="815" y="225" font-family="PingFang SC, Hiragino Sans GB, Microsoft YaHei, Arial, sans-serif" font-size="12" font-weight="normal" fill="#6B7280" text-anchor="start">调用</text>
+<line x1="800" y1="702" x2="800" y2="738" stroke="#6B7280" stroke-width="2" marker-end="url(#arrow)"/>
+<text x="815" y="725" font-family="PingFang SC, Hiragino Sans GB, Microsoft YaHei, Arial, sans-serif" font-size="12" font-weight="normal" fill="#6B7280" text-anchor="start">依赖</text>
+<rect x="300" y="760" width="165" height="44" rx="8" fill="#FFFFFF" stroke="#B9A9E0" stroke-width="1.2"/>
+<text x="382" y="788" font-family="PingFang SC, Hiragino Sans GB, Microsoft YaHei, Arial, sans-serif" font-size="14" font-weight="bold" fill="#4C3A82" text-anchor="middle">call/</text>
+<rect x="495" y="760" width="165" height="44" rx="8" fill="#FFFFFF" stroke="#B9A9E0" stroke-width="1.2"/>
+<text x="577" y="788" font-family="PingFang SC, Hiragino Sans GB, Microsoft YaHei, Arial, sans-serif" font-size="14" font-weight="bold" fill="#4C3A82" text-anchor="middle">rtp_rtcp</text>
+<rect x="690" y="760" width="165" height="44" rx="8" fill="#FFFFFF" stroke="#B9A9E0" stroke-width="1.2"/>
+<text x="772" y="788" font-family="PingFang SC, Hiragino Sans GB, Microsoft YaHei, Arial, sans-serif" font-size="14" font-weight="bold" fill="#4C3A82" text-anchor="middle">pacing</text>
+<rect x="885" y="760" width="165" height="44" rx="8" fill="#FFFFFF" stroke="#B9A9E0" stroke-width="1.2"/>
+<text x="967" y="788" font-family="PingFang SC, Hiragino Sans GB, Microsoft YaHei, Arial, sans-serif" font-size="14" font-weight="bold" fill="#4C3A82" text-anchor="middle">p2p/</text>
+<rect x="1080" y="760" width="165" height="44" rx="8" fill="#FFFFFF" stroke="#B9A9E0" stroke-width="1.2"/>
+<text x="1162" y="788" font-family="PingFang SC, Hiragino Sans GB, Microsoft YaHei, Arial, sans-serif" font-size="14" font-weight="bold" fill="#4C3A82" text-anchor="middle">rtc_base/</text>
+<rect x="1275" y="760" width="165" height="44" rx="8" fill="#FFFFFF" stroke="#B9A9E0" stroke-width="1.2"/>
+<text x="1357" y="788" font-family="PingFang SC, Hiragino Sans GB, Microsoft YaHei, Arial, sans-serif" font-size="14" font-weight="bold" fill="#4C3A82" text-anchor="middle">media/engine</text>
+<text x="800" y="858" font-family="PingFang SC, Hiragino Sans GB, Microsoft YaHei, Arial, sans-serif" font-size="11.5" font-weight="normal" fill="#6B7280" text-anchor="middle">实线箭头 = 调用 / 接口实现 / 依赖；FrameBuffer 由 VideoStreamBufferController 持有，VideoReceiveStream2 由 Call 创建</text>
+</svg>
