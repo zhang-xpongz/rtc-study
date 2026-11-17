@@ -1,0 +1,96 @@
+site_name: RTC 学习笔记
+site_description: WebRTC / 音视频 / RTC 专项复习与长期学习
+site_url: https://zhang-xpongz.github.io/rtc-study/
+repo_url: https://github.com/zhang-xpongz/rtc-study
+repo_name: zhang-xpongz/rtc-study
+edit_uri: edit/main/docs/
+
+theme:
+  name: material
+  language: zh
+  features:
+    - navigation.sections
+    - navigation.top
+    - search.suggest
+    - search.highlight
+    - content.code.copy
+  palette:
+    - scheme: default
+      primary: indigo
+      accent: indigo
+      toggle:
+        icon: material/brightness-7
+        name: 切换到深色
+    - scheme: slate
+      primary: indigo
+      accent: indigo
+      toggle:
+        icon: material/brightness-4
+        name: 切换到浅色
+
+plugins:
+  - search:
+      lang:
+        - zh
+        - en
+
+markdown_extensions:
+  - admonition
+  - attr_list
+  - tables
+  - md_in_html
+  - toc:
+      permalink: true
+  - pymdownx.details
+  - pymdownx.superfences:
+      custom_fences:
+        - name: mermaid
+          class: mermaid
+          format: !!python/name:pymdownx.superfences.fence_code_format
+  - pymdownx.tabbed:
+      alternate_style: true
+  - pymdownx.highlight:
+      anchor_linenums: true
+
+extra_javascript:
+  - https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js
+  - javascripts/mermaid.js
+
+nav:
+  - 首页: index.md
+  - 复习计划:
+      - 3 周冲刺: plan/复习计划-3周冲刺.md
+      - 逐日清单: plan/复习资料包-逐日清单.md
+      - 21 天打卡: plan/打卡表-21天-复习+源码+实跑.md
+      - 专注清单: plan/专注清单-21天任务.md
+  - 每日记录:
+      - 索引: daily/index.md
+      - 2026-11-13: daily/2026-11/2026-11-13.md
+      - 2026-11-17: daily/2026-11/2026-11-17.md
+  - 源码走读:
+      - 走读地图: source/WebRTC源码走读地图.md
+      - 如何走读: source/如何走读WebRTC代码.md
+      - PeerConnection 示例: source/源码走读模板与示例-PeerConnection.md
+      - FrameBuffer 卡片: source/FrameBuffer.md
+      - 单测运行逻辑: source/单元测试运行逻辑-PeerConnectionEndToEndTest.md
+  - 基础:
+      - D1 复习包: fundamentals/D1-复习包-音视频基础与习题.md
+      - 心理声学: fundamentals/补充-心理声学.md
+      - Opus 与 AAC: fundamentals/补充-Opus与AAC对比.md
+      - MP4/TS/FLV: fundamentals/补充-MP4-TS-FLV封装格式.md
+  - 系统:
+      - 编译运行: systems/WebRTC编译运行指南.md
+      - 调试: systems/WebRTC调试指南.md
+      - SRS: systems/SRS-RTMP转RTP机制.md
+      - mediasoup: systems/mediasoup-房间成员角色模型.md
+  - 算法:
+      - 209 长度最小的子数组: algorithms/209-长度最小的子数组.md
+      - 56 合并区间: algorithms/56-合并区间.md
+  - 附件:
+      - api 分层图: assets/api-分层图.md
+  - 模板:
+      - 每日记录: tpl/每日记录.md
+      - 源码卡片: tpl/源码卡片.md
+      - 错题卡: tpl/错题卡.md
+      - 面试题卡: tpl/面试题卡.md
+  - 写作约定: 写作约定.md
