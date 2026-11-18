@@ -67,17 +67,21 @@ nav:
       - 索引: daily/index.md
       - 2026-11-13: daily/2026-11/2026-11-13.md
       - 2026-11-17: daily/2026-11/2026-11-17.md
+      - 2026-11-18: daily/2026-11/2026-11-18.md
   - 源码走读:
       - 走读地图: source/WebRTC源码走读地图.md
       - 如何走读: source/如何走读WebRTC代码.md
       - PeerConnection 示例: source/源码走读模板与示例-PeerConnection.md
       - FrameBuffer 卡片: source/FrameBuffer.md
       - 单测运行逻辑: source/单元测试运行逻辑-PeerConnectionEndToEndTest.md
+      - GCC 控制环: source/GCC控制环.md
   - 基础:
       - D1 复习包: fundamentals/D1-复习包-音视频基础与习题.md
       - 心理声学: fundamentals/补充-心理声学.md
       - Opus 与 AAC: fundamentals/补充-Opus与AAC对比.md
       - MP4/TS/FLV: fundamentals/补充-MP4-TS-FLV封装格式.md
+  - 专题:
+      - GCC / TWCC / 弱网: topics/GCC-TWCC-弱网.md
   - 系统:
       - 编译运行: systems/WebRTC编译运行指南.md
       - 调试: systems/WebRTC调试指南.md
