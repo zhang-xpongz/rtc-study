@@ -98,13 +98,13 @@ TWCC 给每个发送的包加一个**传输层序列号**（transport-wide seque
 
 `TransportFeedbackAdapter::ProcessTransportFeedback`：
 
-1. 用传输层序号找回发送历史（`send_time`、`size`、` pacing_info`）。
+1. 用传输层序号找回发送历史（`send_time`、`size`、`pacing_info`）。
 2. 把「到达时间增量」还原成绝对接收时间。
-3. 生成 `TransportPacketsFeedback`，里面每个 `PacketResult` 有：
+3. 生成 `TransportPacketsFeedback`：
    - `sent_packet.send_time`
    - `sent_packet.size`
-   - `receive_time`（丢失则为无穷）
-   - `data_in_flight`
+   - `receive_time`（丢失为 `+∞`）
+   - `data_in_flight` 是 `TransportPacketsFeedback` 的字段，不在 `PacketResult` 里
 
 ### 3.4 为什么把计算放在发送端
 
@@ -113,7 +113,7 @@ TWCC 给每个发送的包加一个**传输层序列号**（transport-wide seque
 | 接收端不知道发送时间 | 只有发送端有 `send_time`、pacing、probe 信息 |
 | 可以跨流统一 | transport-wide 序号覆盖所有 SSRC |
 | 发送端有全局上下文 | 编码器目标、pacer 队列、probe 结果都在发送端 |
-| 反馈更紧凑 | 只传序号和到达时间增量，不传完整统计 |
+| 反馈更紧凑 | 主要传序号、状态和到达时间增量，不传完整统计 |
 
 > 这也是「send-side BWE」和旧「receive-side REMB」的核心区别。
 
@@ -137,7 +137,7 @@ one_way_delay = t_i - T_i
 delay_variation(i) = (t_i - t_0) - (T_i - T_0)
 ```
 
-如果链路空闲，`delay_variation` 接近常数；如果队列在增长，`delay_variation` 会持续上升。
+忽略时钟漂移时，链路空闲的 `delay_variation` 接近常数；如果队列在增长，`delay_variation` 会持续上升。
 
 ### 4.2 inter-arrival delta
 
@@ -153,9 +153,9 @@ delay_variation(i) = (t_i - t_0) - (T_i - T_0)
 
 `TrendlineEstimator` 对「累积延迟 vs 时间」做线性回归，得到斜率 `trend`。
 
-- 斜率为正且大：延迟在持续上升 → overuse
-- 斜率为负且大：延迟在下降 → underuse
-- 接近 0：normal
+- trendline 输出斜率 `trend`
+- 实际判定不是直接看 `trend` 正负，而是算 `modified_trend` 后与自适应阈值比较
+- 正得足够大且持续 → overuse；负得足够大 → underuse；否则 normal
 
 为什么不看单次延迟：
 
@@ -169,7 +169,7 @@ delay_variation(i) = (t_i - t_0) - (T_i - T_0)
 modified_trend = min(num_deltas, kMinNumDeltas) * trend * threshold_gain
 ```
 
-- `modified_trend > threshold` 且持续超过 `10ms`，且 `trend` 没有下降 → `kBwOverusing`
+- `modified_trend > threshold` 且持续超过 `10ms`、`overuse_counter_ > 1`，且 `trend` 没有下降 → `kBwOverusing`
 - `modified_trend < -threshold` → `kBwUnderusing`
 - 否则 → `kBwNormal`
 
@@ -215,6 +215,8 @@ if new > 5kbps: new -= 5kbps
 - `receiver_limit_`：接收端估计（REMB）
 - `min/max_bitrate_configured_`
 
+> 下面描述的是**经典丢包控制器**逻辑；如果启用了 `LossBasedBandwidthEstimatorV2`，会走 V2 的估计结果。
+
 ### 5.1 三个区间
 
 | 丢包率 | 行为 |
@@ -222,6 +224,8 @@ if new > 5kbps: new -= 5kbps
 | `< 2%` | 增加：`min_bitrate_history × 1.08 + 1kbps` |
 | `2% – 10%` | 保持 |
 | `> 10%` | 下降：`target × (1 - 0.5 × loss)` |
+
+> 两个「8%」不是同一个机制：AIMD 的 8%/s 是延迟控制器的乘性增加；这里的 8% 是低丢包时对 `min_bitrate_history` 的每轮增加。
 
 ### 5.2 RTT backoff
 
@@ -241,7 +245,7 @@ target = min(
 代码里：
 
 - `UpdateDelayBasedEstimate()` 把延迟估计写成 `delay_based_limit_`
-- `GetUpperLimit()` 取 `delay_based_limit_`、`receiver_limit_`、`max_bitrate_configured_` 的最小值
+- `GetUpperLimit()` 取 `delay_based_limit_`、`receiver_limit_`（启用接收端限制时）、`max_bitrate_configured_` 的最小值
 - `UpdateTargetBitrate()` 把 loss-based 结果 clamp 到上限
 
 所以：
@@ -261,7 +265,7 @@ target = min(
 - 码率骤降（≤0.66）后 5s 内恢复，按原码率 0.85 探测
 - ALR 结束（应用重新开始发满）
 - 周期性 ALR 探测
-- 网络路由变化 / 最大分配码率变化 / 网络状态估计变高
+- 路由/最大分配码率变化 / 网络状态估计高于当前估计
 
 做法：
 
@@ -297,7 +301,7 @@ Pacer 把编码器输出的突发包按时间均匀发出：
 
 | 现象 | 发送端反应 | 接收端/媒体反应 |
 |---|---|---|
-| 丢包 | 丢包控制器降码率；NACK/FEC 补偿 | 花屏、卡顿；PLC/隐藏 |
+| 丢包 | 丢包控制器降码率；发送端重传、加 FEC | 接收端发 NACK；花屏、卡顿；音频 PLC |
 | 延迟上升 | 延迟控制器降码率 | jitter buffer 增大，延迟变高 |
 | 带宽不足 | 目标码率下降；**恢复后**才可能 probe 试探 | 分辨率/帧率下降，切层 |
 | 突发 | pacer 平滑 | 队列不炸，延迟更稳 |
