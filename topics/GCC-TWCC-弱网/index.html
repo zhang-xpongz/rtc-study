@@ -2885,11 +2885,12 @@
 <h3 id="61-probe">6.1 Probe<a class="headerlink" href="#61-probe" title="Permanent link">&para;</a></h3>
 <p>什么时候探测：</p>
 <ul>
+<li>初始启动</li>
 <li>从 overuse 恢复</li>
+<li>码率骤降（≤0.66）后 5s 内恢复，按原码率 0.85 探测</li>
 <li>ALR 结束（应用重新开始发满）</li>
 <li>周期性 ALR 探测</li>
-<li>初始启动</li>
-<li>网络路由变化</li>
+<li>网络路由变化 / 最大分配码率变化 / 网络状态估计变高</li>
 </ul>
 <p>做法：</p>
 <ul>
@@ -2940,7 +2941,7 @@
 </tr>
 <tr>
 <td>带宽不足</td>
-<td>目标码率下降；probe 试探</td>
+<td>目标码率下降；<strong>恢复后</strong>才可能 probe 试探</td>
 <td>分辨率/帧率下降，切层</td>
 </tr>
 <tr>
@@ -2950,6 +2951,9 @@
 </tr>
 </tbody>
 </table>
+<blockquote>
+<p>probe 不是拥塞时的降码率手段：它在启动、overuse 恢复、ALR 结束、周期探测、网络状态估计变高等时机触发。带宽不足时先降码率，恢复后才试探更高容量。</p>
+</blockquote>
 <p>音频优先：</p>
 <ul>
 <li>音频码率低，通常优先保</li>
