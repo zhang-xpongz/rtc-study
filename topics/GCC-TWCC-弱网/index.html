@@ -2711,11 +2711,11 @@
 <ol>
 <li>用传输层序号找回发送历史（<code>send_time</code>、<code>size</code>、<code>pacing_info</code>）。</li>
 <li>把「到达时间增量」还原成绝对接收时间。</li>
-<li>生成 <code>TransportPacketsFeedback</code>，里面每个 <code>PacketResult</code> 有：</li>
+<li>生成 <code>TransportPacketsFeedback</code>：</li>
 <li><code>sent_packet.send_time</code></li>
 <li><code>sent_packet.size</code></li>
-<li><code>receive_time</code>（丢失则为无穷）</li>
-<li><code>data_in_flight</code></li>
+<li><code>receive_time</code>（丢失为 <code>+∞</code>）</li>
+<li><code>data_in_flight</code> 是 <code>TransportPacketsFeedback</code> 的字段，不在 <code>PacketResult</code> 里</li>
 </ol>
 <h3 id="34">3.4 为什么把计算放在发送端<a class="headerlink" href="#34" title="Permanent link">&para;</a></h3>
 <table>
@@ -2740,7 +2740,7 @@
 </tr>
 <tr>
 <td>反馈更紧凑</td>
-<td>只传序号和到达时间增量，不传完整统计</td>
+<td>主要传序号、状态和到达时间增量，不传完整统计</td>
 </tr>
 </tbody>
 </table>
@@ -2758,7 +2758,7 @@
 <p>但收发两端时钟不同步，绝对单向延迟不可用。用<strong>相对变化</strong>：</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>delay_variation(i) = (t_i - t_0) - (T_i - T_0)
 </code></pre></div>
-<p>如果链路空闲，<code>delay_variation</code> 接近常数；如果队列在增长，<code>delay_variation</code> 会持续上升。</p>
+<p>忽略时钟漂移时，链路空闲的 <code>delay_variation</code> 接近常数；如果队列在增长，<code>delay_variation</code> 会持续上升。</p>
 <h3 id="42-inter-arrival-delta">4.2 inter-arrival delta<a class="headerlink" href="#42-inter-arrival-delta" title="Permanent link">&para;</a></h3>
 <p><code>InterArrivalDelta</code> 把包按发送时间分组，计算：</p>
 <ul>
@@ -2770,9 +2770,9 @@
 <h3 id="43-trendline">4.3 trendline<a class="headerlink" href="#43-trendline" title="Permanent link">&para;</a></h3>
 <p><code>TrendlineEstimator</code> 对「累积延迟 vs 时间」做线性回归，得到斜率 <code>trend</code>。</p>
 <ul>
-<li>斜率为正且大：延迟在持续上升 → overuse</li>
-<li>斜率为负且大：延迟在下降 → underuse</li>
-<li>接近 0：normal</li>
+<li>trendline 输出斜率 <code>trend</code></li>
+<li>实际判定不是直接看 <code>trend</code> 正负，而是算 <code>modified_trend</code> 后与自适应阈值比较</li>
+<li>正得足够大且持续 → overuse；负得足够大 → underuse；否则 normal</li>
 </ul>
 <p>为什么不看单次延迟：</p>
 <blockquote>
@@ -2783,7 +2783,7 @@
 <div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>modified_trend = min(num_deltas, kMinNumDeltas) * trend * threshold_gain
 </code></pre></div>
 <ul>
-<li><code>modified_trend &gt; threshold</code> 且持续超过 <code>10ms</code>，且 <code>trend</code> 没有下降 → <code>kBwOverusing</code></li>
+<li><code>modified_trend &gt; threshold</code> 且持续超过 <code>10ms</code>、<code>overuse_counter_ &gt; 1</code>，且 <code>trend</code> 没有下降 → <code>kBwOverusing</code></li>
 <li><code>modified_trend &lt; -threshold</code> → <code>kBwUnderusing</code></li>
 <li>否则 → <code>kBwNormal</code></li>
 </ul>
@@ -2837,6 +2837,9 @@
 <li><code>receiver_limit_</code>：接收端估计（REMB）</li>
 <li><code>min/max_bitrate_configured_</code></li>
 </ul>
+<blockquote>
+<p>下面描述的是<strong>经典丢包控制器</strong>逻辑；如果启用了 <code>LossBasedBandwidthEstimatorV2</code>，会走 V2 的估计结果。</p>
+</blockquote>
 <h3 id="51">5.1 三个区间<a class="headerlink" href="#51" title="Permanent link">&para;</a></h3>
 <table>
 <thead>
@@ -2860,6 +2863,9 @@
 </tr>
 </tbody>
 </table>
+<blockquote>
+<p>两个「8%」不是同一个机制：AIMD 的 8%/s 是延迟控制器的乘性增加；这里的 8% 是低丢包时对 <code>min_bitrate_history</code> 的每轮增加。</p>
+</blockquote>
 <h3 id="52-rtt-backoff">5.2 RTT backoff<a class="headerlink" href="#52-rtt-backoff" title="Permanent link">&para;</a></h3>
 <p>RTT 持续高于阈值时，按周期下降码率，避免「RTT 很大但还没丢包」时继续加压。</p>
 <h3 id="53">5.3 合并规则<a class="headerlink" href="#53" title="Permanent link">&para;</a></h3>
@@ -2873,7 +2879,7 @@
 <p>代码里：</p>
 <ul>
 <li><code>UpdateDelayBasedEstimate()</code> 把延迟估计写成 <code>delay_based_limit_</code></li>
-<li><code>GetUpperLimit()</code> 取 <code>delay_based_limit_</code>、<code>receiver_limit_</code>、<code>max_bitrate_configured_</code> 的最小值</li>
+<li><code>GetUpperLimit()</code> 取 <code>delay_based_limit_</code>、<code>receiver_limit_</code>（启用接收端限制时）、<code>max_bitrate_configured_</code> 的最小值</li>
 <li><code>UpdateTargetBitrate()</code> 把 loss-based 结果 clamp 到上限</li>
 </ul>
 <p>所以：</p>
@@ -2890,7 +2896,7 @@
 <li>码率骤降（≤0.66）后 5s 内恢复，按原码率 0.85 探测</li>
 <li>ALR 结束（应用重新开始发满）</li>
 <li>周期性 ALR 探测</li>
-<li>网络路由变化 / 最大分配码率变化 / 网络状态估计变高</li>
+<li>路由/最大分配码率变化 / 网络状态估计高于当前估计</li>
 </ul>
 <p>做法：</p>
 <ul>
@@ -2931,8 +2937,8 @@
 <tbody>
 <tr>
 <td>丢包</td>
-<td>丢包控制器降码率；NACK/FEC 补偿</td>
-<td>花屏、卡顿；PLC/隐藏</td>
+<td>丢包控制器降码率；发送端重传、加 FEC</td>
+<td>接收端发 NACK；花屏、卡顿；音频 PLC</td>
 </tr>
 <tr>
 <td>延迟上升</td>
