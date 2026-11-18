@@ -1322,6 +1322,34 @@
 
               
             
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../topics/GCC-TWCC-%E8%87%AA%E6%A3%80%E9%A2%98%E7%AD%94%E6%A1%88/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    自检题答案
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
           </ul>
         </nav>
       
@@ -2132,7 +2160,7 @@
 <h2 id="_1">学了什么（用自己的话）<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
 <h3 id="gcc">GCC 总体架构<a class="headerlink" href="#gcc" title="Permanent link">&para;</a></h3>
 <ul>
-<li>为什么需要拥塞控制：如果发送速率超过了链路承载，会导致发送队列变长，延迟增加，延迟会会累积变大，当超过buffer大小限制后，进一步就会导致丢包，最终会导致花屏，卡顿，延迟等情况</li>
+<li>为什么需要拥塞控制：如果发送速率超过瓶颈链路容量，瓶颈队列变长，排队延迟增加，延迟会会累积变大，当超过buffer大小限制后，进一步就会导致丢包，最终会导致花屏，卡顿，延迟等情况</li>
 <li>发送端控制器 / 接收端反馈：TWCC</li>
 <li>两条控制腿：延迟控制器，丢包控制器</li>
 <li>延迟控制器：统计数据包的相对时间delta，统计延迟情况，根据AIMD 做码率增减的调整</li>
@@ -2142,34 +2170,34 @@
 <h3 id="twcc">TWCC<a class="headerlink" href="#twcc" title="Permanent link">&para;</a></h3>
 <ul>
 <li>transport-wide sequence number 是什么：给数据包分配的传输层的统一序号，跨SSRC统一</li>
-<li>接收端记录什么：transport sequence number和到达时间增量</li>
-<li>反馈包包含什么：base sequence number，到达时间增量， packet status（收到/丢失）</li>
+<li>接收端记录什么：transport sequence number和到达时间</li>
+<li>反馈包包含什么：base sequence number，到达时间增量， packet status（收到/丢失）等</li>
 <li>发送端如何还原发送/到达时间：发送端记录的有发送时间，size， pacing info等信息，根据发送时间和到达时间增量计算到达时间</li>
 <li>为什么把计算放在发送端：接收端不知道真实的发送时间，这些信息只在发送端存储，发送端有完整的发送上下文，且发送端有pacer/probe等完整的记录，所以在发送端统计更准确</li>
 </ul>
 <h3 id="_2">延迟控制器<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h3>
 <ul>
-<li>到达时间模型：采用相对时间计算  delay_variation = （ti - t0） - (Ti - T0), 链路够用的时候应该是个常量，链路有延迟delay_variation 会有变大的趋势</li>
+<li>到达时间模型：采用相对时间计算  delay_variation = （ti - t0） - (Ti - T0), 忽略时钟漂移，链路够用的时候应该是个常量，链路出现排队的时候，delay_variation持续变大</li>
 <li>inter-arrival delta 怎么算：按照发包时间分组计算，send_delta， recv_delta，size_delta  recv_delta &gt; send_delta 说明包在链路中待的时间变长了</li>
-<li>trendline 在拟合什么：对累积延迟vs时间做线性回归，得出斜率 trend，trend为正且大， 则证明延迟是在持续上升，此时时overuser，trend为负且小，则证明延迟在下降，此时是under use，如果trend接近于零，则证明此时normal状态</li>
-<li>overuse 的判定条件：是由TrendlineEstimator：：Detect接口实现，最主要就是计算modified_trend 和 threshold做比较，modified_trend = min(num_deltas, kMinNumDeltas) * trend*threshold_gain,  如果modified_trend &gt; threshold 且持续超过10ms且trend没有下降，则此时是overusing, 如果modified_trend &lt; -threshold 则此时时underusing, 否则就是normal，阈值取值是不固定的，初始值是12.5ms,自适应范围是6～600ms, 大尖刺不参与自适应，避免被突发带偏</li>
+<li>trendline 在拟合什么：对累积延迟vs时间做线性回归，得出斜率 trend</li>
+<li>overuse 的判定条件：是由TrendlineEstimator：：Detect接口实现，最主要就是计算modified_trend 和 threshold做比较，modified_trend = min(num_deltas, kMinNumDeltas) * trend*threshold_gain,  如果modified_trend &gt; threshold 且持续超过10ms且trend没有下降 且overuse_counter_ &gt; 1，则此时是overusing, 如果modified_trend &lt; -threshold 则此时时underusing, 否则就是normal，阈值取值是不固定的，初始值是12.5ms,自适应范围是6～600ms, 大尖刺不参与自适应，避免被突发带偏</li>
 <li>状态机：normal / overusing / underusing，见上边overuse判定条件</li>
-<li>AIMD 的增减规则：加性增，乘性减，增加是看是否有链路容量估计，如果有是加性增，如果没有是乘性增，乘性估算是8%/s 增加；下降是 0.85, 如果new还大于5kbps,再减去5kbps，其余就保持</li>
+<li>AIMD 的增减规则：加性增，乘性减，增加时看是否有链路容量估计，如果有是加性增，如果没有是乘性增，乘性估算是8%/s 增加；下降是 0.85x估计吞吐, 如果new还大于5kbps,再减去5kbps，其余就保持</li>
 </ul>
 <h3 id="_3">丢包控制器<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h3>
 <ul>
 <li>fraction loss 怎么来：丢包数/总包数</li>
 <li>2% / 10% 两个阈值分别做什么：小于2%的时候增加码率，在2%～10%之间 保持不变，大于10% 下降码率</li>
-<li>RTT backoff 什么时候触发：RTT持续高于阈值的时候出发backoff,防止RTT一直很大但还没丢包的时候 一直承压</li>
-<li>和延迟控制器如何合并: min(delay_based_target， loss_based_target， received_limit， max_configured)</li>
+<li>RTT backoff 什么时候触发：RTT持续高于阈值的时候触发backoff,防止RTT一直很大但还没丢包的时候 一直承压</li>
+<li>和延迟控制器如何合并: min(loss_based_target， delay_based_limit， receiver_limit， max_configured), 延迟控制器决定的是上限，丢包控制器是控制增减</li>
 </ul>
 <h3 id="_4">弱网下的表现<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h3>
 <ul>
 <li>丢包时：发送端做丢包控制器降码率，接收端发送NACK消息，发送端重传，发送端增加FEC，接收端恢复， 接收端：卡顿 花屏 音频做PLC</li>
 <li>延迟/排队时：发送端延迟控制器下降码率，接收端 jitter buffer变大，延迟增大</li>
-<li>带宽不足时：发送端下降目标码率；probe 用于恢复后/ALR 结束/周期探测，不是拥塞时的手段；接收端 分辨率/帧率下降，如果是支持切层</li>
+<li>带宽不足时：发送端下降目标码率；probe 用于恢复后/ALR 结束/周期探测，不是拥塞时的手段；接收端 分辨率/帧率下降，如果是支持simulcast/SVC的切层</li>
 <li>音频和视频的优先级：音频优先，音频码率通常比较小几十kbps，视频可以大幅降低码率，针对simulcast/SVC 可以停层</li>
-<li>分辨率/帧率如何降：按照降级偏好</li>
+<li>分辨率/帧率如何降：按照降级偏好 degradation preference(maintain_resolution, maintain_framerate, balanced)和质量缩放器决定是先分辨率还是先帧率，simulcast/SVC 可以停层</li>
 </ul>
 <h3 id="_5">源码调用链<a class="headerlink" href="#_5" title="Permanent link">&para;</a></h3>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>TWCC feedback

@@ -1,0 +1,2462 @@
+
+<!doctype html>
+<html lang="zh" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="WebRTC / 音视频 / RTC 专项复习与长期学习">
+      
+      
+      
+        <link rel="canonical" href="https://zhang-xpongz.github.io/rtc-study/topics/GCC-TWCC-%E8%87%AA%E6%A3%80%E9%A2%98%E7%AD%94%E6%A1%88/">
+      
+      
+        <link rel="prev" href="../GCC-TWCC-%E5%BC%B1%E7%BD%91/">
+      
+      
+        <link rel="next" href="../../systems/WebRTC%E7%BC%96%E8%AF%91%E8%BF%90%E8%A1%8C%E6%8C%87%E5%8D%97/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.8.1">
+    
+    
+      
+        <title>自检题答案 - RTC 学习笔记</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.57a0d79d.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.fb2fffe2.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#gcc-twcc" class="md-skip">
+          跳转至
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="页眉">
+    <a href="../.." title="RTC 学习笔记" class="md-header__button md-logo" aria-label="RTC 学习笔记" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            RTC 学习笔记
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              自检题答案
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="切换到深色"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="切换到深色" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="切换到浅色"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="切换到浅色" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="搜索" placeholder="搜索" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="查找">
+        
+        <button type="reset" class="md-search__icon md-icon" title="清空当前内容" aria-label="清空当前内容" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            正在初始化搜索引擎
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/zhang-xpongz/rtc-study" title="前往仓库" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    zhang-xpongz/rtc-study
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="导航栏" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="RTC 学习笔记" class="md-nav__button md-logo" aria-label="RTC 学习笔记" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    RTC 学习笔记
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/zhang-xpongz/rtc-study" title="前往仓库" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    zhang-xpongz/rtc-study
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    首页
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    复习计划
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    复习计划
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../plan/%E5%A4%8D%E4%B9%A0%E8%AE%A1%E5%88%92-3%E5%91%A8%E5%86%B2%E5%88%BA/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    3 周冲刺
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../plan/%E5%A4%8D%E4%B9%A0%E8%B5%84%E6%96%99%E5%8C%85-%E9%80%90%E6%97%A5%E6%B8%85%E5%8D%95/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    逐日清单
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../plan/%E6%89%93%E5%8D%A1%E8%A1%A8-21%E5%A4%A9-%E5%A4%8D%E4%B9%A0%2B%E6%BA%90%E7%A0%81%2B%E5%AE%9E%E8%B7%91/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    21 天打卡
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../plan/%E4%B8%93%E6%B3%A8%E6%B8%85%E5%8D%95-21%E5%A4%A9%E4%BB%BB%E5%8A%A1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    专注清单
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    每日记录
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    每日记录
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../daily/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    索引
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../daily/2026-11/2026-11-13/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2026-11-13
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../daily/2026-11/2026-11-17/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2026-11-17
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../daily/2026-11/2026-11-18/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2026-11-18
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    源码走读
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    源码走读
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../source/WebRTC%E6%BA%90%E7%A0%81%E8%B5%B0%E8%AF%BB%E5%9C%B0%E5%9B%BE/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    走读地图
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../source/%E5%A6%82%E4%BD%95%E8%B5%B0%E8%AF%BBWebRTC%E4%BB%A3%E7%A0%81/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    如何走读
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../source/%E6%BA%90%E7%A0%81%E8%B5%B0%E8%AF%BB%E6%A8%A1%E6%9D%BF%E4%B8%8E%E7%A4%BA%E4%BE%8B-PeerConnection/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    PeerConnection 示例
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../source/FrameBuffer/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    FrameBuffer 卡片
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../source/%E5%8D%95%E5%85%83%E6%B5%8B%E8%AF%95%E8%BF%90%E8%A1%8C%E9%80%BB%E8%BE%91-PeerConnectionEndToEndTest/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    单测运行逻辑
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../source/GCC%E6%8E%A7%E5%88%B6%E7%8E%AF/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    GCC 控制环
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    基础
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    基础
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../fundamentals/D1-%E5%A4%8D%E4%B9%A0%E5%8C%85-%E9%9F%B3%E8%A7%86%E9%A2%91%E5%9F%BA%E7%A1%80%E4%B8%8E%E4%B9%A0%E9%A2%98/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    D1 复习包
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../fundamentals/%E8%A1%A5%E5%85%85-%E5%BF%83%E7%90%86%E5%A3%B0%E5%AD%A6/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    心理声学
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../fundamentals/%E8%A1%A5%E5%85%85-Opus%E4%B8%8EAAC%E5%AF%B9%E6%AF%94/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Opus 与 AAC
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../fundamentals/%E8%A1%A5%E5%85%85-MP4-TS-FLV%E5%B0%81%E8%A3%85%E6%A0%BC%E5%BC%8F/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    MP4/TS/FLV
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    专题
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    专题
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../GCC-TWCC-%E5%BC%B1%E7%BD%91/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    GCC / TWCC / 弱网
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    自检题答案
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    自检题答案
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        评分概览
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1-twcc" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. 为什么 TWCC 把计算放在发送端？
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-trendline" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. 延迟控制器为什么用 trendline，而不是单次延迟？
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-overuse-10ms" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. overuse 为什么要持续 10ms？
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-2-10" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. 2% 和 10% 两个丢包阈值分别做什么？
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-aimd-085" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. AIMD 的 0.85 是什么含义？
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. 为什么延迟估计是「上限」而不是直接目标？
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7-probe" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7. probe 在什么时机触发？
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#8-alr-alr" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8. ALR 是什么，为什么 ALR 期间不增加延迟估计？
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#9-pacer" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9. Pacer 解决什么问题？
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#10-gcc-bbr" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        10. GCC 和 BBR 的区别是什么？
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        总结：最需要补的 3 题
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7" >
+        
+          
+          <label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    系统
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    系统
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../systems/WebRTC%E7%BC%96%E8%AF%91%E8%BF%90%E8%A1%8C%E6%8C%87%E5%8D%97/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    编译运行
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../systems/WebRTC%E8%B0%83%E8%AF%95%E6%8C%87%E5%8D%97/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    调试
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../systems/SRS-RTMP%E8%BD%ACRTP%E6%9C%BA%E5%88%B6/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    SRS
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../systems/mediasoup-%E6%88%BF%E9%97%B4%E6%88%90%E5%91%98%E8%A7%92%E8%89%B2%E6%A8%A1%E5%9E%8B/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    mediasoup
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_8" >
+        
+          
+          <label class="md-nav__link" for="__nav_8" id="__nav_8_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    算法
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_8_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_8">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    算法
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../algorithms/209-%E9%95%BF%E5%BA%A6%E6%9C%80%E5%B0%8F%E7%9A%84%E5%AD%90%E6%95%B0%E7%BB%84/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    209 长度最小的子数组
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../algorithms/56-%E5%90%88%E5%B9%B6%E5%8C%BA%E9%97%B4/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    56 合并区间
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_9" >
+        
+          
+          <label class="md-nav__link" for="__nav_9" id="__nav_9_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    附件
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_9_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_9">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    附件
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../assets/api-%E5%88%86%E5%B1%82%E5%9B%BE/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    api 分层图
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_10" >
+        
+          
+          <label class="md-nav__link" for="__nav_10" id="__nav_10_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    模板
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_10_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_10">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    模板
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../tpl/%E6%AF%8F%E6%97%A5%E8%AE%B0%E5%BD%95/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    每日记录
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../tpl/%E6%BA%90%E7%A0%81%E5%8D%A1%E7%89%87/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    源码卡片
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../tpl/%E9%94%99%E9%A2%98%E5%8D%A1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    错题卡
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../tpl/%E9%9D%A2%E8%AF%95%E9%A2%98%E5%8D%A1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    面试题卡
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E5%86%99%E4%BD%9C%E7%BA%A6%E5%AE%9A/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    写作约定
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        评分概览
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1-twcc" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. 为什么 TWCC 把计算放在发送端？
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-trendline" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. 延迟控制器为什么用 trendline，而不是单次延迟？
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-overuse-10ms" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. overuse 为什么要持续 10ms？
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-2-10" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. 2% 和 10% 两个丢包阈值分别做什么？
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-aimd-085" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. AIMD 的 0.85 是什么含义？
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. 为什么延迟估计是「上限」而不是直接目标？
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7-probe" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7. probe 在什么时机触发？
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#8-alr-alr" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8. ALR 是什么，为什么 ALR 期间不增加延迟估计？
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#9-pacer" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9. Pacer 解决什么问题？
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#10-gcc-bbr" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        10. GCC 和 BBR 的区别是什么？
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        总结：最需要补的 3 题
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+<h1 id="gcc-twcc">GCC / TWCC 自检题参考答案<a class="headerlink" href="#gcc-twcc" title="Permanent link">&para;</a></h1>
+<blockquote>
+<p>配套：<a href="../GCC-TWCC-%E5%BC%B1%E7%BD%91/">GCC / TWCC / 弱网</a>
+用法：先自己答，再对照；标 ⚠️ 的地方是容易失分的点。</p>
+</blockquote>
+<h2 id="_1">评分概览<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>题</th>
+<th>判定</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1 TWCC 为什么放发送端</td>
+<td>✅ 基本正确</td>
+<td>「跨 SSRC」表述可再精确</td>
+</tr>
+<tr>
+<td>2 trendline vs 单次延迟</td>
+<td>✅ 基本正确</td>
+<td>补「线性回归 + 自适应阈值」</td>
+</tr>
+<tr>
+<td>3 overuse 为什么持续 10ms</td>
+<td>⬜ 未答</td>
+<td>见下文</td>
+</tr>
+<tr>
+<td>4 2% / 10% 阈值</td>
+<td>✅ 正确</td>
+<td>补「经典逻辑 vs V2」</td>
+</tr>
+<tr>
+<td>5 AIMD 的 0.85</td>
+<td>✅ 基本正确</td>
+<td>是「估计吞吐 × 0.85」，不是当前目标</td>
+</tr>
+<tr>
+<td>6 为什么延迟估计是上限</td>
+<td>⬜ 未答</td>
+<td>见下文</td>
+</tr>
+<tr>
+<td>7 probe 触发时机</td>
+<td>✅ 基本正确</td>
+<td>补「探测失败不提升」</td>
+</tr>
+<tr>
+<td>8 ALR 与延迟估计</td>
+<td>⚠️ 部分正确</td>
+<td>「不会出现队列」太绝对</td>
+</tr>
+<tr>
+<td>9 Pacer 解决什么</td>
+<td>✅ 基本正确</td>
+<td>补「让 BWE 测量更准」</td>
+</tr>
+<tr>
+<td>10 GCC vs BBR</td>
+<td>⬜ 未答</td>
+<td>见下文</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="1-twcc">1. 为什么 TWCC 把计算放在发送端？<a class="headerlink" href="#1-twcc" title="Permanent link">&para;</a></h2>
+<p>你的答案基本正确：</p>
+<ul>
+<li>接收端不知道发送时间，<code>send_time</code>、<code>pacing_info</code>、<code>size</code> 只有发送端有。</li>
+<li>发送端有完整发送上下文。</li>
+<li>反馈紧凑，只传记录，不传计算。</li>
+</ul>
+<p>补两点：</p>
+<ol>
+<li><strong>跨 SSRC 统一</strong>来自「transport-wide sequence number 由发送端统一分配」，不是「发送端计算」本身带来的。</li>
+<li>发送端还能把 BWE 和 <strong>pacer / probe / 编码目标</strong>结合，接收端没有这些信息。</li>
+</ol>
+<p>一句话：</p>
+<blockquote>
+<p>接收端只负责「记录到达」，发送端负责「结合发送历史做判断」。</p>
+</blockquote>
+<hr />
+<h2 id="2-trendline">2. 延迟控制器为什么用 trendline，而不是单次延迟？<a class="headerlink" href="#2-trendline" title="Permanent link">&para;</a></h2>
+<p>你的答案正确：</p>
+<ul>
+<li>单次延迟受抖动、调度、重传影响大。</li>
+<li>trendline 看的是累积延迟的发展趋势。</li>
+</ul>
+<p>补三点：</p>
+<ol>
+<li>trendline 是对「累积延迟 vs 时间」做<strong>线性回归</strong>，取斜率。</li>
+<li>判定不是直接看斜率正负，而是算 <code>modified_trend</code> 后和<strong>自适应阈值</strong>比较。</li>
+<li>它能比丢包更早发现「队列在变长」，这是延迟控制器的核心价值。</li>
+</ol>
+<p>一句话：</p>
+<blockquote>
+<p>单次延迟是噪声，趋势才是拥塞信号。</p>
+</blockquote>
+<hr />
+<h2 id="3-overuse-10ms">3. overuse 为什么要持续 10ms？<a class="headerlink" href="#3-overuse-10ms" title="Permanent link">&para;</a></h2>
+<p>代码里不是「一超过阈值就 overuse」，而是：</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">time_over_using_</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="n">overusing_time_threshold_</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="n">overuse_counter_</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="mi">1</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="w">  </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">trend</span><span class="w"> </span><span class="o">&gt;=</span><span class="w"> </span><span class="n">prev_trend_</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="w">    </span><span class="n">hypothesis_</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">BandwidthUsage</span><span class="o">::</span><span class="n">kBwOverusing</span><span class="p">;</span>
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="w">  </span><span class="p">}</span>
+<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="p">}</span>
+</code></pre></div>
+<p>其中 <code>overusing_time_threshold_ = 10ms</code>。</p>
+<p>原因：</p>
+<ol>
+<li><strong>过滤瞬时尖刺</strong>：一次突发、一次调度抖动，不应该立刻降码率。</li>
+<li><strong>避免震荡</strong>：如果单样本就降，码率会来回抖。</li>
+<li><strong>确认趋势仍在上升</strong>：<code>trend &gt;= prev_trend_</code>，防止「已经回落」还误判。</li>
+<li>10ms 是<strong>最小持续时间</strong>，不是总反应延迟；实际还受反馈间隔影响。</li>
+</ol>
+<p>一句话：</p>
+<blockquote>
+<p>10ms 是「确认拥塞持续」的最小窗口，不是「等 10ms 才反应」。</p>
+</blockquote>
+<hr />
+<h2 id="4-2-10">4. 2% 和 10% 两个丢包阈值分别做什么？<a class="headerlink" href="#4-2-10" title="Permanent link">&para;</a></h2>
+<p>你的答案正确（经典丢包控制器）：</p>
+<table>
+<thead>
+<tr>
+<th>丢包率</th>
+<th>行为</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>&lt; 2%</code></td>
+<td>增加：<code>min_bitrate_history × 1.08 + 1kbps</code></td>
+</tr>
+<tr>
+<td><code>2% – 10%</code></td>
+<td>保持</td>
+</tr>
+<tr>
+<td><code>&gt; 10%</code></td>
+<td>下降：<code>target × (1 - 0.5 × loss)</code></td>
+</tr>
+</tbody>
+</table>
+<p>补三点：</p>
+<ol>
+<li><code>&gt;10%</code> 的下降不是每个反馈都做，代码里有 <code>kBweDecreaseInterval + RTT</code> 的限制。</li>
+<li><code>&lt;2%</code> 的 8% 是「对 min_bitrate_history 的增加」，不是 AIMD 的 8%/s。</li>
+<li>如果启用 <code>LossBasedBandwidthEstimatorV2</code>，会走 V2 的估计结果；上面是经典路径。</li>
+</ol>
+<p>一句话：</p>
+<blockquote>
+<p>低丢包慢慢加，中间不动，高丢包按丢包比例降。</p>
+</blockquote>
+<hr />
+<h2 id="5-aimd-085">5. AIMD 的 0.85 是什么含义？<a class="headerlink" href="#5-aimd-085" title="Permanent link">&para;</a></h2>
+<p>你的答案基本正确，精确说法是：</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>new = estimated_throughput × 0.85
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>if new &gt; 5kbps: new -= 5kbps
+</code></pre></div>
+<p>注意：</p>
+<ul>
+<li>0.85 乘的是<strong>估计吞吐</strong>，不是当前目标码率。</li>
+<li>减 5kbps 是留一点余量，避免刚好卡在容量边缘。</li>
+<li>降完进入 <code>kRcHold</code>，等队列排空，不是马上再涨。</li>
+</ul>
+<p>为什么是 0.85：</p>
+<blockquote>
+<p>乘性下降要足够狠，才能把队列排空；但又不能太狠，否则码率掉太多。</p>
+</blockquote>
+<p>一句话：</p>
+<blockquote>
+<p>0.85 是「乘性减」的 beta，目标是把发送压到吞吐以下。</p>
+</blockquote>
+<hr />
+<h2 id="6">6. 为什么延迟估计是「上限」而不是直接目标？<a class="headerlink" href="#6" title="Permanent link">&para;</a></h2>
+<p>因为两个控制器的角色不同：</p>
+<table>
+<thead>
+<tr>
+<th>控制器</th>
+<th>角色</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>丢包控制器</td>
+<td>主目标：根据丢包决定当前目标码率</td>
+</tr>
+<tr>
+<td>延迟控制器</td>
+<td>上限：防止目标码率超过延迟趋势支持的速率</td>
+</tr>
+</tbody>
+</table>
+<p>代码里：</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="n">upper_limit</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">delay_based_limit_</span><span class="p">;</span>
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="n">upper_limit</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">min</span><span class="p">(</span><span class="n">upper_limit</span><span class="p">,</span><span class="w"> </span><span class="n">receiver_limit_</span><span class="p">);</span><span class="w">   </span><span class="c1">// 启用时</span>
+<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="n">upper_limit</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">min</span><span class="p">(</span><span class="n">upper_limit</span><span class="p">,</span><span class="w"> </span><span class="n">max_bitrate_configured_</span><span class="p">);</span>
+<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="n">new_bitrate</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">min</span><span class="p">(</span><span class="n">new_bitrate</span><span class="p">,</span><span class="w"> </span><span class="n">upper_limit</span><span class="p">);</span>
+</code></pre></div>
+<p>为什么这样设计：</p>
+<ol>
+<li><strong>延迟估计噪声大</strong>：直接拿它当目标会抖。</li>
+<li><strong>防止冲进队列</strong>：丢包低时丢包控制器可能想加，但延迟已经变差，上限把它压住。</li>
+<li><strong>保守取 min</strong>：延迟估计高时，loss-based 仍可更低；延迟估计低时，强制降。</li>
+<li>还有 receiver limit、max configured 两道 cap。</li>
+</ol>
+<p>一句话：</p>
+<blockquote>
+<p>丢包控制器决定「想发多少」，延迟控制器决定「最多能发多少」。</p>
+</blockquote>
+<hr />
+<h2 id="7-probe">7. probe 在什么时机触发？<a class="headerlink" href="#7-probe" title="Permanent link">&para;</a></h2>
+<p>你的列表基本正确：</p>
+<ul>
+<li>初始启动</li>
+<li>overuse 恢复</li>
+<li>码率骤降（≤0.66）后 5s 内恢复，按原码率 0.85 探测</li>
+<li>ALR 结束</li>
+<li>周期性 ALR 探测</li>
+<li>路由/最大分配码率变化 / 网络状态估计高于当前估计</li>
+</ul>
+<p>补三点：</p>
+<ol>
+<li>probe <strong>不是拥塞时的降码率手段</strong>，是「试探更高容量」。</li>
+<li>探测失败/没有提升时，不会硬抬目标码率。</li>
+<li>探测包按 probe cluster 发，<code>ProbeBitrateEstimator</code> 测这组包的吞吐。</li>
+</ol>
+<p>一句话：</p>
+<blockquote>
+<p>拥塞时降码率，恢复/应用受限结束时才 probe。</p>
+</blockquote>
+<hr />
+<h2 id="8-alr-alr">8. ALR 是什么，为什么 ALR 期间不增加延迟估计？<a class="headerlink" href="#8-alr-alr" title="Permanent link">&para;</a></h2>
+<p>你的答案部分正确：</p>
+<blockquote>
+<p>应用发送小于目标码率，因为实际发送小于链路容量，不会出现延迟队列。</p>
+</blockquote>
+<p>需要修正：</p>
+<ol>
+<li>ALR 是 <strong>Application Limited Region</strong>：应用/编码器发不满目标码率，链路没有被充分使用。</li>
+<li>但「不会出现延迟队列」<strong>太绝对</strong>：突发、pacer 队列、其他流仍可能造成排队。</li>
+<li>更关键的原因是<strong>测量不可靠</strong>：</li>
+<li>发送量低于目标，延迟估计缺少足够的「激励」和样本。</li>
+<li>此时加码没有依据，等应用恢复发送时容易 overshoot。</li>
+<li>所以 AIMD 在 ALR 期间不增加；ALR 结束时用 probe 去重新试探容量。</li>
+</ol>
+<p>一句话：</p>
+<blockquote>
+<p>ALR 不是「链路一定空闲」，而是「当前发送量不足以证明可以加码」。</p>
+</blockquote>
+<hr />
+<h2 id="9-pacer">9. Pacer 解决什么问题？<a class="headerlink" href="#9-pacer" title="Permanent link">&para;</a></h2>
+<p>你的答案基本正确：</p>
+<blockquote>
+<p>解决编码器数据突增，把数据按一定时间均匀发送。</p>
+</blockquote>
+<p>补三点：</p>
+<ol>
+<li>降低瞬时排队，避免「突发把队列打满」。</li>
+<li>让 BWE 的延迟测量更准：发送间隔可解释，trendline 不容易被突发带偏。</li>
+<li>probe 时按 probe 速率发；pacer 队列本身也会引入延迟，目标码率过高时 queue 会涨。</li>
+</ol>
+<p>一句话：</p>
+<blockquote>
+<p>Pacer 把「一坨包」变成「按节奏发的包」，让链路和 BWE 都更可控。</p>
+</blockquote>
+<hr />
+<h2 id="10-gcc-bbr">10. GCC 和 BBR 的区别是什么？<a class="headerlink" href="#10-gcc-bbr" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>维度</th>
+<th>GCC</th>
+<th>BBR</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>信号</td>
+<td>延迟趋势 + 丢包率</td>
+<td>瓶颈带宽 + 最小 RTT 模型</td>
+</tr>
+<tr>
+<td>控制方式</td>
+<td>启发式，AIMD + 阈值</td>
+<td>基于模型的 inflight/cwnd 控制</td>
+</tr>
+<tr>
+<td>对丢包</td>
+<td>丢包高会降码率</td>
+<td>不把丢包当拥塞信号（BBRv1）</td>
+</tr>
+<tr>
+<td>部署层</td>
+<td>WebRTC 发送端，输出目标码率</td>
+<td>TCP 拥塞控制</td>
+</tr>
+<tr>
+<td>优点</td>
+<td>面向实时音视频，和 pacer/编码器联动</td>
+<td>高吞吐、低排队，抗随机丢包</td>
+</tr>
+<tr>
+<td>缺点</td>
+<td>延迟噪声/丢包误判会影响；参数多</td>
+<td>可能不公平、依赖模型准确；实现复杂</td>
+</tr>
+</tbody>
+</table>
+<p>一句话：</p>
+<blockquote>
+<p>GCC 是「看延迟和丢包的实时启发式」，BBR 是「估计瓶颈带宽和 RTT 的模型控制」。</p>
+</blockquote>
+<p>面试时不要展开 BBR 细节，抓住「信号不同、控制方式不同、部署层不同」即可。</p>
+<hr />
+<h2 id="3">总结：最需要补的 3 题<a class="headerlink" href="#3" title="Permanent link">&para;</a></h2>
+<ol>
+<li><strong>Q3</strong>：10ms 是确认窗口，不是总延迟；还要 <code>overuse_counter_ &gt; 1</code> 和 <code>trend &gt;= prev_trend_</code>。</li>
+<li><strong>Q6</strong>：延迟估计是 cap，不是主目标；<code>min(loss, delay, receiver, max)</code>。</li>
+<li><strong>Q10</strong>：GCC 启发式 vs BBR 模型；WebRTC vs TCP。</li>
+</ol>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  回到页面顶部
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.sections", "navigation.top", "search.suggest", "search.highlight", "content.code.copy"], "search": "../../assets/javascripts/workers/search.a7633da7.min.js", "tags": null, "translations": {"clipboard.copied": "\u5df2\u590d\u5236", "clipboard.copy": "\u590d\u5236", "search.result.more.one": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.more.other": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 # \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.term.missing": "\u7f3a\u5c11", "select.version": "\u9009\u62e9\u5f53\u524d\u7248\u672c"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.a5f9d56c.min.js"></script>
+      
+        <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+      
+        <script src="../../javascripts/mermaid.js"></script>
+      
+    
+  </body>
+</html>
