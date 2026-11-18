@@ -388,6 +388,8 @@ TWCC feedback (RTCP)
 9. Pacer 解决什么问题？
 10. GCC 和 BBR 的区别是什么？
 
+> 参考答案：[GCC-TWCC-自检题答案.md](GCC-TWCC-自检题答案.md)
+
 ---
 
 ## 11. 面试 2 分钟表达
