@@ -82,7 +82,6 @@ nav:
       - MP4/TS/FLV: fundamentals/补充-MP4-TS-FLV封装格式.md
   - 专题:
       - GCC / TWCC / 弱网: topics/GCC-TWCC-弱网.md
-      - 自检题答案: topics/GCC-TWCC-自检题答案.md
   - 系统:
       - 编译运行: systems/WebRTC编译运行指南.md
       - 调试: systems/WebRTC调试指南.md
